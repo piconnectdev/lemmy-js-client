@@ -11,7 +11,7 @@ export interface CreatePost {
   url?: string;
   body?: string;
   nsfw?: boolean;
-  community_id: number;
+  community_id: string;
   auth: string;
 }
 
@@ -20,7 +20,7 @@ export interface PostResponse {
 }
 
 export interface GetPost {
-  id: number;
+  id: string;
   auth?: string;
 }
 
@@ -42,7 +42,7 @@ export interface GetPosts {
   sort?: string;
   page?: number;
   limit?: number;
-  community_id?: number;
+  community_id?: string;
   community_name?: string;
   saved_only?: boolean;
   auth?: string;
@@ -56,13 +56,13 @@ export interface GetPostsResponse {
  * `score` can be 0, -1, or 1
  */
 export interface CreatePostLike {
-  post_id: number;
+  post_id: string;
   score: number;
   auth: string;
 }
 
 export interface EditPost {
-  post_id: number;
+  post_id: string;
   name?: string;
   url?: string;
   body?: string;
@@ -71,7 +71,7 @@ export interface EditPost {
 }
 
 export interface DeletePost {
-  post_id: number;
+  post_id: string;
   deleted: boolean;
   auth: string;
 }
@@ -80,7 +80,7 @@ export interface DeletePost {
  * Only admins and mods can remove a post.
  */
 export interface RemovePost {
-  post_id: number;
+  post_id: string;
   removed: boolean;
   reason?: string;
   auth: string;
@@ -90,7 +90,7 @@ export interface RemovePost {
  * Only admins and mods can lock a post.
  */
 export interface LockPost {
-  post_id: number;
+  post_id: string;
   locked: boolean;
   auth: string;
 }
@@ -99,19 +99,19 @@ export interface LockPost {
  * Only admins and mods can sticky a post.
  */
 export interface StickyPost {
-  post_id: number;
+  post_id: string;
   stickied: boolean;
   auth: string;
 }
 
 export interface SavePost {
-  post_id: number;
+  post_id: string;
   save: boolean;
   auth: string;
 }
 
 export interface CreatePostReport {
-  post_id: number;
+  post_id: string;
   reason: string;
   auth: string;
 }
@@ -134,7 +134,7 @@ export interface ResolvePostReportResponse {
 export interface ListPostReports {
   page?: number;
   limit?: number;
-  community?: number;
+  community?: string;
   auth: string;
 }
 

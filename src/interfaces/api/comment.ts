@@ -2,15 +2,15 @@ import { CommentReportView, CommentView } from '../views';
 
 export interface CreateComment {
   content: string;
-  parent_id?: number;
-  post_id: number;
+  parent_id?: string;
+  post_id: string;
   form_id?: string; // An optional front end ID, to tell which is coming back
   auth: string;
 }
 
 export interface EditComment {
   content: string;
-  comment_id: number;
+  comment_id: string;
   form_id?: string;
   auth: string;
 }
@@ -19,7 +19,7 @@ export interface EditComment {
  * Only the creator can delete the comment.
  */
 export interface DeleteComment {
-  comment_id: number;
+  comment_id: string;
   deleted: boolean;
   auth: string;
 }
@@ -28,7 +28,7 @@ export interface DeleteComment {
  * Only a mod or admin can remove the comment.
  */
 export interface RemoveComment {
-  comment_id: number;
+  comment_id: string;
   removed: boolean;
   reason?: string;
   auth: string;
@@ -38,25 +38,25 @@ export interface RemoveComment {
  * Only the recipient can do this.
  */
 export interface MarkCommentAsRead {
-  comment_id: number;
+  comment_id: string;
   read: boolean;
   auth: string;
 }
 
 export interface SaveComment {
-  comment_id: number;
+  comment_id: string;
   save: boolean;
   auth: string;
 }
 
 export interface CommentResponse {
   comment_view: CommentView;
-  recipient_ids: number[];
+  recipient_ids: string[];
   form_id?: string; // An optional front end ID, to tell which is coming back
 }
 
 export interface CreateCommentLike {
-  comment_id: number;
+  comment_id: string;
   score: number;
   auth: string;
 }
@@ -71,7 +71,7 @@ export interface GetComments {
   sort?: string;
   page?: number;
   limit?: number;
-  community_id?: number;
+  community_id?: string;
   community_name?: string;
   saved_only?: boolean;
   auth?: string;
@@ -82,7 +82,7 @@ export interface GetCommentsResponse {
 }
 
 export interface CreateCommentReport {
-  comment_id: number;
+  comment_id: string;
   reason: string;
   auth: string;
 }
@@ -107,7 +107,7 @@ export interface ListCommentReports {
   page?: number;
   limit?: number;
   // if no community is given, it returns reports for all communities moderated by the auth user
-  community?: number;
+  community?: string;
   auth: string;
 }
 

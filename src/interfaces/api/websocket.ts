@@ -10,7 +10,7 @@ export interface UserJoinResponse {
  * The main / frontpage community is `community_id: 0`.
  */
 export interface CommunityJoin {
-  community_id: number;
+  community_id: string;
 }
 
 export interface CommunityJoinResponse {
@@ -18,7 +18,7 @@ export interface CommunityJoinResponse {
 }
 
 export interface ModJoin {
-  community_id: number;
+  community_id: string;
 }
 
 export interface ModJoinResponse {
@@ -26,7 +26,7 @@ export interface ModJoinResponse {
 }
 
 export interface PostJoin {
-  post_id: number;
+  post_id: string;
 }
 
 export interface PostJoinResponse {

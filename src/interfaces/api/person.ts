@@ -24,9 +24,11 @@ export interface Register {
   show_nsfw: boolean;
   captcha_uuid?: string; // Only checked if these are enabled in the server
   captcha_answer?: string;
+  payment_id?: string;
+  pi_username?: string;
 }
 
-export interface GetCaptcha {}
+export interface GetCaptcha { }
 
 export interface GetCaptchaResponse {
   ok?: CaptchaResponse; // Will be undefined if captchas are disabled
@@ -77,12 +79,12 @@ export interface LoginResponse {
  * `username` can only be used for local users. To get details for a federated user, pass `user_id` instead.
  */
 export interface GetPersonDetails {
-  person_id?: number;
+  person_id?: string;
   username?: string;
   sort?: string;
   page?: number;
   limit?: number;
-  community_id?: number;
+  community_id?: string;
   saved_only?: boolean;
   auth?: string;
 }
@@ -108,7 +110,7 @@ export interface MarkAllAsRead {
 }
 
 export interface AddAdmin {
-  person_id: number;
+  person_id: string;
   added: boolean;
   auth: string;
 }
@@ -118,7 +120,7 @@ export interface AddAdminResponse {
 }
 
 export interface BanPerson {
-  person_id: number;
+  person_id: string;
   ban: boolean;
   remove_data?: boolean; // Removes/Restores their comments, posts, and communities
   reason?: string;
@@ -148,7 +150,7 @@ export interface GetPersonMentions {
 }
 
 export interface MarkPersonMentionAsRead {
-  person_mention_id: number;
+  person_mention_id: string;
   read: boolean;
   auth: string;
 }
@@ -169,7 +171,7 @@ export interface PasswordReset {
   email: string;
 }
 
-export interface PasswordResetResponse {}
+export interface PasswordResetResponse { }
 
 export interface PasswordChange {
   token: string;
@@ -179,24 +181,24 @@ export interface PasswordChange {
 
 export interface CreatePrivateMessage {
   content: string;
-  recipient_id: number;
+  recipient_id: string;
   auth: string;
 }
 
 export interface EditPrivateMessage {
-  private_message_id: number;
+  private_message_id: string;
   content: string;
   auth: string;
 }
 
 export interface DeletePrivateMessage {
-  private_message_id: number;
+  private_message_id: string;
   deleted: boolean;
   auth: string;
 }
 
 export interface MarkPrivateMessageAsRead {
-  private_message_id: number;
+  private_message_id: string;
   read: boolean;
   auth: string;
 }
@@ -220,12 +222,12 @@ export interface PrivateMessageResponse {
  * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
  */
 export interface GetReportCount {
-  community?: number;
+  community?: string;
   auth: string;
 }
 
 export interface GetReportCountResponse {
-  community?: number;
+  community?: string;
   comment_reports: number;
   post_reports: number;
 }

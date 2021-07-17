@@ -22,9 +22,9 @@ import {
 export interface Search {
   q: string;
   type_?: string;
-  community_id?: number;
+  community_id?: string;
   community_name?: string;
-  creator_id?: number;
+  creator_id?: string;
   sort?: string;
   listing_type?: string;
   page?: number;
@@ -41,8 +41,8 @@ export interface SearchResponse {
 }
 
 export interface GetModlog {
-  mod_person_id?: number;
-  community_id?: number;
+  mod_person_id?: string;
+  community_id?: string;
   page?: number;
   limit?: number;
 }
@@ -104,7 +104,7 @@ export interface GetSiteResponse {
 }
 
 export interface TransferSite {
-  person_id: number;
+  person_id: string;
   auth: string;
 }
 

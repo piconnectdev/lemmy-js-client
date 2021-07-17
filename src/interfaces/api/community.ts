@@ -6,7 +6,7 @@ import {
 } from '../views';
 
 export interface GetCommunity {
-  id?: number;
+  id?: string;
   name?: string;
   auth?: string;
 }
@@ -44,8 +44,8 @@ export interface ListCommunitiesResponse {
 }
 
 export interface BanFromCommunity {
-  community_id: number;
-  person_id: number;
+  community_id: string;
+  person_id: string;
   ban: boolean;
   remove_data?: boolean; // Removes/Restores their comments and posts for that community
   reason?: string;
@@ -59,8 +59,8 @@ export interface BanFromCommunityResponse {
 }
 
 export interface AddModToCommunity {
-  community_id: number;
-  person_id: number;
+  community_id: string;
+  person_id: string;
   added: boolean;
   auth: string;
 }
@@ -73,7 +73,7 @@ export interface AddModToCommunityResponse {
  * Only mods can edit a community.
  */
 export interface EditCommunity {
-  community_id: number;
+  community_id: string;
   title?: string;
   description?: string;
   icon?: string;
@@ -83,7 +83,7 @@ export interface EditCommunity {
 }
 
 export interface DeleteCommunity {
-  community_id: number;
+  community_id: string;
   deleted: boolean;
   auth: string;
 }
@@ -92,7 +92,7 @@ export interface DeleteCommunity {
  * Only admins can remove a community.
  */
 export interface RemoveCommunity {
-  community_id: number;
+  community_id: string;
   removed: boolean;
   reason?: string;
   expires?: number;
@@ -100,7 +100,7 @@ export interface RemoveCommunity {
 }
 
 export interface FollowCommunity {
-  community_id: number;
+  community_id: string;
   follow: boolean;
   auth: string;
 }
@@ -114,7 +114,7 @@ export interface GetFollowedCommunitiesResponse {
 }
 
 export interface TransferCommunity {
-  community_id: number;
-  person_id: number;
+  community_id: string;
+  person_id: string;
   auth: string;
 }
