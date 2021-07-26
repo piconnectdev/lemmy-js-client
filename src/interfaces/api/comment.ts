@@ -92,14 +92,14 @@ export interface CreateCommentReportResponse {
 }
 
 export interface ResolveCommentReport {
-  report_id: number;
+  report_id: string;
   resolved: boolean;
   auth: string;
 }
 
 export interface ResolveCommentReportResponse {
   // TODO this should probably return the view
-  report_id: number;
+  report_id: string;
   resolved: boolean;
 }
 

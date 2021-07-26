@@ -121,13 +121,13 @@ export interface CreatePostReportResponse {
 }
 
 export interface ResolvePostReport {
-  report_id: number;
+  report_id: string;
   resolved: boolean;
   auth: string;
 }
 
 export interface ResolvePostReportResponse {
-  report_id: number;
+  report_id: string;
   resolved: boolean;
 }
 
