@@ -11,6 +11,7 @@ import {
   CommunitySafe,
   ModAdd,
   ModAddCommunity,
+  ModTransferCommunity,
   ModBan,
   ModBanFromCommunity,
   ModLockPost,
@@ -43,6 +44,7 @@ export interface PersonMentionView {
   creator_banned_from_community: boolean;
   subscribed: boolean;
   saved: boolean;
+  creator_blocked: boolean;
   my_vote?: number;
 }
 
@@ -73,6 +75,7 @@ export interface PostView {
   subscribed: boolean;
   saved: boolean;
   read: boolean;
+  creator_blocked: boolean;
   my_vote?: number;
 }
 
@@ -95,6 +98,7 @@ export interface CommentView {
   creator_banned_from_community: boolean;
   subscribed: boolean;
   saved: boolean;
+  creator_blocked: boolean;
   my_vote?: number;
 }
 
@@ -110,6 +114,13 @@ export interface CommentReportView {
 
 export interface ModAddCommunityView {
   mod_add_community: ModAddCommunity;
+  moderator: PersonSafe;
+  community: CommunitySafe;
+  modded_person: PersonSafe;
+}
+
+export interface ModTransferCommunityView {
+  mod_transfer_community: ModTransferCommunity;
   moderator: PersonSafe;
   community: CommunitySafe;
   modded_person: PersonSafe;
@@ -175,6 +186,11 @@ export interface CommunityFollowerView {
   follower: PersonSafe;
 }
 
+export interface CommunityBlockView {
+  person: PersonSafe;
+  community: CommunitySafe;
+}
+
 export interface CommunityModeratorView {
   community: CommunitySafe;
   moderator: PersonSafe;
@@ -185,8 +201,14 @@ export interface CommunityPersonBanView {
   person: PersonSafe;
 }
 
+export interface PersonBlockView {
+  person: PersonSafe;
+  target: PersonSafe;
+}
+
 export interface CommunityView {
   community: CommunitySafe;
   subscribed: boolean;
+  blocked: boolean;
   counts: CommunityAggregates;
 }

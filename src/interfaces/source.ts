@@ -12,6 +12,7 @@ export interface LocalUserSettings {
   show_bot_accounts: boolean;
   show_scores: boolean;
   show_read_posts: boolean;
+  show_new_post_notifs: boolean;
 }
 
 export interface PersonSafe {
@@ -176,6 +177,15 @@ export interface ModAddCommunity {
   mod_person_id: string;
   other_person_id: string;
   community_id: string;
+  removed?: boolean;
+  when_: string;
+}
+
+export interface ModTransferCommunity {
+  id: number;
+  mod_person_id: number;
+  other_person_id: number;
+  community_id: number;
   removed?: boolean;
   when_: string;
 }

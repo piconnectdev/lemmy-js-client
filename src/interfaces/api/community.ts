@@ -1,10 +1,14 @@
 import {
-  CommunityFollowerView,
   CommunityModeratorView,
   CommunityView,
   PersonViewSafe,
 } from '../views';
 
+/**
+ * You can use either `id` or `name` as an id.
+ *
+ * To get a federated community by name, use `name@instance.tld` .
+ */
 export interface GetCommunity {
   id?: string;
   name?: string;
@@ -32,7 +36,14 @@ export interface CommunityResponse {
 }
 
 export interface ListCommunities {
+  /**
+   * The [[ListingType]].
+   */
   type_?: string;
+
+  /**
+   * The [[SortType]].
+   */
   sort?: string;
   page?: number;
   limit?: number;
@@ -47,7 +58,11 @@ export interface BanFromCommunity {
   community_id: string;
   person_id: string;
   ban: boolean;
-  remove_data?: boolean; // Removes/Restores their comments and posts for that community
+
+  /**
+   * Removes/Restores their comments and posts for that community.
+   */
+  remove_data?: boolean;
   reason?: string;
   expires?: number;
   auth: string;
@@ -105,16 +120,23 @@ export interface FollowCommunity {
   auth: string;
 }
 
-export interface GetFollowedCommunities {
-  auth: string;
-}
-
-export interface GetFollowedCommunitiesResponse {
-  communities: CommunityFollowerView[];
-}
-
 export interface TransferCommunity {
   community_id: string;
   person_id: string;
   auth: string;
+}
+
+export interface BlockCommunity {
+  community_id: string;
+  block: boolean;
+  auth: string;
+}
+
+//export interface GetFollowedCommunitiesResponse {
+//  communities: CommunityFollowerView[];
+//}
+
+export interface BlockCommunityResponse {
+  community_view: CommunityView;
+  blocked: boolean;
 }

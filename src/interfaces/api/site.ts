@@ -1,8 +1,15 @@
-import { LocalUserSettingsView } from '../views';
+import {
+  CommunityBlockView,
+  CommunityFollowerView,
+  CommunityModeratorView,
+  LocalUserSettingsView,
+  PersonBlockView,
+} from '../views';
 import {
   CommentView,
   CommunityView,
   ModAddCommunityView,
+  ModTransferCommunityView,
   ModAddView,
   ModBanFromCommunityView,
   ModBanView,
@@ -17,15 +24,28 @@ import {
 } from '../views';
 
 /**
- * Search types are `All, Comments, Posts, Communities, Users, Url`
+ * Search lemmy for different types of data.
  */
 export interface Search {
+  /**
+   * The search query string.
+   */
   q: string;
+
+  /**
+   * The [[SearchType]].
+   */
   type_?: string;
   community_id?: string;
   community_name?: string;
   creator_id?: string;
+  /**
+   * The [[SortType]].
+   */
   sort?: string;
+  /**
+   * The [[ListingType]].
+   */
   listing_type?: string;
   page?: number;
   limit?: number;
@@ -33,6 +53,9 @@ export interface Search {
 }
 
 export interface SearchResponse {
+  /**
+   * The [[SearchType]].
+   */
   type_: string;
   comments: CommentView[];
   posts: PostView[];
@@ -56,6 +79,7 @@ export interface GetModlogResponse {
   banned_from_community: ModBanFromCommunityView[];
   banned: ModBanView[];
   added_to_community: ModAddCommunityView[];
+  transferred_to_community: ModTransferCommunityView[];
   added: ModAddView[];
 }
 
@@ -94,13 +118,30 @@ export interface SiteResponse {
 }
 
 export interface GetSiteResponse {
-  site_view?: SiteView; // Because the site might not be set up yet
+  /**
+   * Optional, because the site might not be set up yet.
+   */
+  site_view?: SiteView;
   admins: PersonViewSafe[];
   banned: PersonViewSafe[];
   online: number;
   version: string;
-  my_user?: LocalUserSettingsView; // Gives back your local user and settings if logged in
+  /**
+   * If you're logged in, you'll get back extra user info.
+   */
+  my_user?: MyUserInfo;
   federated_instances?: FederatedInstances;
+}
+
+/**
+ * Your user info, such as blocks, follows, etc.
+ */
+export interface MyUserInfo {
+  local_user_view: LocalUserSettingsView;
+  follows: CommunityFollowerView[];
+  moderates: CommunityModeratorView[];
+  community_blocks: CommunityBlockView[];
+  person_blocks: PersonBlockView[];
 }
 
 export interface TransferSite {
@@ -125,4 +166,16 @@ export interface FederatedInstances {
   linked: string[];
   allowed?: string[];
   blocked?: string[];
+}
+
+export interface ResolveObject {
+  q: string;
+  auth?: string;
+}
+
+export interface ResolveObjectResponse {
+  comment?: CommentView;
+  post?: PostView;
+  community?: CommunityView;
+  person?: PersonViewSafe;
 }
