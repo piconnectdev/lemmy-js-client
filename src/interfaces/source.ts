@@ -182,10 +182,10 @@ export interface ModAddCommunity {
 }
 
 export interface ModTransferCommunity {
-  id: number;
-  mod_person_id: number;
-  other_person_id: number;
-  community_id: number;
+  id: string;
+  mod_person_id: string;
+  other_person_id: string;
+  community_id: string;
   removed?: boolean;
   when_: string;
 }
