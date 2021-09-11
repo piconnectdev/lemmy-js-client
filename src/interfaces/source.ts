@@ -33,6 +33,13 @@ export interface PersonSafe {
   matrix_user_id?: string;
   admin: boolean;
   bot_account: boolean;
+  verified: boolean;
+  pi_adress: string;
+  web3_adress: string;
+  sol_adress: string;
+  dap_adress: string;
+  cert: string;
+  tx: string;
 }
 
 export interface Site {
@@ -62,6 +69,9 @@ export interface PrivateMessage {
   updated?: string;
   ap_id: string;
   local: boolean;
+  secured: string;
+  cert: string;
+  tx: string;
 }
 
 export interface PostReport {
@@ -98,6 +108,8 @@ export interface Post {
   thumbnail_url?: string;
   ap_id: string;
   local: boolean;
+  cert: string;
+  tx: string;
 }
 
 export interface PasswordResetRequest {
@@ -212,6 +224,8 @@ export interface CommunitySafe {
   local: boolean;
   icon?: string;
   banner?: string;
+  cert: string;
+  tx: string;
 }
 
 export interface CommentReport {
@@ -239,6 +253,8 @@ export interface Comment {
   deleted: boolean;
   ap_id: string;
   local: boolean;
+  cert: string;
+  tx: string;
 }
 
 export interface PersonMention {

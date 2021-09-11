@@ -93,6 +93,10 @@ export interface SaveUserSettings {
   show_bot_accounts?: boolean;
   show_read_posts?: boolean;
   show_new_post_notifs?: boolean;
+  pi_address?: string;
+  web3_address?: string;
+  sol_address?: string;
+  dap_address?: string;
   auth: string;
 }
 
