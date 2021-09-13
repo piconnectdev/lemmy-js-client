@@ -34,10 +34,10 @@ export interface PersonSafe {
   admin: boolean;
   bot_account: boolean;
   verified: boolean;
-  pi_adress: string;
-  web3_adress: string;
-  sol_adress: string;
-  dap_adress: string;
+  pi_address: string;
+  web3_address: string;
+  sol_address: string;
+  dap_address: string;
   cert: string;
   tx: string;
 }
