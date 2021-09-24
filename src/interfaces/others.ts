@@ -67,6 +67,7 @@ export enum UserOperation {
   GetSiteMetadata,
   BlockCommunity,
   BlockPerson,
+  PiLogin,
 }
 
 /**

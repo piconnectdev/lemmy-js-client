@@ -97,6 +97,7 @@ import {
   PersonMentionResponse,
   BlockPerson,
   BlockPersonResponse,
+  PiLogin,
 } from './interfaces/api/person';
 
 import { VERSION } from './interfaces/others';
@@ -468,6 +469,13 @@ export class LemmyHttp {
   async login(form: Login): Promise<LoginResponse> {
     return this.wrapper(HttpType.Post, '/user/login', form);
   }
+
+    /**
+   * Log into lemmy.
+   */
+     async piLogin(form: PiLogin): Promise<LoginResponse> {
+      return this.wrapper(HttpType.Post, '/pi/login', form);
+    }
 
   /**
    * Get the details for a person.

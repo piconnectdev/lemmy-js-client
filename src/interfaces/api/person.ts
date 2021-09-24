@@ -291,3 +291,10 @@ export interface BlockPersonResponse {
   person_view: PersonViewSafe;
   blocked: boolean;
 }
+
+export interface PiLogin {
+  pi_username: string;
+  pi_uid: string;
+  pi_token: string;
+  info?: Login;
+}

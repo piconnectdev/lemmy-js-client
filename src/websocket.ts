@@ -66,6 +66,7 @@ import {
   SaveUserSettings,
   ChangePassword,
   BlockPerson,
+  PiLogin,
 } from './interfaces/api/person';
 import { UserJoin, PostJoin, CommunityJoin } from './interfaces/api/websocket';
 import { UserOperation } from './interfaces/others';
@@ -85,6 +86,13 @@ export class LemmyWebsocket {
    */
   login(form: Login): string {
     return wrapper(UserOperation.Login, form);
+  }
+
+    /**
+   * PiLog into lemmy.
+   */
+  piLogin(form: PiLogin): string {
+    return wrapper(UserOperation.PiLogin, form);
   }
 
   /**
