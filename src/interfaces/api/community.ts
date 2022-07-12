@@ -1,60 +1,120 @@
+import { Option } from "@sniptt/monads";
+import { Expose, Transform, Type } from "class-transformer";
+import "reflect-metadata";
+import { toOption, toUndefined } from "../../utils";
+import { ListingType, SortType } from "../others";
+import { Site } from "../source";
 import {
   CommunityModeratorView,
   CommunityView,
   PersonViewSafe,
-} from '../views';
+} from "../views";
 
 /**
  * You can use either `id` or `name` as an id.
  *
  * To get a federated community by name, use `name@instance.tld` .
  */
-export interface GetCommunity {
-  id?: string;
-  name?: string;
-  auth?: string;
+export class GetCommunity {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  name: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth: Option<string>;
+
+  constructor(init: GetCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetCommunityResponse {
+export class GetCommunityResponse {
+  @Type(() => CommunityView)
   community_view: CommunityView;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  @Type(() => Site)
+  site: Option<Site>;
+  @Type(() => CommunityModeratorView)
   moderators: CommunityModeratorView[];
   online: number;
 }
 
-export interface CreateCommunity {
+export class CreateCommunity {
   name: string;
   title: string;
-  description?: string;
-  icon?: string;
-  banner?: string;
-  nsfw?: boolean;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  description: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  icon: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  banner: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  nsfw: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  posting_restricted_to_mods: Option<boolean>;
   auth: string;
+
+  constructor(init: CreateCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface CommunityResponse {
+export class CommunityResponse {
+  @Type(() => CommunityView)
   community_view: CommunityView;
 }
 
-export interface ListCommunities {
-  /**
-   * The [[ListingType]].
-   */
-  type_?: string;
+export class ListCommunities {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  type_: Option<ListingType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  sort: Option<SortType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  page: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  limit: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth: Option<string>;
 
-  /**
-   * The [[SortType]].
-   */
-  sort?: string;
-  page?: number;
-  limit?: number;
-  auth?: string;
+  constructor(init: ListCommunities) {
+    Object.assign(this, init);
+  }
 }
 
-export interface ListCommunitiesResponse {
+export class ListCommunitiesResponse {
+  @Type(() => CommunityView)
   communities: CommunityView[];
 }
 
-export interface BanFromCommunity {
+export class BanFromCommunity {
   community_id: string;
   person_id: string;
   ban: boolean;
@@ -62,81 +122,152 @@ export interface BanFromCommunity {
   /**
    * Removes/Restores their comments and posts for that community.
    */
-  remove_data?: boolean;
-  reason?: string;
-  expires?: number;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  remove_data: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  reason: Option<string>;
+  /**
+   * The expire time in Unix seconds
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  expires: Option<number>;
   auth: string;
+
+  constructor(init: BanFromCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface BanFromCommunityResponse {
+export class BanFromCommunityResponse {
+  @Type(() => PersonViewSafe)
   person_view: PersonViewSafe;
   banned: boolean;
 }
 
-export interface AddModToCommunity {
+export class AddModToCommunity {
   community_id: string;
   person_id: string;
   added: boolean;
   auth: string;
+
+  constructor(init: AddModToCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface AddModToCommunityResponse {
+export class AddModToCommunityResponse {
+  @Type(() => CommunityModeratorView)
   moderators: CommunityModeratorView[];
 }
 
 /**
  * Only mods can edit a community.
  */
-export interface EditCommunity {
+export class EditCommunity {
   community_id: string;
-  title?: string;
-  description?: string;
-  icon?: string;
-  banner?: string;
-  nsfw?: boolean;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  title: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  description: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  icon: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  banner: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  nsfw: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  posting_restricted_to_mods: Option<boolean>;
   auth: string;
+
+  constructor(init: EditCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface DeleteCommunity {
+export class DeleteCommunity {
   community_id: string;
   deleted: boolean;
   auth: string;
+
+  constructor(init: DeleteCommunity) {
+    Object.assign(this, init);
+  }
 }
 
 /**
  * Only admins can remove a community.
  */
-export interface RemoveCommunity {
+export class RemoveCommunity {
   community_id: string;
   removed: boolean;
-  reason?: string;
-  expires?: number;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  reason: Option<string>;
+  /**
+   * The expire time in Unix seconds
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  expires: Option<number>;
   auth: string;
+
+  constructor(init: RemoveCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface FollowCommunity {
+export class FollowCommunity {
   community_id: string;
   follow: boolean;
   auth: string;
+
+  constructor(init: FollowCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface TransferCommunity {
+export class TransferCommunity {
   community_id: string;
   person_id: string;
   auth: string;
+
+  constructor(init: TransferCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-export interface BlockCommunity {
+export class BlockCommunity {
   community_id: string;
   block: boolean;
   auth: string;
+
+  constructor(init: BlockCommunity) {
+    Object.assign(this, init);
+  }
 }
 
-//export interface GetFollowedCommunitiesResponse {
-//  communities: CommunityFollowerView[];
-//}
-
-export interface BlockCommunityResponse {
+export class BlockCommunityResponse {
+  @Type(() => CommunityView)
   community_view: CommunityView;
   blocked: boolean;
 }

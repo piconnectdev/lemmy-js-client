@@ -1,3 +1,4 @@
-export * from './interfaces';
-export * from './http';
-export * from './websocket';
+export * from "./http";
+export * from "./interfaces";
+export * from "./utils";
+export * from "./websocket";

@@ -1,15 +1,24 @@
+import { Option } from "@sniptt/monads";
+import { Expose, Transform, Type } from "class-transformer";
+import "reflect-metadata";
+import { toOption, toUndefined } from "../../utils";
+import { SortType } from "../others";
 import {
   CommentView,
   CommunityModeratorView,
-  PostView,
-  PrivateMessageView,
   PersonMentionView,
   PersonViewSafe,
-} from '../views';
+  PostView,
+  PrivateMessageView,
+} from "../views";
 
-export interface Login {
+export class Login {
   username_or_email: string;
   password: string;
+
+  constructor(init: Login) {
+    Object.assign(this, init);
+  }
 }
 
 /**
@@ -17,31 +26,62 @@ export interface Login {
  *
  * Only the first user to register will be able to be the admin.
  */
-export interface Register {
+export class Register {
   username: string;
-  email?: string;
+  /**
+   * Email is mandatory if email verification is enabled on the server
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  payment_id: Option<string>;
+  pi_username: string;
+  email: Option<string>;
   password: string;
   password_verify: string;
   show_nsfw: boolean;
   /**
    * Captcha is only checked if these are enabled in the server.
    */
-  captcha_uuid?: string;
-  captcha_answer?: string;
-  payment_id?: string;
-  pi_username?: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  captcha_uuid: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  captcha_answer: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  honeypot: Option<string>;
+  /**
+   * An answer is mandatory if require application is enabled on the server
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  answer: Option<string>;
+
+  constructor(init: Register) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetCaptcha { }
+export class GetCaptcha {}
 
-export interface GetCaptchaResponse {
+export class GetCaptchaResponse {
   /**
    * Will be undefined if captchas are disabled.
    */
-  ok?: CaptchaResponse;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  @Type(() => CaptchaResponse)
+  ok: Option<CaptchaResponse>;
 }
 
-export interface CaptchaResponse {
+export class CaptchaResponse {
   /**
    * A Base64 encoded png.
    */
@@ -50,7 +90,10 @@ export interface CaptchaResponse {
   /**
    * A Base64 encoded wav file.
    */
-  wav?: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  wav: Option<string>;
 
   /**
    * A UUID to match the one given on request.
@@ -58,238 +101,495 @@ export interface CaptchaResponse {
   uuid: string;
 }
 
-export interface SaveUserSettings {
-  show_nsfw?: boolean;
+export class SaveUserSettings {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_nsfw: Option<boolean>;
 
   /**
    * Default for this is `browser`.
    */
-  theme?: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  theme: Option<string>;
 
   /**
    * The [[SortType]].
    *
    * The Sort types from above, zero indexed as a number
    */
-  default_sort_type?: number;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  default_sort_type: Option<number>;
 
   /**
    * The [[ListingType]].
    *
    * Post listing types are `All, Subscribed, Community`
    */
-  default_listing_type?: number;
-  lang?: string;
-  avatar?: string;
-  banner?: string;
-  display_name?: string;
-  email?: string;
-  bio?: string;
-  matrix_user_id?: string;
-  show_avatars?: boolean;
-  show_scores?: boolean;
-  send_notifications_to_email?: boolean;
-  bot_account?: boolean;
-  show_bot_accounts?: boolean;
-  show_read_posts?: boolean;
-  show_new_post_notifs?: boolean;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  default_listing_type: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  lang: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  avatar: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  banner: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  display_name: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  email: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  bio: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  matrix_user_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_avatars: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_scores: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  send_notifications_to_email: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  bot_account: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_bot_accounts: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_read_posts: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  show_new_post_notifs: Option<boolean>;
+  auth: string;
   pi_address?: string;
   web3_address?: string;
   sol_address?: string;
   dap_address?: string;
-  auth: string;
+
+  constructor(init: SaveUserSettings) {
+    Object.assign(this, init);
+  }
 }
 
-export interface ChangePassword {
+export class ChangePassword {
   new_password: string;
   new_password_verify: string;
   old_password: string;
   auth: string;
+
+  constructor(init: ChangePassword) {
+    Object.assign(this, init);
+  }
 }
 
 /**
  * The `jwt` string should be stored and used anywhere `auth` is called for.
  */
-export interface LoginResponse {
-  jwt: string;
+export class LoginResponse {
+  /**
+   * This is None in response to `Register` if email verification is enabled, or the server requires registration applications.
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  jwt: Option<string>;
+  verify_email_sent: boolean;
+  registration_created: boolean;
 }
 
-export interface GetPersonDetails {
-  person_id?: string;
+export class GetPersonDetails {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  person_id: Option<string>;
   /**
    * To get details for a federated user, use `person@instance.tld`.
    */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  username: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  sort: Option<SortType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  page: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  limit: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  community_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  saved_only: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth: Option<string>;
 
-  username?: string;
-  sort?: string;
-  page?: number;
-  limit?: number;
-  community_id?: string;
-  saved_only?: boolean;
-  auth?: string;
+  constructor(init: GetPersonDetails) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetPersonDetailsResponse {
+export class GetPersonDetailsResponse {
+  @Type(() => PersonViewSafe)
   person_view: PersonViewSafe;
+  @Type(() => CommentView)
   comments: CommentView[];
+  @Type(() => PostView)
   posts: PostView[];
+  @Type(() => CommunityModeratorView)
   moderates: CommunityModeratorView[];
 }
 
-export interface GetRepliesResponse {
+export class GetRepliesResponse {
+  @Type(() => CommentView)
   replies: CommentView[];
 }
 
-export interface GetPersonMentionsResponse {
+export class GetPersonMentionsResponse {
+  @Type(() => PersonMentionView)
   mentions: PersonMentionView[];
 }
 
-export interface MarkAllAsRead {
+export class MarkAllAsRead {
   auth: string;
+
+  constructor(auth: string) {
+    this.auth = auth;
+  }
 }
 
-export interface AddAdmin {
+export class AddAdmin {
   person_id: string;
   added: boolean;
   auth: string;
+
+  constructor(init: AddAdmin) {
+    Object.assign(this, init);
+  }
 }
 
-export interface AddAdminResponse {
+export class AddAdminResponse {
+  @Type(() => PersonViewSafe)
   admins: PersonViewSafe[];
 }
 
-export interface BanPerson {
+export class BanPerson {
   person_id: string;
   ban: boolean;
 
   /**
    * Removes/Restores their comments, posts, and communities
    */
-  remove_data?: boolean;
-  reason?: string;
-  expires?: number;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  remove_data: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  reason: Option<string>;
+  /**
+   * The expire time in Unix seconds
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  expires: Option<number>;
   auth: string;
+
+  constructor(init: BanPerson) {
+    Object.assign(this, init);
+  }
 }
 
-export interface BanPersonResponse {
+export class BanPersonResponse {
+  @Type(() => PersonViewSafe)
   person_view: PersonViewSafe;
   banned: boolean;
 }
 
-export interface GetReplies {
-  /**
-   * The [[SortType]].
-   */
-  sort?: string;
-  page?: number;
-  limit?: number;
-  unread_only?: boolean;
+export class GetReplies {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  sort: Option<SortType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  page: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  limit: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  unread_only: Option<boolean>;
   auth: string;
+
+  constructor(init: GetReplies) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetPersonMentions {
-  /**
-   * The [[SortType]].
-   */
-  sort?: string;
-  page?: number;
-  limit?: number;
-  unread_only?: boolean;
+export class GetPersonMentions {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  sort: Option<SortType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  page: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  limit: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  unread_only: Option<boolean>;
   auth: string;
+
+  constructor(init: GetPersonMentions) {
+    Object.assign(this, init);
+  }
 }
 
-export interface MarkPersonMentionAsRead {
+export class MarkPersonMentionAsRead {
   person_mention_id: string;
   read: boolean;
   auth: string;
+
+  constructor(init: MarkPersonMentionAsRead) {
+    Object.assign(this, init);
+  }
 }
 
-export interface PersonMentionResponse {
+export class PersonMentionResponse {
+  @Type(() => PersonMentionView)
   person_mention_view: PersonMentionView;
 }
 
 /**
  * Permanently deletes your posts and comments
  */
-export interface DeleteAccount {
+export class DeleteAccount {
   password: string;
   auth: string;
+
+  constructor(init: DeleteAccount) {
+    Object.assign(this, init);
+  }
 }
 
-export interface PasswordReset {
+export class DeleteAccountResponse {}
+
+export class PasswordReset {
   email: string;
+
+  constructor(init: PasswordReset) {
+    Object.assign(this, init);
+  }
 }
 
-export interface PasswordResetResponse { }
+export class PasswordResetResponse {}
 
-export interface PasswordChange {
+export class PasswordChange {
   token: string;
   password: string;
   password_verify: string;
+
+  constructor(init: PasswordChange) {
+    Object.assign(this, init);
+  }
 }
 
-export interface CreatePrivateMessage {
+export class CreatePrivateMessage {
   content: string;
   recipient_id: string;
   auth: string;
+
+  constructor(init: CreatePrivateMessage) {
+    Object.assign(this, init);
+  }
 }
 
-export interface EditPrivateMessage {
+export class EditPrivateMessage {
   private_message_id: string;
   content: string;
   auth: string;
+
+  constructor(init: EditPrivateMessage) {
+    Object.assign(this, init);
+  }
 }
 
-export interface DeletePrivateMessage {
+export class DeletePrivateMessage {
   private_message_id: string;
   deleted: boolean;
   auth: string;
+
+  constructor(init: DeletePrivateMessage) {
+    Object.assign(this, init);
+  }
 }
 
-export interface MarkPrivateMessageAsRead {
+export class MarkPrivateMessageAsRead {
   private_message_id: string;
   read: boolean;
   auth: string;
+
+  constructor(init: MarkPrivateMessageAsRead) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetPrivateMessages {
-  unread_only?: boolean;
-  page?: number;
-  limit?: number;
+export class GetPrivateMessages {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  unread_only: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  page: Option<number>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  limit: Option<number>;
   auth: string;
+
+  constructor(init: GetPrivateMessages) {
+    Object.assign(this, init);
+  }
 }
 
-export interface PrivateMessagesResponse {
+export class PrivateMessagesResponse {
+  @Type(() => PrivateMessageView)
   private_messages: PrivateMessageView[];
 }
 
-export interface PrivateMessageResponse {
+export class PrivateMessageResponse {
+  @Type(() => PrivateMessageView)
   private_message_view: PrivateMessageView;
 }
 
-/**
- * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
- */
-export interface GetReportCount {
-  community?: string;
+export class GetReportCount {
+  /**
+   * If a community is supplied, returns the report count for only that community, otherwise returns the report count for all communities the user moderates.
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  community_id: Option<string>;
   auth: string;
+
+  constructor(init: GetReportCount) {
+    Object.assign(this, init);
+  }
 }
 
-export interface GetReportCountResponse {
-  community?: string;
+export class GetReportCountResponse {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  community_id: Option<string>;
   comment_reports: number;
   post_reports: number;
 }
 
-export interface BlockPerson {
+export class GetUnreadCount {
+  auth: string;
+
+  constructor(init: GetUnreadCount) {
+    Object.assign(this, init);
+  }
+}
+
+export class GetUnreadCountResponse {
+  replies: number;
+  mentions: number;
+  private_messages: number;
+}
+
+export class VerifyEmail {
+  token: string;
+
+  constructor(init: VerifyEmail) {
+    Object.assign(this, init);
+  }
+}
+
+export class VerifyEmailResponse {}
+
+export class BlockPerson {
   person_id: string;
   block: boolean;
   auth: string;
+
+  constructor(init: BlockPerson) {
+    Object.assign(this, init);
+  }
 }
 
-export interface BlockPersonResponse {
+export class BlockPersonResponse {
+  @Type(() => PersonViewSafe)
   person_view: PersonViewSafe;
   blocked: boolean;
+}
+
+export class GetBannedPersons {
+  auth: string;
+
+  constructor(init: GetBannedPersons) {
+    Object.assign(this, init);
+  }
+}
+
+export class BannedPersonsResponse {
+  @Type(() => PersonViewSafe)
+  banned: PersonViewSafe[];
 }
 
 export interface PiLogin {

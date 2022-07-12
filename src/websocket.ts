@@ -1,13 +1,17 @@
+import { ClassConstructor, deserialize, serialize } from "class-transformer";
 import {
   CreateComment,
   CreateCommentLike,
+  CreateCommentReport,
   DeleteComment,
   EditComment,
   GetComments,
+  ListCommentReports,
   MarkCommentAsRead,
   RemoveComment,
+  ResolveCommentReport,
   SaveComment,
-} from './interfaces/api/comment';
+} from "./interfaces/api/comment";
 import {
   AddModToCommunity,
   BanFromCommunity,
@@ -20,56 +24,69 @@ import {
   ListCommunities,
   RemoveCommunity,
   TransferCommunity,
-} from './interfaces/api/community';
+} from "./interfaces/api/community";
+import {
+  AddAdmin,
+  BanPerson,
+  BlockPerson,
+  ChangePassword,
+  CreatePrivateMessage,
+  DeleteAccount,
+  DeletePrivateMessage,
+  EditPrivateMessage,
+  GetBannedPersons,
+  GetPersonDetails,
+  GetPersonMentions,
+  GetPrivateMessages,
+  GetReplies,
+  GetReportCount,
+  GetUnreadCount,
+  Login,
+  MarkAllAsRead,
+  MarkPersonMentionAsRead,
+  MarkPrivateMessageAsRead,
+  PasswordChange,
+  PasswordReset,
+  PiLogin,
+  Register,
+  SaveUserSettings,
+  VerifyEmail,
+} from "./interfaces/api/person";
 import {
   CreatePost,
   CreatePostLike,
+  CreatePostReport,
   DeletePost,
   EditPost,
   GetPost,
   GetPosts,
   GetSiteMetadata,
+  ListPostReports,
   LockPost,
+  MarkPostAsRead,
   RemovePost,
+  ResolvePostReport,
   SavePost,
   StickyPost,
-} from './interfaces/api/post';
+} from "./interfaces/api/post";
 import {
+  ApproveRegistrationApplication,
   CreateSite,
   EditSite,
   GetModlog,
   GetSite,
-  GetSiteConfig,
+  GetUnreadRegistrationApplicationCount,
+  LeaveAdmin,
+  ListRegistrationApplications,
+  PurgeComment,
+  PurgeCommunity,
+  PurgePerson,
+  PurgePost,
   ResolveObject,
-  SaveSiteConfig,
   Search,
-  TransferSite,
-} from './interfaces/api/site';
-import {
-  AddAdmin,
-  BanPerson,
-  CreatePrivateMessage,
-  DeleteAccount,
-  DeletePrivateMessage,
-  EditPrivateMessage,
-  GetPrivateMessages,
-  GetReplies,
-  GetPersonDetails,
-  GetPersonMentions,
-  Login,
-  MarkAllAsRead,
-  MarkPrivateMessageAsRead,
-  MarkPersonMentionAsRead,
-  PasswordChange,
-  PasswordReset,
-  Register,
-  SaveUserSettings,
-  ChangePassword,
-  BlockPerson,
-  PiLogin,
-} from './interfaces/api/person';
-import { UserJoin, PostJoin, CommunityJoin } from './interfaces/api/websocket';
-import { UserOperation } from './interfaces/others';
+} from "./interfaces/api/site";
+import { CommunityJoin, PostJoin, UserJoin } from "./interfaces/api/websocket";
+import { UserOperation } from "./interfaces/others";
 
 /**
  * Helps build lemmy websocket message requests, that you can use in your Websocket sends.
@@ -88,7 +105,7 @@ export class LemmyWebsocket {
     return wrapper(UserOperation.Login, form);
   }
 
-    /**
+  /**
    * PiLog into lemmy.
    */
   piLogin(form: PiLogin): string {
@@ -251,6 +268,27 @@ export class LemmyWebsocket {
   }
 
   /**
+   * Report a comment.
+   */
+  createCommentReport(form: CreateCommentReport) {
+    return wrapper(UserOperation.CreateCommentReport, form);
+  }
+
+  /**
+   * Resolve a comment report. Only a mod can do this.
+   */
+  resolveCommentReport(form: ResolveCommentReport) {
+    return wrapper(UserOperation.ResolveCommentReport, form);
+  }
+
+  /**
+   * List comment reports.
+   */
+  listCommentReports(form: ListCommentReports) {
+    return wrapper(UserOperation.ListCommentReports, form);
+  }
+
+  /**
    * Get / fetch posts, with various filters.
    */
   getPosts(form: GetPosts) {
@@ -307,10 +345,38 @@ export class LemmyWebsocket {
   }
 
   /**
+   * Mark a post as read.
+   */
+  markPostAsRead(form: MarkPostAsRead) {
+    return wrapper(UserOperation.MarkPostAsRead, form);
+  }
+
+  /**
    * Save a post.
    */
   savePost(form: SavePost) {
     return wrapper(UserOperation.SavePost, form);
+  }
+
+  /**
+   * Report a post.
+   */
+  createPostReport(form: CreatePostReport) {
+    return wrapper(UserOperation.CreatePostReport, form);
+  }
+
+  /**
+   * Resolve a post report. Only a mod can do this.
+   */
+  resolvePostReport(form: ResolvePostReport) {
+    return wrapper(UserOperation.ResolvePostReport, form);
+  }
+
+  /**
+   * List post reports.
+   */
+  listPostReports(form: ListPostReports) {
+    return wrapper(UserOperation.ListPostReports, form);
   }
 
   /**
@@ -342,10 +408,10 @@ export class LemmyWebsocket {
   }
 
   /**
-   * Transfer your site to another user.
+   * Leave the Site admins.
    */
-  transferSite(form: TransferSite) {
-    return wrapper(UserOperation.TransferSite, form);
+  leaveAdmin(form: LeaveAdmin) {
+    return wrapper(UserOperation.LeaveAdmin, form);
   }
 
   /**
@@ -356,10 +422,40 @@ export class LemmyWebsocket {
   }
 
   /**
+   * Get a list of banned users
+   */
+  getBannedPersons(form: GetBannedPersons) {
+    return wrapper(UserOperation.GetBannedPersons, form);
+  }
+
+  /**
    * Add an admin to your site.
    */
   addAdmin(form: AddAdmin) {
     return wrapper(UserOperation.AddAdmin, form);
+  }
+
+  /**
+   * Get the unread registration applications count.
+   */
+  getUnreadRegistrationApplicationCount(
+    form: GetUnreadRegistrationApplicationCount
+  ) {
+    return wrapper(UserOperation.GetUnreadRegistrationApplicationCount, form);
+  }
+
+  /**
+   * List the unread registration applications.
+   */
+  listRegistrationApplications(form: ListRegistrationApplications) {
+    return wrapper(UserOperation.ListRegistrationApplications, form);
+  }
+
+  /**
+   * Approve a registration application
+   */
+  approveRegistrationApplication(form: ApproveRegistrationApplication) {
+    return wrapper(UserOperation.ApproveRegistrationApplication, form);
   }
 
   /**
@@ -414,15 +510,8 @@ export class LemmyWebsocket {
   /**
    * Gets the site, and your user data.
    */
-  getSite(form: GetSite = {}) {
+  getSite(form: GetSite) {
     return wrapper(UserOperation.GetSite, form);
-  }
-
-  /**
-   * Get your site configuration.
-   */
-  getSiteConfig(form: GetSiteConfig) {
-    return wrapper(UserOperation.GetSiteConfig, form);
   }
 
   /**
@@ -458,6 +547,27 @@ export class LemmyWebsocket {
    */
   changePassword(form: ChangePassword) {
     return wrapper(UserOperation.ChangePassword, form);
+  }
+
+  /**
+   * Get counts for your reports
+   */
+  getReportCount(form: GetReportCount) {
+    return wrapper(UserOperation.GetReportCount, form);
+  }
+
+  /**
+   * Get your unread counts
+   */
+  getUnreadCount(form: GetUnreadCount) {
+    return wrapper(UserOperation.GetUnreadCount, form);
+  }
+
+  /**
+   * Verify your email
+   */
+  verifyEmail(form: VerifyEmail) {
+    return wrapper(UserOperation.VerifyEmail, form);
   }
 
   /**
@@ -517,13 +627,6 @@ export class LemmyWebsocket {
   }
 
   /**
-   * Save your site config.
-   */
-  saveSiteConfig(form: SaveSiteConfig) {
-    return wrapper(UserOperation.SaveSiteConfig, form);
-  }
-
-  /**
    * Block a person.
    */
   blockPerson(form: BlockPerson) {
@@ -536,10 +639,53 @@ export class LemmyWebsocket {
   blockCommunity(form: BlockCommunity) {
     return wrapper(UserOperation.BlockCommunity, form);
   }
+
+  /**
+   * Purge / Delete a person from the database.
+   */
+  purgePerson(form: PurgePerson) {
+    return wrapper(UserOperation.PurgePerson, form);
+  }
+
+  /**
+   * Purge / Delete a community from the database.
+   */
+  purgeCommunity(form: PurgeCommunity) {
+    return wrapper(UserOperation.PurgeCommunity, form);
+  }
+
+  /**
+   * Purge / Delete a post from the database.
+   */
+  purgePost(form: PurgePost) {
+    return wrapper(UserOperation.PurgePost, form);
+  }
+
+  /**
+   * Purge / Delete a comment from the database.
+   */
+  purgeComment(form: PurgeComment) {
+    return wrapper(UserOperation.PurgeComment, form);
+  }
 }
 
 function wrapper<MessageType>(op: UserOperation, data: MessageType) {
-  let send = { op: UserOperation[op], data: data };
-  console.log(send);
-  return JSON.stringify(send);
+  let send = serialize({ op: UserOperation[op], data });
+  return send;
+}
+
+export function wsUserOp(msg: any): UserOperation {
+  let opStr: string = msg.op;
+  return UserOperation[opStr as keyof typeof UserOperation];
+}
+
+/**
+ * Converts a websocket string response to a usable result
+ */
+export function wsJsonToRes<ResponseType>(
+  msg: any,
+  responseClass: ClassConstructor<ResponseType>
+): ResponseType {
+  // Have to deserialize the response again into the correct class
+  return deserialize(responseClass, serialize(msg.data));
 }
