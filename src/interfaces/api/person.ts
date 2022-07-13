@@ -28,14 +28,14 @@ export class Login {
  */
 export class Register {
   username: string;
+  payment_id: Option<string>;
+  pi_username: Option<string>;
   /**
    * Email is mandatory if email verification is enabled on the server
    */
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  payment_id: Option<string>;
-  pi_username: string;
   email: Option<string>;
   password: string;
   password_verify: string;
@@ -191,10 +191,10 @@ export class SaveUserSettings {
   @Expose()
   show_new_post_notifs: Option<boolean>;
   auth: string;
-  pi_address?: string;
-  web3_address?: string;
-  sol_address?: string;
-  dap_address?: string;
+  pi_address: Option<string>;
+  web3_address: Option<string>;
+  sol_address: Option<string>;
+  dap_address: Option<string>;
 
   constructor(init: SaveUserSettings) {
     Object.assign(this, init);
@@ -596,5 +596,5 @@ export interface PiLogin {
   pi_username: string;
   pi_uid: string;
   pi_token: string;
-  info?: Login;
+  info: Option<Login>;
 }

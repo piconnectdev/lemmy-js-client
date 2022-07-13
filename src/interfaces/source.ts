@@ -66,12 +66,12 @@ export class PersonSafe {
   ban_expires: Option<string>;
 
   verified: boolean;
-  pi_address: string;
-  web3_address: string;
-  sol_address: string;
-  dap_address: string;
-  cert: string;
-  tx: string;
+  pi_address: Option<string>;
+  web3_address: Option<string>;
+  sol_address: Option<string>;
+  dap_address: Option<string>;
+  cert: Option<string>;
+  tx: Option<string>;
 }
 
 export class Site {
