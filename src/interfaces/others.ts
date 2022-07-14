@@ -87,6 +87,7 @@ export enum UserOperation {
   GetUnreadCount,
   VerifyEmail,
   PiLogin,
+  Web3Login,
 }
 
 /**

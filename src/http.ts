@@ -79,6 +79,7 @@ import {
   SaveUserSettings,
   VerifyEmail,
   VerifyEmailResponse,
+  Web3Login,
 } from "./interfaces/api/person";
 import {
   CreatePost,
@@ -752,6 +753,15 @@ export class LemmyHttp {
 
   /**
    * Log into lemmy.
+   * `HTTP.POST /user/web3login`
+   */
+  async web3Login(form: Web3Login): Promise<LoginResponse> {
+    return this.wrapper(HttpType.Post, "/user/web3login", form, LoginResponse);
+  }
+
+  /**
+   * Log into lemmy.
+   * `HTTP.POST /pi/login`
    */
   async piLogin(form: PiLogin): Promise<LoginResponse> {
     return this.wrapper(HttpType.Post, "/pi/login", form, LoginResponse);

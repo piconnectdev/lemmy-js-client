@@ -51,6 +51,7 @@ import {
   Register,
   SaveUserSettings,
   VerifyEmail,
+  Web3Login,
 } from "./interfaces/api/person";
 import {
   CreatePost,
@@ -106,10 +107,17 @@ export class LemmyWebsocket {
   }
 
   /**
-   * PiLog into lemmy.
+   * PiLogin into lemmy.
    */
   piLogin(form: PiLogin): string {
     return wrapper(UserOperation.PiLogin, form);
+  }
+
+  /**
+   * Web3 log into lemmy.
+   */
+  web3Login(form: Web3Login): string {
+    return wrapper(UserOperation.Web3Login, form);
   }
 
   /**

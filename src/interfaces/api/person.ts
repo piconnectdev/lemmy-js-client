@@ -596,5 +596,13 @@ export interface PiLogin {
   pi_username: string;
   pi_uid: string;
   pi_token: string;
-  info: Option<Login>;
+  info: Login;
+}
+
+export interface Web3Login {
+  address: string;
+  token: string;
+  signature: string;
+  cli_time: number;
+  info: Login;
 }
