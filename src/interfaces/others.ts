@@ -86,9 +86,15 @@ export enum UserOperation {
   GetReportCount,
   GetUnreadCount,
   VerifyEmail,
-  PiLogin,
+  GetToken,
+  Web3Register,
   Web3Login,
-  Web3Reister,
+  PiRegister,
+  PiLogin,
+  PiAgree,
+  PiRegisterWithFee,
+  PiApprove,
+  PiTips,
 }
 
 /**

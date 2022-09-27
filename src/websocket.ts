@@ -48,10 +48,12 @@ import {
   PasswordChange,
   PasswordReset,
   PiLogin,
+  PiRegister,
   Register,
   SaveUserSettings,
   VerifyEmail,
   Web3Login,
+  Web3Register,
 } from "./interfaces/api/person";
 import {
   CreatePost,
@@ -156,6 +158,26 @@ export class LemmyWebsocket {
     return wrapper(UserOperation.Register, register);
   }
 
+  /**
+   * Fetch a Token.
+   */
+  getToken() {
+    return wrapper(UserOperation.GetToken, {});
+  }
+
+  /**
+   * Register a new user.
+   */
+  web3Register(register: Web3Register) {
+    return wrapper(UserOperation.Web3Register, register);
+  }
+
+  /**
+   * Register a new user.
+   */
+  piRegister(register: PiRegister) {
+    return wrapper(UserOperation.PiRegister, register);
+  }
   /**
    * Fetch a Captcha.
    */

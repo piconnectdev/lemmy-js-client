@@ -3,6 +3,7 @@ import { Expose, Transform, Type } from "class-transformer";
 import "reflect-metadata";
 import { toOption, toUndefined } from "../../utils";
 import { ListingType, ModlogActionType, SearchType, SortType } from "../others";
+import { Language } from "../source";
 import {
   AdminPurgeCommentView,
   AdminPurgeCommunityView,
@@ -344,6 +345,8 @@ export class GetSiteResponse {
   @Expose()
   @Type(() => FederatedInstances)
   federated_instances: Option<FederatedInstances>;
+  @Type(() => Language)
+  all_languages: Language[];
 }
 
 /**
@@ -360,6 +363,8 @@ export class MyUserInfo {
   community_blocks: CommunityBlockView[];
   @Type(() => PersonBlockView)
   person_blocks: PersonBlockView[];
+  @Type(() => Language)
+  discussion_languages: Language[];
 }
 
 export class LeaveAdmin {

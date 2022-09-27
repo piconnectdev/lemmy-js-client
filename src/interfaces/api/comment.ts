@@ -7,11 +7,14 @@ import { CommentReportView, CommentView } from "../views";
 
 export class CreateComment {
   content: string;
-
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   parent_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  language_id: Option<number>;
   post_id: string;
   /**
    * An optional front end ID, to tell which is comment is coming back.
@@ -40,6 +43,10 @@ export class EditComment {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   distinguished: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  language_id: Option<number>;
   /**
    * An optional front end ID, to tell which is comment is coming back.
    */

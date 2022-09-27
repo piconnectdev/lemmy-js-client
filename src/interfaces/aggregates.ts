@@ -15,7 +15,7 @@ export interface PersonAggregates {
  */
 export interface SiteAggregates {
   id: string;
-  site_id: number;
+  site_id: string;
   users: number;
   posts: number;
   comments: number;

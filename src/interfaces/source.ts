@@ -13,7 +13,7 @@ export class LocalUserSettings {
   theme: string;
   default_sort_type: number;
   default_listing_type: number;
-  lang: string;
+  interface_language: string;
   show_avatars: boolean;
   send_notifications_to_email: boolean;
   show_bot_accounts: boolean;
@@ -70,6 +70,7 @@ export class PersonSafe {
   web3_address: Option<string>;
   sol_address: Option<string>;
   dap_address: Option<string>;
+  cosmos_address: Option<string>;
   cert: Option<string>;
   tx: Option<string>;
 }
@@ -211,6 +212,7 @@ export class Post {
   thumbnail_url: Option<string>;
   ap_id: string;
   local: boolean;
+  language_id: number;
   cert: string;
   tx: string;
 }
@@ -476,6 +478,7 @@ export class Comment {
   local: boolean;
   path: string;
   distinguished: boolean;
+  language_id: number;
   cert: string;
   tx: string;
 }
@@ -509,4 +512,10 @@ export class RegistrationApplication {
   @Expose()
   deny_reason: Option<string>;
   published: string;
+}
+
+export class Language {
+  id: number;
+  code: string;
+  name: string;
 }

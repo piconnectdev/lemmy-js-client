@@ -73,6 +73,7 @@ import {
   PasswordResetResponse,
   PersonMentionResponse,
   PiLogin,
+  PiRegister,
   PrivateMessageResponse,
   PrivateMessagesResponse,
   Register,
@@ -80,6 +81,7 @@ import {
   VerifyEmail,
   VerifyEmailResponse,
   Web3Login,
+  Web3Register,
 } from "./interfaces/api/person";
 import {
   CreatePost,
@@ -752,11 +754,29 @@ export class LemmyHttp {
   }
 
   /**
+   * Register a new user.
+   *
+   * `HTTP.POST /user/register`
+   */
+  async web3Register(form: Web3Register) {
+    return this.wrapper(HttpType.Post, "/web3/register", form, LoginResponse);
+  }
+
+  /**
    * Log into lemmy.
    * `HTTP.POST /user/web3login`
    */
   async web3Login(form: Web3Login): Promise<LoginResponse> {
-    return this.wrapper(HttpType.Post, "/user/web3login", form, LoginResponse);
+    return this.wrapper(HttpType.Post, "/web3/login", form, LoginResponse);
+  }
+
+  /**
+   * Register a new user.
+   *
+   * `HTTP.POST /user/register`
+   */
+  async piRegister(form: PiRegister) {
+    return this.wrapper(HttpType.Post, "/pi/register", form, LoginResponse);
   }
 
   /**
@@ -864,6 +884,20 @@ export class LemmyHttp {
     return this.wrapper(
       HttpType.Get,
       "/user/get_captcha",
+      {},
+      GetCaptchaResponse
+    );
+  }
+
+  /**
+   * Fetch a Web3 login token.
+   *
+   * `HTTP.GET /user/get_token`
+   */
+  async getToken() {
+    return this.wrapper(
+      HttpType.Get,
+      "/user/get_token",
       {},
       GetCaptchaResponse
     );

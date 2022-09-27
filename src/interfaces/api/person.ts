@@ -138,7 +138,7 @@ export class SaveUserSettings {
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  lang: Option<string>;
+  interface_language: Option<string>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -191,11 +191,16 @@ export class SaveUserSettings {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   show_new_post_notifs: Option<boolean>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  discussion_languages: Option<number[]>;
   auth: string;
   pi_address: Option<string>;
   web3_address: Option<string>;
   sol_address: Option<string>;
   dap_address: Option<string>;
+  cosmos_address: Option<string>;
 
   constructor(init: SaveUserSettings) {
     Object.assign(this, init);
@@ -608,6 +613,13 @@ export class BannedPersonsResponse {
   banned: PersonViewSafe[];
 }
 
+export interface PiRegister {
+  pi_username: string;
+  pi_uid: string;
+  pi_token: string;
+  info: Register;
+}
+
 export interface PiLogin {
   pi_username: string;
   pi_uid: string;
@@ -628,5 +640,5 @@ export interface Web3Register {
   token: string;
   signature: string;
   cli_time: number;
-  info: Login;
+  info: Register;
 }
