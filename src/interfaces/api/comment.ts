@@ -2,7 +2,7 @@ import { Option } from "@sniptt/monads";
 import { Expose, Transform, Type } from "class-transformer";
 import "reflect-metadata";
 import { toOption, toUndefined } from "../../utils";
-import { ListingType, SortType } from "../others";
+import { CommentSortType, ListingType } from "../others";
 import { CommentReportView, CommentView } from "../views";
 
 export class CreateComment {
@@ -28,8 +28,18 @@ export class CreateComment {
 }
 
 export class EditComment {
-  content: string;
   comment_id: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  content: Option<string>;
+  /**
+   * "Distinguishes" a comment, or speak officially. Only doable by community mods or admins.
+   */
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  distinguished: Option<boolean>;
   /**
    * An optional front end ID, to tell which is comment is coming back.
    */
@@ -134,7 +144,11 @@ export class GetComments {
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  sort: Option<SortType>;
+  sort: Option<CommentSortType>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  max_depth: Option<number>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -151,6 +165,14 @@ export class GetComments {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   community_name: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  post_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  parent_id: Option<string>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()

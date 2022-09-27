@@ -2,8 +2,9 @@ import { Option } from "@sniptt/monads";
 import { Expose, Transform, Type } from "class-transformer";
 import "reflect-metadata";
 import { toOption, toUndefined } from "../../utils";
-import { SortType } from "../others";
+import { CommentSortType, SortType } from "../others";
 import {
+  CommentReplyView,
   CommentView,
   CommunityModeratorView,
   PersonMentionView,
@@ -281,8 +282,8 @@ export class GetPersonDetailsResponse {
 }
 
 export class GetRepliesResponse {
-  @Type(() => CommentView)
-  replies: CommentView[];
+  @Type(() => CommentReplyView)
+  replies: CommentReplyView[];
 }
 
 export class GetPersonMentionsResponse {
@@ -352,7 +353,7 @@ export class GetReplies {
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  sort: Option<SortType>;
+  sort: Option<CommentSortType>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -376,7 +377,7 @@ export class GetPersonMentions {
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  sort: Option<SortType>;
+  sort: Option<CommentSortType>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -409,6 +410,21 @@ export class MarkPersonMentionAsRead {
 export class PersonMentionResponse {
   @Type(() => PersonMentionView)
   person_mention_view: PersonMentionView;
+}
+
+export class MarkCommentReplyAsRead {
+  comment_reply_id: string;
+  read: boolean;
+  auth: string;
+
+  constructor(init: MarkCommentReplyAsRead) {
+    Object.assign(this, init);
+  }
+}
+
+export class CommentReplyResponse {
+  @Type(() => CommentReplyView)
+  comment_reply_view: CommentReplyView;
 }
 
 /**
@@ -600,6 +616,14 @@ export interface PiLogin {
 }
 
 export interface Web3Login {
+  address: string;
+  token: string;
+  signature: string;
+  cli_time: number;
+  info: Login;
+}
+
+export interface Web3Register {
   address: string;
   token: string;
   signature: string;

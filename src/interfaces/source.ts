@@ -75,7 +75,7 @@ export class PersonSafe {
 }
 
 export class Site {
-  id: number;
+  id: string;
   name: string;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
@@ -119,6 +119,10 @@ export class Site {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   legal_information: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  hide_modlog_mod_names: Option<boolean>;
 }
 
 export class PrivateMessage {
@@ -200,7 +204,7 @@ export class Post {
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  embed_html: Option<string>;
+  embed_video_url: Option<string>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -462,7 +466,6 @@ export class Comment {
   parent_id: Option<string>;
   content: string;
   removed: boolean;
-  read: boolean; // Whether the recipient has read the comment or not
   published: string;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
@@ -471,11 +474,21 @@ export class Comment {
   deleted: boolean;
   ap_id: string;
   local: boolean;
+  path: string;
+  distinguished: boolean;
   cert: string;
   tx: string;
 }
 
 export class PersonMention {
+  id: string;
+  recipient_id: string;
+  comment_id: string;
+  read: boolean;
+  published: string;
+}
+
+export class CommentReply {
   id: string;
   recipient_id: string;
   comment_id: string;

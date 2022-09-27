@@ -2,7 +2,7 @@ import { Option } from "@sniptt/monads";
 import { Expose, Transform, Type } from "class-transformer";
 import "reflect-metadata";
 import { toOption, toUndefined } from "../../utils";
-import { ListingType, SearchType, SortType } from "../others";
+import { ListingType, ModlogActionType, SearchType, SortType } from "../others";
 import {
   AdminPurgeCommentView,
   AdminPurgeCommunityView,
@@ -117,7 +117,11 @@ export class GetModlog {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   auth: Option<string>;
-
+  type_: ModlogActionType;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  other_person_id: Option<string>;
   constructor(init: GetModlog) {
     Object.assign(this, init);
   }
@@ -212,8 +216,11 @@ export class CreateSite {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   default_post_listing_type: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  hide_modlog_mod_names: Option<boolean>;
   auth: string;
-
   constructor(init: CreateSite) {
     Object.assign(this, init);
   }
@@ -284,6 +291,10 @@ export class EditSite {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   default_post_listing_type: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  hide_modlog_mod_names: Option<boolean>;
   auth: string;
 
   constructor(init: EditSite) {
