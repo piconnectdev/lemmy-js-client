@@ -190,7 +190,7 @@ export class LemmyWebsocket {
    * Agree pay for register a new user.
    */
   piAgree(agree: PiAgreeRegister) {
-    return wrapper(UserOperation.PiAgree, agree);
+    return wrapper(UserOperation.PiAgreeRegister, agree);
   }
 
   /**
