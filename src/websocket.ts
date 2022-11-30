@@ -49,8 +49,12 @@ import {
   MarkPrivateMessageAsRead,
   PasswordChange,
   PasswordReset,
+  PiAgreeRegister,
+  PiApprove,
   PiLogin,
   PiRegister,
+  PiRegisterWithFee,
+  PiTip,
   Register,
   ResolvePrivateMessageReport,
   SaveUserSettings,
@@ -181,6 +185,35 @@ export class LemmyWebsocket {
   piRegister(register: PiRegister) {
     return wrapper(UserOperation.PiRegister, register);
   }
+
+  /**
+   * Agree pay for register a new user.
+   */
+  piAgree(agree: PiAgreeRegister) {
+    return wrapper(UserOperation.PiAgree, agree);
+  }
+
+  /**
+   * Register a new user.
+   */
+  piRegisterWithFee(register: PiRegisterWithFee) {
+    return wrapper(UserOperation.PiRegisterWithFee, register);
+  }
+
+  /**
+   * Agree pay for register a new user.
+   */
+  piApprove(approve: PiApprove) {
+    return wrapper(UserOperation.PiApprove, approve);
+  }
+
+  /**
+   * Agree pay for register a new user.
+   */
+  piPayment(payment: PiTip) {
+    return wrapper(UserOperation.PiTip, payment);
+  }
+
   /**
    * Fetch a Captcha.
    */

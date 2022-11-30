@@ -202,7 +202,8 @@ export class SaveUserSettings {
   sol_address: Option<string>;
   dap_address: Option<string>;
   cosmos_address: Option<string>;
-
+  auth_sign: Option<string>;
+  sign_data: boolean;
   constructor(init: SaveUserSettings) {
     Object.assign(this, init);
   }
@@ -470,6 +471,7 @@ export class PasswordChange {
 export class CreatePrivateMessage {
   content: string;
   recipient_id: string;
+  auth_sign: Option<string>;
   auth: string;
 
   constructor(init: CreatePrivateMessage) {
@@ -480,6 +482,7 @@ export class CreatePrivateMessage {
 export class EditPrivateMessage {
   private_message_id: string;
   content: string;
+  auth_sign: Option<string>;
   auth: string;
 
   constructor(init: EditPrivateMessage) {
@@ -538,7 +541,7 @@ export class PrivateMessageResponse {
 }
 
 export class CreatePrivateMessageReport {
-  private_message_id: number;
+  private_message_id: string;
   reason: string;
   auth: string;
 
@@ -553,7 +556,7 @@ export class PrivateMessageReportResponse {
 }
 
 export class ResolvePrivateMessageReport {
-  report_id: number;
+  report_id: string;
   resolved: boolean;
   auth: string;
 
@@ -627,7 +630,7 @@ export class GetUnreadCount {
 export class GetUnreadCountResponse {
   replies: number;
   mentions: number;
-  private_messages: number;
+  private_messages: string;
 }
 
 export class VerifyEmail {
@@ -669,21 +672,23 @@ export class BannedPersonsResponse {
   banned: PersonViewSafe[];
 }
 
-export interface PiRegister {
-  pi_username: string;
-  pi_uid: string;
-  pi_token: string;
+export class ExternalAccount {
+  provider: Option<string>;
+  account: string;
+  token: string;
+  signature: string;
+  extra: Option<string>;
+  puid: Option<string>;
+  cli_time: number;
+  comment: Option<string>;
+}
+
+export class Web3Register {
+  ea: ExternalAccount;
   info: Register;
 }
 
-export interface PiLogin {
-  pi_username: string;
-  pi_uid: string;
-  pi_token: string;
-  info: Login;
-}
-
-export interface Web3Login {
+export class Web3Login {
   address: string;
   token: string;
   signature: string;
@@ -691,10 +696,48 @@ export interface Web3Login {
   info: Login;
 }
 
-export interface Web3Register {
-  address: string;
-  token: string;
-  signature: string;
-  cli_time: number;
+export class PiRegister {
+  ea: ExternalAccount;
   info: Register;
+}
+
+export class PiAgreeRegister {
+  ea: ExternalAccount;
+  info: Register;
+  paymentid: string;
+}
+
+export class PiRegisterWithFee {
+  ea: ExternalAccount;
+  txid: string;
+  info: Register;
+}
+
+export class PiLogin {
+  // pi_username: string;
+  // pi_uid: string;
+  // pi_token: string;
+  ea: ExternalAccount;
+  info: Login;
+}
+
+export class PiApprove {
+  ea: ExternalAccount;
+  pi_username: string;
+  pi_uid: Option<string>;
+  person_id: Option<string>;
+  paymentid: string;
+  comment: Option<string>;
+  auth: Option<string>;
+}
+
+export class PiTip {
+  ea: ExternalAccount;
+  pi_username: string;
+  pi_uid: Option<string>;
+  person_id: Option<string>;
+  paymentid: string;
+  comment: Option<string>;
+  txid: string;
+  auth: Option<string>;
 }

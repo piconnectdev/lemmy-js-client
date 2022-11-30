@@ -75,8 +75,12 @@ import {
   PasswordReset,
   PasswordResetResponse,
   PersonMentionResponse,
+  PiAgreeRegister,
+  PiApprove,
   PiLogin,
   PiRegister,
+  PiRegisterWithFee,
+  PiTip,
   PrivateMessageReportResponse,
   PrivateMessageResponse,
   PrivateMessagesResponse,
@@ -830,8 +834,46 @@ export class LemmyHttp {
    * Log into lemmy.
    * `HTTP.POST /pi/login`
    */
+  async piAgree(form: PiAgreeRegister): Promise<LoginResponse> {
+    return this.wrapper(HttpType.Post, "/pi/agree", form, LoginResponse);
+  }
+
+  /**
+   * Register a new user.
+   *
+   * `HTTP.POST /user/register`
+   */
+  async piRegisterWithFee(form: PiRegisterWithFee) {
+    return this.wrapper(
+      HttpType.Post,
+      "/pi/register_with_fee",
+      form,
+      LoginResponse
+    );
+  }
+
+  /**
+   * Log into lemmy.
+   * `HTTP.POST /pi/login`
+   */
   async piLogin(form: PiLogin): Promise<LoginResponse> {
     return this.wrapper(HttpType.Post, "/pi/login", form, LoginResponse);
+  }
+
+  /**
+   * Log into lemmy.
+   * `HTTP.POST /pi/approve`
+   */
+  async piApprove(form: PiApprove): Promise<LoginResponse> {
+    return this.wrapper(HttpType.Post, "/pi/approve", form, LoginResponse);
+  }
+
+  /**
+   * Log into lemmy.
+   * `HTTP.POST /pi/approve`
+   */
+  async piPayment(form: PiTip): Promise<LoginResponse> {
+    return this.wrapper(HttpType.Post, "/pi/tip", form, LoginResponse);
   }
 
   /**

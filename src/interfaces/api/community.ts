@@ -70,6 +70,7 @@ export class CreateCommunity {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   posting_restricted_to_mods: Option<boolean>;
+  auth_sign: Option<string>;
   auth: string;
 
   constructor(init: CreateCommunity) {
@@ -195,6 +196,7 @@ export class EditCommunity {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   posting_restricted_to_mods: Option<boolean>;
+  auth_sign: Option<string>;
   auth: string;
 
   constructor(init: EditCommunity) {

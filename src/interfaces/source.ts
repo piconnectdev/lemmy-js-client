@@ -16,12 +16,14 @@ export class LocalUserSettings {
   interface_language: string;
   show_avatars: boolean;
   send_notifications_to_email: boolean;
+  validator_time: string;
   show_bot_accounts: boolean;
   show_scores: boolean;
   show_read_posts: boolean;
   show_new_post_notifs: boolean;
   email_verified: boolean;
   accepted_application: boolean;
+  sign_data: boolean;
 }
 
 export class PersonSafe {
@@ -53,7 +55,10 @@ export class PersonSafe {
   banner: Option<string>;
   deleted: boolean;
   inbox_url: string;
-  shared_inbox_url: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  shared_inbox_url: Option<string>;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -64,14 +69,17 @@ export class PersonSafe {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   ban_expires: Option<string>;
+  instance_id: number;
 
-  verified: boolean;
   pi_address: Option<string>;
   web3_address: Option<string>;
-  sol_address: Option<string>;
+  pol_address: Option<string>;
   dap_address: Option<string>;
   cosmos_address: Option<string>;
-  cert: Option<string>;
+  sui_address: Option<string>;
+  ton_address: Option<string>;
+  auth_sign: Option<string>;
+  srv_sign: Option<string>;
   tx: Option<string>;
 }
 
@@ -87,9 +95,6 @@ export class Site {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   updated: Option<string>;
-  enable_downvotes: boolean;
-  open_registration: boolean;
-  enable_nsfw: boolean;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -102,6 +107,23 @@ export class Site {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   description: Option<string>;
+  actor_id: string;
+  last_refreshed_at: string;
+  inbox_url: string;
+  private_key: Option<string>;
+  public_key: string;
+  instance_id: number;
+  srv_sign: Option<string>;
+  tx: Option<string>;
+}
+
+export class LocalSite {
+  id: number;
+  site_id: number;
+  site_setup: boolean;
+  enable_downvotes: boolean;
+  open_registration: boolean;
+  enable_nsfw: boolean;
   community_creation_admin_only: boolean;
   require_email_verification: boolean;
   require_application: boolean;
@@ -112,19 +134,49 @@ export class Site {
   private_instance: boolean;
   default_theme: string;
   default_post_listing_type: string;
-  actor_id: string;
-  last_refreshed_at: string;
-  inbox_url: string;
-  public_key: string;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   legal_information: Option<string>;
+  hide_modlog_mod_names: boolean;
   application_email_admins: boolean;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  hide_modlog_mod_names: Option<boolean>;
+  slur_filter_regex: Option<string>;
+  actor_name_max_length: number;
+  federation_enabled: boolean;
+  federation_debug: boolean;
+  federation_worker_count: number;
+  captcha_enabled: boolean;
+  captcha_difficulty: string;
+  published: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  updated: Option<string>;
+}
+
+export class LocalSiteRateLimit {
+  id: number;
+  local_site_id: number;
+  message: number;
+  message_per_second: number;
+  post: number;
+  post_per_second: number;
+  register: number;
+  register_per_second: number;
+  image: number;
+  image_per_second: number;
+  comment: number;
+  comment_per_second: number;
+  search: number;
+  search_per_second: number;
+  published: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  updated: Option<string>;
 }
 
 export class PrivateMessage {
@@ -142,7 +194,8 @@ export class PrivateMessage {
   ap_id: string;
   local: boolean;
   secured: string;
-  cert: string;
+  auth_sign: string;
+  srv_sign: string;
   tx: string;
 }
 
@@ -214,7 +267,8 @@ export class Post {
   ap_id: string;
   local: boolean;
   language_id: number;
-  cert: string;
+  auth_sign: string;
+  srv_sign: string;
   tx: string;
 }
 
@@ -438,7 +492,11 @@ export class CommunitySafe {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   banner: Option<string>;
+  hidden: boolean;
   posting_restricted_to_mods: boolean;
+  instance_id: number;
+  srv_sign: string;
+  tx: string;
 }
 
 export class CommentReport {
@@ -480,7 +538,8 @@ export class Comment {
   path: string;
   distinguished: boolean;
   language_id: number;
-  cert: string;
+  auth_sign: string;
+  srv_sign: string;
   tx: string;
 }
 
@@ -522,16 +581,27 @@ export class Language {
 }
 
 export class PrivateMessageReport {
-  id: number;
-  creator_id: number;
-  private_message_id: number;
+  id: string;
+  creator_id: string;
+  private_message_id: string;
   original_pm_text: string;
   reason: string;
   resolved: boolean;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  resolver_id: Option<number>;
+  resolver_id: Option<string>;
+  published: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  updated: Option<string>;
+}
+
+export class Tagline {
+  id: string;
+  local_site_id: string;
+  content: string;
   published: string;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
