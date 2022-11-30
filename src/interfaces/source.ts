@@ -69,7 +69,7 @@ export class PersonSafe {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   ban_expires: Option<string>;
-  instance_id: number;
+  instance_id: string;
 
   pi_address: Option<string>;
   web3_address: Option<string>;
@@ -112,14 +112,14 @@ export class Site {
   inbox_url: string;
   private_key: Option<string>;
   public_key: string;
-  instance_id: number;
+  instance_id: string;
   srv_sign: Option<string>;
   tx: Option<string>;
 }
 
 export class LocalSite {
-  id: number;
-  site_id: number;
+  id: string;
+  site_id: string;
   site_setup: boolean;
   enable_downvotes: boolean;
   open_registration: boolean;
@@ -158,8 +158,8 @@ export class LocalSite {
 }
 
 export class LocalSiteRateLimit {
-  id: number;
-  local_site_id: number;
+  id: string;
+  local_site_id: string;
   message: number;
   message_per_second: number;
   post: number;
@@ -494,7 +494,7 @@ export class CommunitySafe {
   banner: Option<string>;
   hidden: boolean;
   posting_restricted_to_mods: boolean;
-  instance_id: number;
+  instance_id: string;
   srv_sign: string;
   tx: string;
 }
