@@ -681,11 +681,17 @@ export class ExternalAccount {
   puid: Option<string>;
   cli_time: number;
   comment: Option<string>;
+  constructor(init: ExternalAccount) {
+    Object.assign(this, init);
+  }
 }
 
 export class Web3Register {
   ea: ExternalAccount;
   info: Register;
+  constructor(init: Web3Register) {
+    Object.assign(this, init);
+  }
 }
 
 export class Web3Login {
@@ -694,23 +700,35 @@ export class Web3Login {
   signature: string;
   cli_time: number;
   info: Login;
+  constructor(init: Web3Login) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiRegister {
   ea: ExternalAccount;
   info: Register;
+  constructor(init: PiRegister) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiAgreeRegister {
   ea: ExternalAccount;
   info: Register;
   paymentid: string;
+  constructor(init: PiAgreeRegister) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiRegisterWithFee {
   ea: ExternalAccount;
   txid: string;
   info: Register;
+  constructor(init: PiRegisterWithFee) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiLogin {
@@ -719,6 +737,9 @@ export class PiLogin {
   // pi_token: string;
   ea: ExternalAccount;
   info: Login;
+  constructor(init: PiLogin) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiApprove {
@@ -729,6 +750,9 @@ export class PiApprove {
   paymentid: string;
   comment: Option<string>;
   auth: Option<string>;
+  constructor(init: PiApprove) {
+    Object.assign(this, init);
+  }
 }
 
 export class PiTip {
@@ -740,4 +764,7 @@ export class PiTip {
   comment: Option<string>;
   txid: string;
   auth: Option<string>;
+  constructor(init: PiTip) {
+    Object.assign(this, init);
+  }
 }

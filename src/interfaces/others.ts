@@ -94,7 +94,7 @@ export enum UserOperation {
   Web3Login,
   PiRegister,
   PiLogin,
-  PiAgree,
+  PiAgreeRegister,
   PiRegisterWithFee,
   PiApprove,
   PiTip,
