@@ -161,8 +161,8 @@ export class LemmyWebsocket {
   /**
    * Register a new user.
    */
-  register(register: Register) {
-    return wrapper(UserOperation.Register, register);
+  register(form: Register) {
+    return wrapper(UserOperation.Register, form);
   }
 
   /**
@@ -175,43 +175,43 @@ export class LemmyWebsocket {
   /**
    * Register a new user.
    */
-  web3Register(register: Web3Register) {
-    return wrapper(UserOperation.Web3Register, register);
+  web3Register(form: Web3Register) {
+    return wrapper(UserOperation.Web3Register, form);
   }
 
   /**
    * Register a new user.
    */
-  piRegister(register: PiRegister) {
-    return wrapper(UserOperation.PiRegister, register);
+  piRegister(form: PiRegister) {
+    return wrapper(UserOperation.PiRegister, form);
   }
 
   /**
    * Agree pay for register a new user.
    */
-  piAgree(agree: PiAgreeRegister) {
-    return wrapper(UserOperation.PiAgreeRegister, agree);
+  piAgree(form: PiAgreeRegister) {
+    return wrapper(UserOperation.PiAgreeRegister, form);
   }
 
   /**
    * Register a new user.
    */
-  piRegisterWithFee(register: PiRegisterWithFee) {
-    return wrapper(UserOperation.PiRegisterWithFee, register);
+  piRegisterWithFee(form: PiRegisterWithFee) {
+    return wrapper(UserOperation.PiRegisterWithFee, form);
   }
 
   /**
    * Agree pay for register a new user.
    */
-  piApprove(approve: PiApprove) {
-    return wrapper(UserOperation.PiApprove, approve);
+  piApprove(form: PiApprove) {
+    return wrapper(UserOperation.PiApprove, form);
   }
 
   /**
    * Agree pay for register a new user.
    */
-  piPayment(payment: PiTip) {
-    return wrapper(UserOperation.PiTip, payment);
+  piPayment(form: PiTip) {
+    return wrapper(UserOperation.PiTip, form);
   }
 
   /**
