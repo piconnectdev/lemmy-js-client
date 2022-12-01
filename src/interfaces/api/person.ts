@@ -673,14 +673,12 @@ export class BannedPersonsResponse {
 }
 
 export class ExternalAccount {
-  provider: Option<string>;
+  provider: string;
   account: string;
   token: string;
   signature: string;
-  extra: Option<string>;
-  puid: Option<string>;
-  cli_time: number;
-  comment: Option<string>;
+  extra: string;
+  epoch: number;
   constructor(init: ExternalAccount) {
     Object.assign(this, init);
   }
