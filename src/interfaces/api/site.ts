@@ -318,6 +318,10 @@ export class CreateSite {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   blocked_instances: Option<string[]>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth_sign: Option<string>;
   constructor(init: CreateSite) {
     Object.assign(this, init);
   }
@@ -488,6 +492,10 @@ export class EditSite {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   taglines: Option<string[]>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth_sign: Option<string>;
   auth: string;
 
   constructor(init: EditSite) {

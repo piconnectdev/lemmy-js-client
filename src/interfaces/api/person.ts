@@ -30,8 +30,6 @@ export class Login {
  */
 export class Register {
   username: string;
-  payment_id: Option<string>;
-  pi_username: Option<string>;
   /**
    * Email is mandatory if email verification is enabled on the server
    */
@@ -197,11 +195,45 @@ export class SaveUserSettings {
   @Expose()
   discussion_languages: Option<number[]>;
   auth: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   pi_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   web3_address: Option<string>;
-  sol_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pol_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   dap_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   cosmos_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  sui_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  ton_address: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   auth_sign: Option<string>;
   sign_data: boolean;
   constructor(init: SaveUserSettings) {
@@ -471,6 +503,13 @@ export class PasswordChange {
 export class CreatePrivateMessage {
   content: string;
   recipient_id: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  secured: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   auth_sign: Option<string>;
   auth: string;
 
@@ -482,6 +521,13 @@ export class CreatePrivateMessage {
 export class EditPrivateMessage {
   private_message_id: string;
   content: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  secured: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   auth_sign: Option<string>;
   auth: string;
 
@@ -673,12 +719,28 @@ export class BannedPersonsResponse {
 }
 
 export class ExternalAccount {
-  provider: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  provider: Option<string>;
   account: string;
-  token: string;
-  signature: string;
-  extra: string;
-  epoch: number;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  token: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  signature: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  extra: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  epoch: Option<number>;
   constructor(init: ExternalAccount) {
     Object.assign(this, init);
   }
@@ -693,10 +755,7 @@ export class Web3Register {
 }
 
 export class Web3Login {
-  address: string;
-  token: string;
-  signature: string;
-  cli_time: number;
+  ea: ExternalAccount;
   info: Login;
   constructor(init: Web3Login) {
     Object.assign(this, init);
@@ -730,10 +789,7 @@ export class PiRegisterWithFee {
 }
 
 export class PiLogin {
-  pi_username: string;
-  pi_uid: string;
-  pi_token: string;
-  //ea: ExternalAccount;
+  ea: ExternalAccount;
   info: Login;
   constructor(init: PiLogin) {
     Object.assign(this, init);
@@ -742,12 +798,16 @@ export class PiLogin {
 
 export class PiApprove {
   ea: ExternalAccount;
-  pi_username: string;
-  pi_uid: Option<string>;
-  person_id: Option<string>;
   paymentid: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  person_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   comment: Option<string>;
-  auth: Option<string>;
+  auth: string;
   constructor(init: PiApprove) {
     Object.assign(this, init);
   }
@@ -755,13 +815,17 @@ export class PiApprove {
 
 export class PiTip {
   ea: ExternalAccount;
-  pi_username: string;
-  pi_uid: Option<string>;
-  person_id: Option<string>;
   paymentid: string;
-  comment: Option<string>;
   txid: string;
-  auth: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  person_id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  comment: Option<string>;
+  auth: string;
   constructor(init: PiTip) {
     Object.assign(this, init);
   }

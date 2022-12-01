@@ -23,6 +23,10 @@ export class CreateComment {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   form_id: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   auth_sign: Option<string>;
   auth: string;
 
@@ -55,6 +59,10 @@ export class EditComment {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   form_id: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
   auth_sign: Option<string>;
   auth: string;
 
@@ -89,19 +97,6 @@ export class RemoveComment {
   auth: string;
 
   constructor(init: RemoveComment) {
-    Object.assign(this, init);
-  }
-}
-
-/**
- * Only the recipient can do this.
- */
-export class MarkCommentAsRead {
-  comment_id: string;
-  read: boolean;
-  auth: string;
-
-  constructor(init: MarkCommentAsRead) {
     Object.assign(this, init);
   }
 }
