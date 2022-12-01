@@ -724,23 +724,23 @@ export class ExternalAccount {
   @Expose()
   provider: Option<string>;
   account: string;
+  token: string;
 
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  token: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
   signature: Option<string>;
+  epoch: number;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   extra: Option<string>;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  epoch: Option<number>;
+  uuid: Option<string>;
   constructor(init: ExternalAccount) {
     Object.assign(this, init);
   }
@@ -755,7 +755,10 @@ export class Web3Register {
 }
 
 export class Web3Login {
-  ea: ExternalAccount;
+  account: string;
+  token: string;
+  epoch: number;
+  signature: Option<string>;
   info: Login;
   constructor(init: Web3Login) {
     Object.assign(this, init);
@@ -779,11 +782,41 @@ export class PiAgreeRegister {
   }
 }
 
+export class PiAgreeRegisterResponse {
+  success: boolean;
+  paymentid: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  id: Option<string>;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  extra: Option<string>;
+  constructor(init: PiAgreeRegisterResponse) {
+    Object.assign(this, init);
+  }
+}
+
 export class PiRegisterWithFee {
   ea: ExternalAccount;
+  paymentid: string;
   txid: string;
   info: Register;
   constructor(init: PiRegisterWithFee) {
+    Object.assign(this, init);
+  }
+}
+
+export class PiRegisterResponse {
+  success: boolean;
+  login: LoginResponse;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  extra: Option<string>;
+  constructor(init: PiRegisterResponse) {
     Object.assign(this, init);
   }
 }
@@ -797,8 +830,14 @@ export class PiLogin {
 }
 
 export class PiApprove {
-  ea: ExternalAccount;
+  pi_username: string;
   paymentid: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_uid: Option<string>;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -813,10 +852,21 @@ export class PiApprove {
   }
 }
 
+export class PiApproveResponse {
+  success: boolean;
+  id: string;
+  paymentid: string;
+}
+
 export class PiTip {
-  ea: ExternalAccount;
+  pi_username: string;
   paymentid: string;
   txid: string;
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_uid: Option<string>;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -829,4 +879,49 @@ export class PiTip {
   constructor(init: PiTip) {
     Object.assign(this, init);
   }
+}
+
+export class PiTipResponse {
+  success: boolean;
+  id: string;
+  paymentid: string;
+}
+
+export class PiPaymentFound {
+  pi_username: string;
+  paymentid: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_token: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_uid: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  person_id: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  comment: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth: Option<string>;
+  constructor(init: PiPaymentFound) {
+    Object.assign(this, init);
+  }
+}
+
+export class PiPaymentFoundResponse {
+  success: boolean;
+  id: string;
+  paymentid: string;
 }
