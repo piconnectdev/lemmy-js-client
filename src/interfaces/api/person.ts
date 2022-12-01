@@ -732,10 +732,10 @@ export class PiRegisterWithFee {
 }
 
 export class PiLogin {
-  // pi_username: string;
-  // pi_uid: string;
-  // pi_token: string;
-  ea: ExternalAccount;
+  pi_username: string;
+  pi_uid: string;
+  pi_token: string;
+  //ea: ExternalAccount;
   info: Login;
   constructor(init: PiLogin) {
     Object.assign(this, init);
