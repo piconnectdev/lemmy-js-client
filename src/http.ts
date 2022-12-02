@@ -76,11 +76,17 @@ import {
   PasswordResetResponse,
   PersonMentionResponse,
   PiAgreeRegister,
+  PiAgreeRegisterResponse,
   PiApprove,
+  PiApproveResponse,
   PiLogin,
+  PiPaymentFound,
+  PiPaymentFoundResponse,
   PiRegister,
+  PiRegisterResponse,
   PiRegisterWithFee,
   PiTip,
+  PiTipResponse,
   PrivateMessageReportResponse,
   PrivateMessageResponse,
   PrivateMessagesResponse,
@@ -805,16 +811,30 @@ export class LemmyHttp {
   }
 
   /**
-   * Register a new user.
+   * Fetch a Web3 login token.
    *
-   * `HTTP.POST /user/register`
+   * `HTTP.GET /user/get_token`
+   */
+  async getToken() {
+    return this.wrapper(
+      HttpType.Get,
+      "/user/get_token",
+      {},
+      GetCaptchaResponse
+    );
+  }
+
+  /**
+   * Register a new web3 user, use metamask / walletconnect.
+   *
+   * `HTTP.POST /web3/register`
    */
   async web3Register(form: Web3Register) {
     return this.wrapper(HttpType.Post, "/web3/register", form, LoginResponse);
   }
 
   /**
-   * Log into lemmy.
+   * Log into lemmy, use web3 signature.
    * `HTTP.POST /user/web3login`
    */
   async web3Login(form: Web3Login): Promise<LoginResponse> {
@@ -822,24 +842,29 @@ export class LemmyHttp {
   }
 
   /**
-   * Register a new user.
+   * Register a new user, use Pi Network account.
    *
-   * `HTTP.POST /user/register`
+   * `HTTP.POST /pi/register`
    */
   async piRegister(form: PiRegister) {
     return this.wrapper(HttpType.Post, "/pi/register", form, LoginResponse);
   }
 
   /**
-   * Log into lemmy.
+   * Approve pi network transaction for register new user.
    * `HTTP.POST /pi/login`
    */
-  async piAgree(form: PiAgreeRegister): Promise<LoginResponse> {
-    return this.wrapper(HttpType.Post, "/pi/agree", form, LoginResponse);
+  async piAgree(form: PiAgreeRegister): Promise<PiAgreeRegisterResponse> {
+    return this.wrapper(
+      HttpType.Post,
+      "/pi/agree",
+      form,
+      PiAgreeRegisterResponse
+    );
   }
 
   /**
-   * Register a new user.
+   * Register a new user with fee, use Pi .
    *
    * `HTTP.POST /user/register`
    */
@@ -848,7 +873,7 @@ export class LemmyHttp {
       HttpType.Post,
       "/pi/register_with_fee",
       form,
-      LoginResponse
+      PiRegisterResponse
     );
   }
 
@@ -861,19 +886,31 @@ export class LemmyHttp {
   }
 
   /**
-   * Log into lemmy.
+   * Approve pi network transaction for tips
    * `HTTP.POST /pi/approve`
    */
-  async piApprove(form: PiApprove): Promise<LoginResponse> {
-    return this.wrapper(HttpType.Post, "/pi/approve", form, LoginResponse);
+  async piApprove(form: PiApprove): Promise<PiApproveResponse> {
+    return this.wrapper(HttpType.Post, "/pi/approve", form, PiApproveResponse);
   }
 
+  /**
+   * Pi network payment success.
+   * `HTTP.POST /pi/tip`
+   */
+  async piPayment(form: PiTip): Promise<PiTipResponse> {
+    return this.wrapper(HttpType.Post, "/pi/complete", form, PiTipResponse);
+  }
   /**
    * Log into lemmy.
    * `HTTP.POST /pi/approve`
    */
-  async piPayment(form: PiTip): Promise<LoginResponse> {
-    return this.wrapper(HttpType.Post, "/pi/tip", form, LoginResponse);
+  async piPaymentFound(form: PiPaymentFound): Promise<PiPaymentFoundResponse> {
+    return this.wrapper(
+      HttpType.Post,
+      "/pi/found",
+      form,
+      PiPaymentFoundResponse
+    );
   }
 
   /**
@@ -973,20 +1010,6 @@ export class LemmyHttp {
     return this.wrapper(
       HttpType.Get,
       "/user/get_captcha",
-      {},
-      GetCaptchaResponse
-    );
-  }
-
-  /**
-   * Fetch a Web3 login token.
-   *
-   * `HTTP.GET /user/get_token`
-   */
-  async getToken() {
-    return this.wrapper(
-      HttpType.Get,
-      "/user/get_token",
       {},
       GetCaptchaResponse
     );

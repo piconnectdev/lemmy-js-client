@@ -676,7 +676,7 @@ export class GetUnreadCount {
 export class GetUnreadCountResponse {
   replies: number;
   mentions: number;
-  private_messages: string;
+  private_messages: number;
 }
 
 export class VerifyEmail {
