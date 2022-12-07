@@ -52,6 +52,7 @@ import {
   PiAgreeRegister,
   PiApprove,
   PiLogin,
+  PiPaymentFound,
   PiRegister,
   PiRegisterWithFee,
   PiTip,
@@ -212,6 +213,13 @@ export class LemmyWebsocket {
    */
   piPayment(form: PiTip) {
     return wrapper(UserOperation.PiTip, form);
+  }
+
+  /**
+   * Agree pay for register a new user.
+   */
+  piPaymentFound(form: PiPaymentFound) {
+    return wrapper(UserOperation.PiPaymentFound, form);
   }
 
   /**

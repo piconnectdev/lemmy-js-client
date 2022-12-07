@@ -98,6 +98,7 @@ export enum UserOperation {
   PiRegisterWithFee,
   PiApprove,
   PiTip,
+  PiPaymentFound,
 }
 
 /**
