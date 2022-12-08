@@ -874,7 +874,7 @@ export class PiApprove {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   comment: Option<string>;
-  auth: string;
+  auth: Option<string>;
   constructor(init: PiApprove) {
     Object.assign(this, init);
   }
@@ -911,7 +911,7 @@ export class PiTip {
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   comment: Option<string>;
-  auth: string;
+  auth: Option<string>;
   constructor(init: PiTip) {
     Object.assign(this, init);
   }
