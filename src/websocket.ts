@@ -51,6 +51,7 @@ import {
   PasswordReset,
   PiAgreeRegister,
   PiApprove,
+  PiKey,
   PiLogin,
   PiPaymentFound,
   PiRegister,
@@ -174,14 +175,14 @@ export class LemmyWebsocket {
   }
 
   /**
-   * Register a new user.
+   * Register a new web3 user.
    */
   web3Register(form: Web3Register) {
     return wrapper(UserOperation.Web3Register, form);
   }
 
   /**
-   * Register a new user.
+   * Register a new user for Pi Network member with their access token.
    */
   piRegister(form: PiRegister) {
     return wrapper(UserOperation.PiRegister, form);
@@ -195,31 +196,38 @@ export class LemmyWebsocket {
   }
 
   /**
-   * Register a new user.
+   * Register a new user with fee.
    */
   piRegisterWithFee(form: PiRegisterWithFee) {
     return wrapper(UserOperation.PiRegisterWithFee, form);
   }
 
   /**
-   * Agree pay for register a new user.
+   * Approve pay for tip / store blockchain.
    */
   piApprove(form: PiApprove) {
     return wrapper(UserOperation.PiApprove, form);
   }
 
   /**
-   * Agree pay for register a new user.
+   * Finish payment.
    */
   piPayment(form: PiTip) {
     return wrapper(UserOperation.PiTip, form);
   }
 
   /**
-   * Agree pay for register a new user.
+   * Found incompleted pi payment.
    */
   piPaymentFound(form: PiPaymentFound) {
     return wrapper(UserOperation.PiPaymentFound, form);
+  }
+
+  /**
+   * Found incompleted pi payment.
+   */
+  piKey(form: PiKey) {
+    return wrapper(UserOperation.PiKey, form);
   }
 
   /**

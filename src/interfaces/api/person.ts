@@ -719,12 +719,13 @@ export class BannedPersonsResponse {
 }
 
 export class ExternalAccount {
+  account: string;
+  token: string;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
   provider: Option<string>;
-  account: string;
-  token: string;
 
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
@@ -766,6 +767,11 @@ export class Web3Login {
 }
 
 export class PiRegister {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
   ea: ExternalAccount;
   info: Register;
   constructor(init: PiRegister) {
@@ -774,6 +780,11 @@ export class PiRegister {
 }
 
 export class PiAgreeRegister {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
   ea: ExternalAccount;
   info: Register;
   paymentid: string;
@@ -800,6 +811,11 @@ export class PiAgreeRegisterResponse {
 }
 
 export class PiRegisterWithFee {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
   ea: ExternalAccount;
   paymentid: string;
   txid: string;
@@ -822,6 +838,11 @@ export class PiRegisterResponse {
 }
 
 export class PiLogin {
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
   ea: ExternalAccount;
   info: Login;
   constructor(init: PiLogin) {
@@ -831,7 +852,14 @@ export class PiLogin {
 
 export class PiApprove {
   pi_username: string;
+  pi_token: string;
+
   paymentid: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
 
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
@@ -860,8 +888,16 @@ export class PiApproveResponse {
 
 export class PiTip {
   pi_username: string;
+  pi_token: string;
+
   paymentid: string;
   txid: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -889,12 +925,14 @@ export class PiTipResponse {
 
 export class PiPaymentFound {
   pi_username: string;
+  pi_token: string;
+
   paymentid: string;
 
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
-  pi_token: Option<string>;
+  domain: Option<string>;
 
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
@@ -924,4 +962,41 @@ export class PiPaymentFoundResponse {
   success: boolean;
   id: string;
   paymentid: string;
+}
+
+export class PiKey {
+  pi_username: string;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  domain: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_token: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_uid: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  pi_key: Option<string>;
+
+  @Transform(({ value }) => toOption(value), { toClassOnly: true })
+  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
+  @Expose()
+  auth: Option<string>;
+  constructor(init: PiKey) {
+    Object.assign(this, init);
+  }
+}
+
+export class PiKeyResponse {
+  success: boolean;
+  id: string;
 }

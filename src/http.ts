@@ -79,11 +79,12 @@ import {
   PiAgreeRegisterResponse,
   PiApprove,
   PiApproveResponse,
+  PiKey,
+  PiKeyResponse,
   PiLogin,
   PiPaymentFound,
   PiPaymentFoundResponse,
   PiRegister,
-  PiRegisterResponse,
   PiRegisterWithFee,
   PiTip,
   PiTipResponse,
@@ -873,7 +874,7 @@ export class LemmyHttp {
       HttpType.Post,
       "/pi/register_with_fee",
       form,
-      PiRegisterResponse
+      LoginResponse
     );
   }
 
@@ -901,8 +902,8 @@ export class LemmyHttp {
     return this.wrapper(HttpType.Post, "/pi/complete", form, PiTipResponse);
   }
   /**
-   * Log into lemmy.
-   * `HTTP.POST /pi/approve`
+   * Pi Payment incompleted found
+   * `HTTP.POST /pi/found`
    */
   async piPaymentFound(form: PiPaymentFound): Promise<PiPaymentFoundResponse> {
     return this.wrapper(
@@ -911,6 +912,13 @@ export class LemmyHttp {
       form,
       PiPaymentFoundResponse
     );
+  }
+  /**
+   * Pi Payment incompleted found
+   * `HTTP.POST /pi/found`
+   */
+  async piKey(form: PiKey): Promise<PiKeyResponse> {
+    return this.wrapper(HttpType.Post, "/pi/key", form, PiKeyResponse);
   }
 
   /**
