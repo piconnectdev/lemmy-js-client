@@ -298,7 +298,6 @@ export class Post {
   updated: Option<string>;
   deleted: boolean;
   nsfw: boolean;
-  stickied: boolean;
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -318,6 +317,9 @@ export class Post {
   ap_id: string;
   local: boolean;
   language_id: number;
+  featured_community: boolean;
+  featured_local: boolean;
+
   @Transform(({ value }) => toOption(value), { toClassOnly: true })
   @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
   @Expose()
@@ -365,14 +367,12 @@ export class ModLockPost {
   when_: string;
 }
 
-export class ModStickyPost {
+export class ModFeaturePost {
   id: string;
   mod_person_id: string;
   post_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  stickied: Option<boolean>;
+  featured: boolean;
+  is_featured_community: boolean;
   when_: string;
 }
 
