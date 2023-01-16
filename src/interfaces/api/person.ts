@@ -409,7 +409,7 @@ export class Web3Login {
   token: string;
   epoch: number;
   signature?: string;
-  info: Login;
+  info?: Login;
 }
 
 export class PiRegister {
@@ -454,7 +454,7 @@ export class PiLogin {
   domain?: string;
 
   ea: ExternalAccount;
-  info: Login;
+  info?: Login;
 }
 
 export class PiApprove {
