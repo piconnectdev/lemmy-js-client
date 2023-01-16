@@ -1,137 +1,73 @@
-import { Option } from "@sniptt/monads";
-import { Expose, Transform, Type } from "class-transformer";
-import "reflect-metadata";
-import { toOption, toUndefined } from "../../utils";
 import { CommentSortType, ListingType } from "../others";
 import { CommentReportView, CommentView } from "../views";
 
-export class CreateComment {
+export interface CreateComment {
   content: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  parent_id: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  language_id: Option<number>;
+  parent_id?: string;
+  language_id?: number;
   post_id: string;
   /**
    * An optional front end ID, to tell which is comment is coming back.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  form_id: Option<string>;
-
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
+  form_id?: string;
   auth: string;
-
-  constructor(init: CreateComment) {
-    Object.assign(this, init);
-  }
+  auth_sign?: string;
 }
 
-export class EditComment {
+export interface EditComment {
   comment_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  content: Option<string>;
+  content?: string;
   /**
    * "Distinguishes" a comment, or speak officially. Only doable by community mods or admins.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  distinguished: Option<boolean>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  language_id: Option<number>;
+  distinguished?: boolean;
+  language_id?: number;
   /**
    * An optional front end ID, to tell which is comment is coming back.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  form_id: Option<string>;
-
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
+  form_id?: string;
   auth: string;
-
-  constructor(init: EditComment) {
-    Object.assign(this, init);
-  }
+  auth_sign?: string;
 }
 
 /**
  * Only the creator can delete the comment.
  */
-export class DeleteComment {
+export interface DeleteComment {
   comment_id: string;
   deleted: boolean;
   auth: string;
-
-  constructor(init: DeleteComment) {
-    Object.assign(this, init);
-  }
 }
 
 /**
  * Only a mod or admin can remove the comment.
  */
-export class RemoveComment {
+export interface RemoveComment {
   comment_id: string;
   removed: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
+  reason?: string;
   auth: string;
-
-  constructor(init: RemoveComment) {
-    Object.assign(this, init);
-  }
 }
 
-export class SaveComment {
+export interface SaveComment {
   comment_id: string;
   save: boolean;
   auth: string;
-
-  constructor(init: SaveComment) {
-    Object.assign(this, init);
-  }
 }
 
-export class CommentResponse {
-  @Type(() => CommentView)
+export interface CommentResponse {
   comment_view: CommentView;
   recipient_ids: string[];
   /**
    * An optional front end ID, to tell which is comment is coming back.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  form_id: Option<string>;
+  form_id?: string;
 }
 
-export class CreateCommentLike {
+export interface CreateCommentLike {
   comment_id: string;
   score: number;
   auth: string;
-
-  constructor(init: CreateCommentLike) {
-    Object.assign(this, init);
-  }
 }
 
 /**
@@ -140,122 +76,58 @@ export class CreateCommentLike {
  * You can use either `community_id` or `community_name` as an id.
  * To get posts for a federated community by name, use `name@instance.tld` .
  */
-export class GetComments {
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  type_: Option<ListingType>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  sort: Option<CommentSortType>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  max_depth: Option<number>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  page: Option<number>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  limit: Option<number>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  community_id: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  community_name: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  post_id: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  parent_id: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  saved_only: Option<boolean>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth: Option<string>;
-
-  constructor(init: GetComments) {
-    Object.assign(this, init);
-  }
+export interface GetComments {
+  type_?: ListingType;
+  sort?: CommentSortType;
+  max_depth?: number;
+  page?: number;
+  limit?: number;
+  community_id?: string;
+  community_name?: string;
+  post_id?: string;
+  parent_id?: string;
+  saved_only?: boolean;
+  auth?: string;
 }
 
-export class GetCommentsResponse {
-  @Type(() => CommentView)
+export interface GetCommentsResponse {
   comments: CommentView[];
 }
 
-export class CreateCommentReport {
+export interface CreateCommentReport {
   comment_id: string;
   reason: string;
   auth: string;
-
-  constructor(init: CreateCommentReport) {
-    Object.assign(this, init);
-  }
 }
 
-export class CommentReportResponse {
-  @Type(() => CommentReportView)
+export interface CommentReportResponse {
   comment_report_view: CommentReportView;
 }
 
-export class ResolveCommentReport {
+export interface ResolveCommentReport {
   report_id: string;
   /**
    * Either resolve or unresolve a report.
    */
   resolved: boolean;
   auth: string;
-
-  constructor(init: ResolveCommentReport) {
-    Object.assign(this, init);
-  }
 }
 
-export class ListCommentReports {
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  page: Option<number>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  limit: Option<number>;
+export interface ListCommentReports {
+  page?: number;
+  limit?: number;
   /**
    * if no community is given, it returns reports for all communities moderated by the auth user.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  community_id: Option<string>;
+  community_id?: string;
 
   /**
    * Only shows the unresolved reports.
    */
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  unresolved_only: Option<boolean>;
+  unresolved_only?: boolean;
   auth: string;
-
-  constructor(init: ListCommentReports) {
-    Object.assign(this, init);
-  }
 }
 
-export class ListCommentReportsResponse {
-  @Type(() => CommentReportView)
+export interface ListCommentReportsResponse {
   comment_reports: CommentReportView[];
 }

@@ -1,14 +1,7 @@
-import { Option } from "@sniptt/monads";
-import { Expose, Transform } from "class-transformer";
-import { toOption, toUndefined } from "../utils";
-
-export class LocalUserSettings {
+export interface LocalUserSettings {
   id: string;
   person_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  email: Option<string>;
+  email?: string;
   show_nsfw: boolean;
   theme: string;
   default_sort_type: number;
@@ -26,163 +19,81 @@ export class LocalUserSettings {
   sign_data: boolean;
 }
 
-export class PersonSafe {
+export interface PersonSafe {
   id: string;
   name: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  display_name: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  avatar: Option<string>;
+  display_name?: string;
+  avatar?: string;
   banned: boolean;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
   actor_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  bio: Option<string>;
+  bio?: string;
   local: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  banner: Option<string>;
+  banner?: string;
   deleted: boolean;
   inbox_url: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  shared_inbox_url: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  matrix_user_id: Option<string>;
+  shared_inbox_url?: string;
+  matrix_user_id?: string;
   admin: boolean;
   bot_account: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  ban_expires: Option<string>;
-  instance_id: string;
+  ban_expires?: string;
+  instance_id: number;
 
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  pi_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  web3_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  pol_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  dap_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  cosmos_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  sui_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  ton_address: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  pi_address?: string;
+  web3_address?: string;
+  pol_address?: string;
+  dap_address?: string;
+  cosmos_address?: string;
+  sui_address?: string;
+  ton_address?: string;
+  auth_sign?: string;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class Site {
+export interface Site {
   id: string;
   name: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  sidebar: Option<string>;
+  sidebar?: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  icon: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  banner: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  description: Option<string>;
+  updated?: string;
+  icon?: string;
+  banner?: string;
+  description?: string;
   actor_id: string;
   last_refreshed_at: string;
   inbox_url: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  private_key: Option<string>;
+  private_key?: string;
   public_key: string;
   instance_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class LocalSite {
+export enum RegistrationMode {
+  Closed = "closed",
+  RequireApplication = "require_application",
+  Open = "open",
+}
+
+export interface LocalSite {
   id: string;
   site_id: string;
   site_setup: boolean;
   enable_downvotes: boolean;
-  open_registration: boolean;
+  registration_mode: RegistrationMode;
   enable_nsfw: boolean;
   community_creation_admin_only: boolean;
   require_email_verification: boolean;
-  require_application: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  application_question: Option<string>;
+  application_question?: string;
   private_instance: boolean;
   default_theme: string;
   default_post_listing_type: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  legal_information: Option<string>;
+  legal_information?: string;
   hide_modlog_mod_names: boolean;
   application_email_admins: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  slur_filter_regex: Option<string>;
+  slur_filter_regex?: string;
   actor_name_max_length: number;
   federation_enabled: boolean;
   federation_debug: boolean;
@@ -190,13 +101,10 @@ export class LocalSite {
   captcha_enabled: boolean;
   captcha_difficulty: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
 
-export class LocalSiteRateLimit {
+export interface LocalSiteRateLimit {
   id: string;
   local_site_id: string;
   message: number;
@@ -212,13 +120,10 @@ export class LocalSiteRateLimit {
   search: number;
   search_per_second: number;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
 
-export class PrivateMessage {
+export interface PrivateMessage {
   id: string;
   creator_id: string;
   recipient_id: string;
@@ -226,148 +131,82 @@ export class PrivateMessage {
   deleted: boolean;
   read: boolean;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
   ap_id: string;
   local: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  secured: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  secured?: string;
+  auth_sign?: string;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class PostReport {
+export interface PostReport {
   id: string;
   creator_id: string;
   post_id: string;
   original_post_name: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  original_post_url: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  original_post_body: Option<string>;
+  original_post_url?: string;
+  original_post_body?: string;
   reason: string;
   resolved: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  resolver_id: Option<string>;
+  resolver_id?: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
 
-export class Post {
+export interface Post {
   id: string;
   name: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  url: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  body: Option<string>;
+  url?: string;
+  body?: string;
   creator_id: string;
   community_id: string;
   removed: boolean;
   locked: boolean;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
   deleted: boolean;
   nsfw: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  embed_title: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  embed_description: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  embed_video_url: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  thumbnail_url: Option<string>;
+  embed_title?: string;
+  embed_description?: string;
+  embed_video_url?: string;
+  thumbnail_url?: string;
   ap_id: string;
   local: boolean;
   language_id: number;
   featured_community: boolean;
   featured_local: boolean;
 
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  auth_sign?: string;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class PasswordResetRequest {
+export interface PasswordResetRequest {
   id: string;
   local_user_id: string;
   token_encrypted: string;
   published: string;
 }
 
-export class ModRemovePost {
+export interface ModRemovePost {
   id: string;
   mod_person_id: string;
   post_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
+  reason?: string;
+  removed?: boolean;
   when_: string;
 }
 
-export class ModLockPost {
+export interface ModLockPost {
   id: string;
   mod_person_id: string;
   post_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  locked: Option<boolean>;
+  locked?: boolean;
   when_: string;
 }
 
-export class ModFeaturePost {
+export interface ModFeaturePost {
   id: string;
   mod_person_id: string;
   post_id: string;
@@ -376,249 +215,155 @@ export class ModFeaturePost {
   when_: string;
 }
 
-export class ModRemoveComment {
+export interface ModRemoveComment {
   id: string;
   mod_person_id: string;
   comment_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
+  reason?: string;
+  removed?: boolean;
   when_: string;
 }
 
-export class ModRemoveCommunity {
+export interface ModRemoveCommunity {
   id: string;
   mod_person_id: string;
   community_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  expires: Option<string>;
+  reason?: string;
+  removed?: boolean;
+  expires?: string;
   when_: string;
 }
 
-export class ModBanFromCommunity {
+export interface ModBanFromCommunity {
   id: string;
   mod_person_id: string;
   other_person_id: string;
   community_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  banned: Option<boolean>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  expires: Option<string>;
+  reason?: string;
+  banned?: boolean;
+  expires?: string;
   when_: string;
 }
 
-export class ModBan {
+export interface ModBan {
   id: string;
   mod_person_id: string;
   other_person_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  banned: Option<boolean>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  expires: Option<string>;
+  reason?: string;
+  banned?: boolean;
+  expires?: string;
   when_: string;
 }
 
-export class ModAddCommunity {
+export interface ModAddCommunity {
   id: string;
   mod_person_id: string;
   other_person_id: string;
   community_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
+  removed?: boolean;
   when_: string;
 }
 
-export class ModTransferCommunity {
+export interface ModTransferCommunity {
   id: string;
   mod_person_id: string;
   other_person_id: string;
   community_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
+  removed?: boolean;
   when_: string;
 }
 
-export class ModAdd {
+export interface ModAdd {
   id: string;
   mod_person_id: string;
   other_person_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  removed: Option<boolean>;
+  removed?: boolean;
   when_: string;
 }
 
-export class AdminPurgePerson {
+export interface AdminPurgePerson {
   id: string;
   admin_person_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
+  reason?: string;
   when_: string;
 }
 
-export class AdminPurgeCommunity {
+export interface AdminPurgeCommunity {
   id: string;
   admin_person_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
+  reason?: string;
   when_: string;
 }
 
-export class AdminPurgePost {
+export interface AdminPurgePost {
   id: string;
   admin_person_id: string;
   community_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
+  reason?: string;
   when_: string;
 }
 
-export class AdminPurgeComment {
+export interface AdminPurgeComment {
   id: string;
   admin_person_id: string;
   post_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  reason: Option<string>;
+  reason?: string;
   when_: string;
 }
 
-export class CommunitySafe {
+export interface CommunitySafe {
   id: string;
   name: string;
   title: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  description: Option<string>;
+  description?: string;
   removed: boolean;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
   deleted: boolean;
   nsfw: boolean;
   actor_id: string;
   local: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  icon: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  banner: Option<string>;
+  icon?: string;
+  banner?: string;
   hidden: boolean;
   posting_restricted_to_mods: boolean;
   instance_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class CommentReport {
+export interface CommentReport {
   id: string;
   creator_id: string;
   comment_id: string;
   original_comment_text: string;
   reason: string;
   resolved: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  resolver_id: Option<string>;
+  resolver_id?: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
 
-export class Comment {
+export interface Comment {
   id: string;
   creator_id: string;
   post_id: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  parent_id: Option<string>;
   content: string;
   removed: boolean;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
   deleted: boolean;
   ap_id: string;
   local: boolean;
   path: string;
   distinguished: boolean;
   language_id: number;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  auth_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  srv_sign: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  tx: Option<string>;
+  auth_sign?: string;
+  srv_sign?: string;
+  tx?: string;
 }
 
-export class PersonMention {
+export interface PersonMention {
   id: string;
   recipient_id: string;
   comment_id: string;
@@ -626,7 +371,7 @@ export class PersonMention {
   published: string;
 }
 
-export class CommentReply {
+export interface CommentReply {
   id: string;
   recipient_id: string;
   comment_id: string;
@@ -634,52 +379,37 @@ export class CommentReply {
   published: string;
 }
 
-export class RegistrationApplication {
+export interface RegistrationApplication {
   id: string;
   local_user_id: string;
   answer: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  admin_id: Option<string>;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  deny_reason: Option<string>;
+  admin_id?: string;
+  deny_reason?: string;
   published: string;
 }
 
-export class Language {
+export interface Language {
   id: number;
   code: string;
   name: string;
 }
 
-export class PrivateMessageReport {
+export interface PrivateMessageReport {
   id: string;
   creator_id: string;
   private_message_id: string;
   original_pm_text: string;
   reason: string;
   resolved: boolean;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  resolver_id: Option<string>;
+  resolver_id?: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
 
-export class Tagline {
+export interface Tagline {
   id: string;
   local_site_id: string;
   content: string;
   published: string;
-  @Transform(({ value }) => toOption(value), { toClassOnly: true })
-  @Transform(({ value }) => toUndefined(value), { toPlainOnly: true })
-  @Expose()
-  updated: Option<string>;
+  updated?: string;
 }
