@@ -73,7 +73,7 @@ export interface Site {
 
 export enum RegistrationMode {
   Closed = "closed",
-  RequireApplication = "require_application",
+  RequireApplication = "requireapplication",
   Open = "open",
 }
 
