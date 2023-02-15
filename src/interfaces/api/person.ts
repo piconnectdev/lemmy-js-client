@@ -570,3 +570,117 @@ export class PiKeyResponse {
   success: boolean;
   id: string;
 }
+
+export interface GetPiBalances {
+  domain?: string;
+  asset: string;
+  auth: string;
+}
+
+export interface GetPiBalancesResponse {
+  id?: string;
+  asset?: string;
+  status: string;
+  deposited: number;
+  rewarded: number;
+  withdrawed: number;
+  amount: number;
+  pending: number;
+}
+
+export class PiPaymentSafe {
+  id: string;
+  person_id?: string;
+  obj_cat?: string;
+  obj_id?: string;
+  ref_id?: string;
+  a2u: boolean;
+  asset?: string;
+
+  fee: number;
+  step: number;
+  finished: boolean;
+  comment?: string;
+  stat?: string;
+  published: string;
+  updated?: string;
+
+  // Payment data:
+  identifier: string; // The payment identifier
+  user_uid: string; // The user's app-specific ID
+  amount: number; // The payment amount
+  memo: string; // A string provided by the developer, shown to the user
+  metadata?: object; // An object provided by the developer for their own usage
+  from_address?: string;
+  to_address?: string; // The recipient address of the blockchain transaction
+  created_at: string; // The payment's creation timestamp
+
+  approved: boolean; // Server-Side Approval
+  verified: boolean; // Blockchain transaction verified
+  completed: boolean; // Server-Side Completion
+  cancelled: boolean; // Cancelled by the developer or by Pi Network
+  user_cancelled: boolean; // Cancelled by the user
+
+  tx_verified: boolean;
+  tx_link?: string;
+  tx_id?: string;
+  network?: string;
+}
+
+export interface CreatePayment {
+  // pi_username: string;
+  // pi_token: string;
+  // paymentid: string;
+  // pi_uid?: string;
+  domain?: string;
+  obj_cat?: string;
+  obj_id?: string;
+  ref_id?: string;
+  network?: string;
+  asset?: string;
+  amount: number;
+  comment?: string;
+  auth: string;
+}
+
+export interface CreatePaymentResponse {
+  success: boolean;
+  id: string;
+  pipayid?: string;
+}
+
+export interface PiWithdraw {
+  domain?: string;
+  asset: string;
+  amount: number;
+  comment?: string;
+  auth: string;
+}
+
+export interface PiWithdrawResponse {
+  id: string;
+  status?: string;
+  pipayid?: string;
+}
+
+export interface GetPayments {
+  a2u?: boolean;
+  page?: number;
+  limit?: number;
+  auth: string;
+}
+
+export interface GetPaymentsResponse {
+  success: boolean;
+  payments: PiPaymentSafe[];
+}
+
+export interface SendPayment {
+  payment_id?: string;
+  auth: string;
+}
+
+export interface SendPaymentResponse {
+  success: boolean;
+  payment?: PiPaymentSafe;
+}

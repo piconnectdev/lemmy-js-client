@@ -40,6 +40,7 @@ export interface PersonSafe {
   ban_expires?: string;
   instance_id: number;
 
+  verified: boolean;
   pi_address?: string;
   web3_address?: string;
   pol_address?: string;
