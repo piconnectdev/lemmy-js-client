@@ -552,6 +552,32 @@ export class PiPaymentFoundResponse {
   paymentid: string;
 }
 
+export class PiPaymentCancel {
+  pi_username: string;
+  pi_token: string;
+
+  paymentid: string;
+
+  domain?: string;
+
+  pi_uid?: string;
+
+  auth?: string;
+  dto?: PiPaymentDTO;
+}
+
+export class PiPaymentError {
+  pi_username: string;
+  pi_token: string;
+
+  domain?: string;
+
+  pi_uid?: string;
+
+  auth?: string;
+  dto?: PiPaymentDTO;
+}
+
 export class PiKey {
   pi_username: string;
 
@@ -663,8 +689,22 @@ export interface PiWithdrawResponse {
   pipayid?: string;
 }
 
+export interface GetPayment {
+  id: string;
+  auth: string;
+}
+
+export interface GetPaymentResponse {
+  success: boolean;
+  payments: PiPaymentSafe;
+}
+
 export interface GetPayments {
+  person_id?: string;
+  person_name?: string;
+  step?: number;
   a2u?: boolean;
+  pending?: boolean;
   page?: number;
   limit?: number;
   auth: string;
@@ -673,6 +713,16 @@ export interface GetPayments {
 export interface GetPaymentsResponse {
   success: boolean;
   payments: PiPaymentSafe[];
+}
+
+export interface ApprovePayment {
+  payment_id?: string;
+  auth: string;
+}
+
+export interface ApprovePaymentResponse {
+  success: boolean;
+  payment?: PiPaymentSafe;
 }
 
 export interface SendPayment {

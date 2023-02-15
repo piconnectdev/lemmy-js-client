@@ -96,7 +96,16 @@ export enum UserOperation {
   PiApprove,
   PiTip,
   PiPaymentFound,
+  PiPaymentCancel,
+  PiPaymentError,
   PiKey,
+  GetPiBalances,
+  PiWithdraw,
+  GetPayment,
+  GetPayments,
+  CreatePayment,
+  ApprovePayment,
+  SendPayment,
 }
 
 /**

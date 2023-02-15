@@ -37,12 +37,16 @@ import {
 import {
   AddAdmin,
   AddAdminResponse,
+  ApprovePayment,
+  ApprovePaymentResponse,
   BannedPersonsResponse,
   BanPerson,
   BanPersonResponse,
   BlockPerson,
   BlockPersonResponse,
   ChangePassword,
+  CreatePayment,
+  CreatePaymentResponse,
   CreatePrivateMessage,
   CreatePrivateMessageReport,
   DeleteAccount,
@@ -51,10 +55,16 @@ import {
   EditPrivateMessage,
   GetBannedPersons,
   GetCaptchaResponse,
+  GetPayment,
+  GetPaymentResponse,
+  GetPayments,
+  GetPaymentsResponse,
   GetPersonDetails,
   GetPersonDetailsResponse,
   GetPersonMentions,
   GetPersonMentionsResponse,
+  GetPiBalances,
+  GetPiBalancesResponse,
   GetPrivateMessages,
   GetReplies,
   GetRepliesResponse,
@@ -81,18 +91,24 @@ import {
   PiKey,
   PiKeyResponse,
   PiLogin,
+  PiPaymentCancel,
+  PiPaymentError,
   PiPaymentFound,
   PiPaymentFoundResponse,
   PiRegister,
   PiRegisterWithFee,
   PiTip,
   PiTipResponse,
+  PiWithdraw,
+  PiWithdrawResponse,
   PrivateMessageReportResponse,
   PrivateMessageResponse,
   PrivateMessagesResponse,
   Register,
   ResolvePrivateMessageReport,
   SaveUserSettings,
+  SendPayment,
+  SendPaymentResponse,
   VerifyEmail,
   VerifyEmailResponse,
   Web3Login,
@@ -934,10 +950,10 @@ export class LemmyHttp {
   }
 
   /**
-   * Approve pi network transaction for tips
+   * Client side approve pi network transaction for tips
    * `HTTP.POST /pi/approve`
    */
-  async piApprove(form: PiApprove): Promise<PiApproveResponse> {
+  async piPaymentApprove(form: PiApprove): Promise<PiApproveResponse> {
     return this.wrapper<PiApprove, PiApproveResponse>(
       HttpType.Post,
       "/pi/approve",
@@ -946,10 +962,10 @@ export class LemmyHttp {
   }
 
   /**
-   * Pi network payment success.
+   * Client side Pi Network payment completed.
    * `HTTP.POST /pi/tip`
    */
-  async piPayment(form: PiTip): Promise<PiTipResponse> {
+  async piPaymentComplete(form: PiTip): Promise<PiTipResponse> {
     return this.wrapper<PiTip, PiTipResponse>(
       HttpType.Post,
       "/pi/complete",
@@ -957,7 +973,7 @@ export class LemmyHttp {
     );
   }
   /**
-   * Pi Payment incompleted found
+   * Client side Pi Network payment incompleted found
    * `HTTP.POST /pi/found`
    */
   async piPaymentFound(form: PiPaymentFound): Promise<PiPaymentFoundResponse> {
@@ -967,12 +983,109 @@ export class LemmyHttp {
       form
     );
   }
+
   /**
-   * Pi Payment incompleted found
-   * `HTTP.POST /pi/found`
+   * Client side Pi Network payment cancelled.
+   * `HTTP.POST /pi/tip`
    */
+  async piPaymentCancel(
+    form: PiPaymentCancel
+  ): Promise<PiPaymentFoundResponse> {
+    return this.wrapper<PiPaymentCancel, PiPaymentFoundResponse>(
+      HttpType.Post,
+      "/pi/cancelled",
+      form
+    );
+  }
+
+  /**
+   * Client side Pi Network payment error.
+   * `HTTP.POST /pi/error`
+   */
+  async piPaymentError(form: PiPaymentError): Promise<PiPaymentFoundResponse> {
+    return this.wrapper<PiPaymentError, PiPaymentFoundResponse>(
+      HttpType.Post,
+      "/pi/error",
+      form
+    );
+  }
+
   async piKey(form: PiKey): Promise<PiKeyResponse> {
     return this.wrapper<PiKey, PiKeyResponse>(HttpType.Post, "/pi/key", form);
+  }
+
+  async piBalances(form: GetPiBalances): Promise<GetPiBalancesResponse> {
+    return this.wrapper<GetPiBalances, GetPiBalancesResponse>(
+      HttpType.Post,
+      "/pi/balance",
+      form
+    );
+  }
+
+  /**
+   * Server side create a2u withdraw payment
+   * `HTTP.POST /pi/payment/withdraw`
+   */
+  async piWithdraw(form: PiWithdraw): Promise<PiWithdrawResponse> {
+    return this.wrapper<PiWithdraw, PiWithdrawResponse>(
+      HttpType.Post,
+      "/pi/withdraw",
+      form
+    );
+  }
+
+  /**
+   * Server side create a2u payment
+   * `HTTP.POST /pi/payment/create`
+   */
+  async piCreatePayment(form: CreatePayment): Promise<CreatePaymentResponse> {
+    return this.wrapper<CreatePayment, CreatePaymentResponse>(
+      HttpType.Post,
+      "/pi/payment/create",
+      form
+    );
+  }
+
+  /**
+   * Server side approve a2u payment, only admin can do this
+   * `HTTP.POST /pi/payment/approve`
+   */
+  async piApprovePayment(
+    form: ApprovePayment
+  ): Promise<ApprovePaymentResponse> {
+    return this.wrapper<ApprovePayment, ApprovePaymentResponse>(
+      HttpType.Post,
+      "/pi/payment/approve",
+      form
+    );
+  }
+
+  /**
+   * Server side send a a2u payment to user, only admin can do this
+   * `HTTP.POST /pi/payment/send`
+   */
+  async piSendPayment(form: SendPayment): Promise<SendPaymentResponse> {
+    return this.wrapper<SendPayment, SendPaymentResponse>(
+      HttpType.Post,
+      "/pi/payment/send",
+      form
+    );
+  }
+
+  async piGetPayment(form: GetPayment): Promise<GetPaymentResponse> {
+    return this.wrapper<GetPayment, GetPaymentResponse>(
+      HttpType.Post,
+      "/pi/payment/payment",
+      form
+    );
+  }
+
+  async piGetPayments(form: GetPayments): Promise<GetPaymentsResponse> {
+    return this.wrapper<GetPayments, GetPaymentsResponse>(
+      HttpType.Post,
+      "/pi/payment/payments",
+      form
+    );
   }
 
   /**

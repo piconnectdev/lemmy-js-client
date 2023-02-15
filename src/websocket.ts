@@ -25,17 +25,22 @@ import {
 } from "./interfaces/api/community";
 import {
   AddAdmin,
+  ApprovePayment,
   BanPerson,
   BlockPerson,
   ChangePassword,
+  CreatePayment,
   CreatePrivateMessage,
   CreatePrivateMessageReport,
   DeleteAccount,
   DeletePrivateMessage,
   EditPrivateMessage,
   GetBannedPersons,
+  GetPayment,
+  GetPayments,
   GetPersonDetails,
   GetPersonMentions,
+  GetPiBalances,
   GetPrivateMessages,
   GetReplies,
   GetReportCount,
@@ -52,13 +57,17 @@ import {
   PiApprove,
   PiKey,
   PiLogin,
+  PiPaymentCancel,
+  PiPaymentError,
   PiPaymentFound,
   PiRegister,
   PiRegisterWithFee,
   PiTip,
+  PiWithdraw,
   Register,
   ResolvePrivateMessageReport,
   SaveUserSettings,
+  SendPayment,
   VerifyEmail,
   Web3Login,
   Web3Register,
@@ -202,16 +211,16 @@ export class LemmyWebsocket {
   }
 
   /**
-   * Approve pay for tip / store blockchain.
+   * Client side approve pay for tip / store blockchain.
    */
-  piApprove(form: PiApprove) {
+  piPaymentApprove(form: PiApprove) {
     return wrapper(UserOperation.PiApprove, form);
   }
 
   /**
-   * Finish payment.
+   * Client side Pi Network payment completed.
    */
-  piPayment(form: PiTip) {
+  piPaymentComplete(form: PiTip) {
     return wrapper(UserOperation.PiTip, form);
   }
 
@@ -223,10 +232,52 @@ export class LemmyWebsocket {
   }
 
   /**
+   * Client side Pi Network payment cancelled.
+   */
+  piPaymentCancel(form: PiPaymentCancel) {
+    return wrapper(UserOperation.PiPaymentCancel, form);
+  }
+
+  /**
+   * Client side Pi Network payment error.
+   */
+  piPaymentError(form: PiPaymentError) {
+    return wrapper(UserOperation.PiPaymentError, form);
+  }
+
+  /**
    * Found incompleted pi payment.
    */
   piKey(form: PiKey) {
     return wrapper(UserOperation.PiKey, form);
+  }
+
+  piBalances(form: GetPiBalances) {
+    return wrapper(UserOperation.GetPiBalances, form);
+  }
+
+  piWithdraw(form: PiWithdraw) {
+    return wrapper(UserOperation.PiWithdraw, form);
+  }
+
+  piCreatePayment(form: CreatePayment) {
+    return wrapper(UserOperation.CreatePayment, form);
+  }
+
+  piApprovePayment(form: ApprovePayment) {
+    return wrapper(UserOperation.ApprovePayment, form);
+  }
+
+  piSendPayment(form: SendPayment) {
+    return wrapper(UserOperation.SendPayment, form);
+  }
+
+  piGetPayment(form: GetPayment) {
+    return wrapper(UserOperation.GetPayment, form);
+  }
+
+  piGetPayments(form: GetPayments) {
+    return wrapper(UserOperation.GetPayments, form);
   }
 
   /**
