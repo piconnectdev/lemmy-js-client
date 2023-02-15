@@ -585,8 +585,23 @@ export interface GetPiBalancesResponse {
   deposited: number;
   rewarded: number;
   withdrawed: number;
+  spent: number;
   amount: number;
   pending: number;
+}
+
+export interface PiWithdraw {
+  domain?: string;
+  asset: string;
+  amount: number;
+  comment?: string;
+  auth: string;
+}
+
+export interface PiWithdrawResponse {
+  id: string;
+  status?: string;
+  pipayid?: string;
 }
 
 export class PiPaymentSafe {
@@ -629,10 +644,6 @@ export class PiPaymentSafe {
 }
 
 export interface CreatePayment {
-  // pi_username: string;
-  // pi_token: string;
-  // paymentid: string;
-  // pi_uid?: string;
   domain?: string;
   obj_cat?: string;
   obj_id?: string;
@@ -650,18 +661,26 @@ export interface CreatePaymentResponse {
   pipayid?: string;
 }
 
-export interface PiWithdraw {
-  domain?: string;
-  asset: string;
-  amount: number;
-  comment?: string;
+export interface ApprovePayment {
+  id: string;
+  stat: number;
   auth: string;
 }
 
-export interface PiWithdrawResponse {
-  id: string;
-  status?: string;
-  pipayid?: string;
+export interface ApprovePaymentResponse {
+  success: boolean;
+  id?: string;
+  payment?: PiPaymentSafe;
+}
+
+export interface SendPayment {
+  id?: string;
+  auth: string;
+}
+
+export interface SendPaymentResponse {
+  success: boolean;
+  payment?: PiPaymentSafe;
 }
 
 export interface GetPayment {
@@ -671,7 +690,7 @@ export interface GetPayment {
 
 export interface GetPaymentResponse {
   success: boolean;
-  payments: PiPaymentSafe;
+  payment: PiPaymentSafe;
 }
 
 export interface GetPayments {
@@ -688,24 +707,4 @@ export interface GetPayments {
 export interface GetPaymentsResponse {
   success: boolean;
   payments: PiPaymentSafe[];
-}
-
-export interface ApprovePayment {
-  payment_id?: string;
-  auth: string;
-}
-
-export interface ApprovePaymentResponse {
-  success: boolean;
-  payment?: PiPaymentSafe;
-}
-
-export interface SendPayment {
-  payment_id?: string;
-  auth: string;
-}
-
-export interface SendPaymentResponse {
-  success: boolean;
-  payment?: PiPaymentSafe;
 }
