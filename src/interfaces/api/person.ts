@@ -458,16 +458,14 @@ export class PiLogin {
 }
 
 export class PiApprove {
-  pi_username: string;
-  pi_token: string;
-
-  paymentid: string;
-
   domain?: string;
-
+  pi_token: string;
+  pi_username: string;
   pi_uid?: string;
-
-  object_id?: string;
+  obj_cat?: string;
+  obj_id?: string;
+  ref_id?: string;
+  paymentid: string;
   comment?: string;
   auth?: string;
 }
@@ -479,17 +477,13 @@ export class PiApproveResponse {
 }
 
 export class PiTip {
-  pi_username: string;
+  domain?: string;
   pi_token: string;
-
+  pi_username: string;
+  pi_uid?: string;
   paymentid: string;
   txid: string;
-
-  domain?: string;
-
-  pi_uid?: string;
-
-  object_id?: string;
+  obj_id?: string;
   comment?: string;
   auth?: string;
 }
@@ -507,9 +501,11 @@ export class PiPaymentDTO {
   amount: number; // The payment amount
   memo: string; // A string provided by the developer, shown to the user
   metadata?: object; // An object provided by the developer for their own usage
+  from_address: string;
   to_address: string; // The recipient address of the blockchain transaction
   created_at: string; // The payment's creation timestamp
-
+  direction: string;
+  network: string;
   // Status flags representing the current state of this payment
   status: {
     developer_approved: boolean; // Server-Side Approval
@@ -529,19 +525,11 @@ export class PiPaymentDTO {
 }
 
 export class PiPaymentFound {
-  pi_username: string;
-  pi_token: string;
-
-  paymentid: string;
-
   domain?: string;
-
+  pi_token: string;
   pi_uid?: string;
-
-  person_id?: string;
-
-  comment?: string;
-
+  pi_username: string;
+  paymentid: string;
   auth?: string;
   dto?: PiPaymentDTO;
 }
@@ -553,42 +541,29 @@ export class PiPaymentFoundResponse {
 }
 
 export class PiPaymentCancel {
-  pi_username: string;
-  pi_token: string;
-
-  paymentid: string;
-
   domain?: string;
-
+  pi_token: string;
   pi_uid?: string;
-
+  pi_username: string;
+  paymentid: string;
   auth?: string;
-  dto?: PiPaymentDTO;
 }
 
 export class PiPaymentError {
-  pi_username: string;
-  pi_token: string;
-
   domain?: string;
-
+  pi_token: string;
+  pi_username: string;
   pi_uid?: string;
-
   auth?: string;
   dto?: PiPaymentDTO;
 }
 
 export class PiKey {
   pi_username: string;
-
   domain?: string;
-
   pi_token?: string;
-
   pi_uid?: string;
-
   pi_key?: string;
-
   auth?: string;
 }
 
