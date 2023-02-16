@@ -58,11 +58,11 @@ import {
   PiKey,
   PiLogin,
   PiPaymentCancel,
+  PiPaymentComplete,
   PiPaymentError,
   PiPaymentFound,
   PiRegister,
   PiRegisterWithFee,
-  PiTip,
   PiWithdraw,
   Register,
   ResolvePrivateMessageReport,
@@ -220,8 +220,8 @@ export class LemmyWebsocket {
   /**
    * Client side Pi Network payment completed.
    */
-  piPaymentComplete(form: PiTip) {
-    return wrapper(UserOperation.PiTip, form);
+  piPaymentComplete(form: PiPaymentComplete) {
+    return wrapper(UserOperation.PiPaymentComplete, form);
   }
 
   /**

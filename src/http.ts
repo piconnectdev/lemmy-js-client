@@ -92,13 +92,13 @@ import {
   PiKeyResponse,
   PiLogin,
   PiPaymentCancel,
+  PiPaymentComplete,
+  PiPaymentCompleteResponse,
   PiPaymentError,
   PiPaymentFound,
   PiPaymentFoundResponse,
   PiRegister,
   PiRegisterWithFee,
-  PiTip,
-  PiTipResponse,
   PiWithdraw,
   PiWithdrawResponse,
   PrivateMessageReportResponse,
@@ -965,8 +965,10 @@ export class LemmyHttp {
    * Client side Pi Network payment completed.
    * `HTTP.POST /pi/tip`
    */
-  async piPaymentComplete(form: PiTip): Promise<PiTipResponse> {
-    return this.wrapper<PiTip, PiTipResponse>(
+  async piPaymentComplete(
+    form: PiPaymentComplete
+  ): Promise<PiPaymentCompleteResponse> {
+    return this.wrapper<PiPaymentComplete, PiPaymentCompleteResponse>(
       HttpType.Post,
       "/pi/complete",
       form

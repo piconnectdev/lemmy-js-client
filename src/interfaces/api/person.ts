@@ -476,7 +476,7 @@ export class PiApproveResponse {
   paymentid: string;
 }
 
-export class PiTip {
+export class PiPaymentComplete {
   domain?: string;
   pi_token: string;
   pi_username: string;
@@ -488,7 +488,7 @@ export class PiTip {
   auth?: string;
 }
 
-export class PiTipResponse {
+export class PiPaymentCompleteResponse {
   success: boolean;
   id: string;
   paymentid: string;

@@ -94,7 +94,7 @@ export enum UserOperation {
   PiAgreeRegister,
   PiRegisterWithFee,
   PiApprove,
-  PiTip,
+  PiPaymentComplete,
   PiPaymentFound,
   PiPaymentCancel,
   PiPaymentError,
