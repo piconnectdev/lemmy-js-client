@@ -583,9 +583,9 @@ export interface GetPiBalancesResponse {
   asset?: string;
   status: string;
   deposited: number;
-  rewarded: number;
-  withdrawed: number;
   spent: number;
+  received: number;
+  withdrawed: number;
   amount: number;
   pending: number;
 }
@@ -610,11 +610,10 @@ export class PiPaymentSafe {
   obj_cat?: string;
   obj_id?: string;
   ref_id?: string;
-  a2u: boolean;
-  asset?: string;
-
-  fee: number;
+  a2u: number;
   step: number;
+  asset?: string;
+  fee: number;
   finished: boolean;
   comment?: string;
   stat?: string;
@@ -629,6 +628,7 @@ export class PiPaymentSafe {
   metadata?: object; // An object provided by the developer for their own usage
   from_address?: string;
   to_address?: string; // The recipient address of the blockchain transaction
+  network?: string;
   created_at: string; // The payment's creation timestamp
 
   approved: boolean; // Server-Side Approval
@@ -640,7 +640,6 @@ export class PiPaymentSafe {
   tx_verified: boolean;
   tx_link?: string;
   tx_id?: string;
-  network?: string;
 }
 
 export interface CreatePayment {
@@ -696,8 +695,8 @@ export interface GetPaymentResponse {
 export interface GetPayments {
   person_id?: string;
   person_name?: string;
+  a2u?: number;
   step?: number;
-  a2u?: boolean;
   pending?: boolean;
   page?: number;
   limit?: number;

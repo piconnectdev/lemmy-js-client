@@ -39,8 +39,8 @@ export interface PersonSafe {
   bot_account: boolean;
   ban_expires?: string;
   instance_id: number;
-
   verified: boolean;
+  home?: string;
   pi_address?: string;
   web3_address?: string;
   pol_address?: string;
@@ -180,6 +180,7 @@ export interface Post {
 
   auth_sign?: string;
   srv_sign?: string;
+  pipayid?: string;
   tx?: string;
 }
 
@@ -361,6 +362,7 @@ export interface Comment {
   language_id: number;
   auth_sign?: string;
   srv_sign?: string;
+  pipayid?: string;
   tx?: string;
 }
 
