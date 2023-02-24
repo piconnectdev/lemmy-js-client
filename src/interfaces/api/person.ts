@@ -591,6 +591,7 @@ export interface GetPiBalancesResponse {
 }
 
 export interface PiWithdraw {
+  pi_token?: string;
   domain?: string;
   asset: string;
   amount: number;
