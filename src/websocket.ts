@@ -1,58 +1,87 @@
+import { AddAdmin } from "./types/AddAdmin";
+import { AddModToCommunity } from "./types/AddModToCommunity";
+import { ApproveRegistrationApplication } from "./types/ApproveRegistrationApplication";
+import { BanFromCommunity } from "./types/BanFromCommunity";
+import { BanPerson } from "./types/BanPerson";
+import { BlockCommunity } from "./types/BlockCommunity";
+import { BlockPerson } from "./types/BlockPerson";
+import { ChangePassword } from "./types/ChangePassword";
+import { CreateComment } from "./types/CreateComment";
+import { CreateCommentLike } from "./types/CreateCommentLike";
+import { CreateCommentReport } from "./types/CreateCommentReport";
+import { CreateCommunity } from "./types/CreateCommunity";
+import { CreatePost } from "./types/CreatePost";
+import { CreatePostLike } from "./types/CreatePostLike";
+import { CreatePostReport } from "./types/CreatePostReport";
+import { CreatePrivateMessage } from "./types/CreatePrivateMessage";
+import { CreatePrivateMessageReport } from "./types/CreatePrivateMessageReport";
+import { CreateSite } from "./types/CreateSite";
+import { DeleteAccount } from "./types/DeleteAccount";
+import { DeleteComment } from "./types/DeleteComment";
+import { DeleteCommunity } from "./types/DeleteCommunity";
+import { DeletePost } from "./types/DeletePost";
+import { DeletePrivateMessage } from "./types/DeletePrivateMessage";
+import { EditComment } from "./types/EditComment";
+import { EditCommunity } from "./types/EditCommunity";
+import { EditPost } from "./types/EditPost";
+import { EditPrivateMessage } from "./types/EditPrivateMessage";
+import { EditSite } from "./types/EditSite";
+import { FeaturePost } from "./types/FeaturePost";
+import { FollowCommunity } from "./types/FollowCommunity";
+import { GetBannedPersons } from "./types/GetBannedPersons";
+import { GetComments } from "./types/GetComments";
+import { GetCommunity } from "./types/GetCommunity";
+import { GetModlog } from "./types/GetModlog";
+import { GetPersonDetails } from "./types/GetPersonDetails";
+import { GetPersonMentions } from "./types/GetPersonMentions";
+import { GetPost } from "./types/GetPost";
+import { GetPosts } from "./types/GetPosts";
+import { GetPrivateMessages } from "./types/GetPrivateMessages";
+import { GetReplies } from "./types/GetReplies";
+import { GetReportCount } from "./types/GetReportCount";
+import { GetSite } from "./types/GetSite";
+import { GetSiteMetadata } from "./types/GetSiteMetadata";
+import { GetUnreadCount } from "./types/GetUnreadCount";
+import { GetUnreadRegistrationApplicationCount } from "./types/GetUnreadRegistrationApplicationCount";
+import { LeaveAdmin } from "./types/LeaveAdmin";
+import { ListCommentReports } from "./types/ListCommentReports";
+import { ListCommunities } from "./types/ListCommunities";
+import { ListPostReports } from "./types/ListPostReports";
+import { ListPrivateMessageReports } from "./types/ListPrivateMessageReports";
+import { ListRegistrationApplications } from "./types/ListRegistrationApplications";
+import { LockPost } from "./types/LockPost";
+import { Login } from "./types/Login";
+import { MarkAllAsRead } from "./types/MarkAllAsRead";
+import { MarkCommentReplyAsRead } from "./types/MarkCommentReplyAsRead";
+import { MarkPersonMentionAsRead } from "./types/MarkPersonMentionAsRead";
+import { MarkPostAsRead } from "./types/MarkPostAsRead";
+import { MarkPrivateMessageAsRead } from "./types/MarkPrivateMessageAsRead";
+import { PasswordReset } from "./types/PasswordReset";
+import { PurgeComment } from "./types/PurgeComment";
+import { PurgeCommunity } from "./types/PurgeCommunity";
+import { PurgePerson } from "./types/PurgePerson";
+import { PurgePost } from "./types/PurgePost";
+import { Register } from "./types/Register";
+import { RemoveComment } from "./types/RemoveComment";
+import { RemoveCommunity } from "./types/RemoveCommunity";
+import { RemovePost } from "./types/RemovePost";
+import { ResolveCommentReport } from "./types/ResolveCommentReport";
+import { ResolveObject } from "./types/ResolveObject";
+import { ResolvePostReport } from "./types/ResolvePostReport";
+import { ResolvePrivateMessageReport } from "./types/ResolvePrivateMessageReport";
+import { SaveComment } from "./types/SaveComment";
+import { SavePost } from "./types/SavePost";
+import { SaveUserSettings } from "./types/SaveUserSettings";
+import { Search } from "./types/Search";
+import { TransferCommunity } from "./types/TransferCommunity";
+import { VerifyEmail } from "./types/VerifyEmail";
+
 import {
-  CreateComment,
-  CreateCommentLike,
-  CreateCommentReport,
-  DeleteComment,
-  EditComment,
-  GetComments,
-  ListCommentReports,
-  RemoveComment,
-  ResolveCommentReport,
-  SaveComment,
-} from "./interfaces/api/comment";
-import {
-  AddModToCommunity,
-  BanFromCommunity,
-  BlockCommunity,
-  CreateCommunity,
-  DeleteCommunity,
-  EditCommunity,
-  FollowCommunity,
-  GetCommunity,
-  ListCommunities,
-  RemoveCommunity,
-  TransferCommunity,
-} from "./interfaces/api/community";
-import {
-  AddAdmin,
   ApprovePayment,
-  BanPerson,
-  BlockPerson,
-  ChangePassword,
   CreatePayment,
-  CreatePrivateMessage,
-  CreatePrivateMessageReport,
-  DeleteAccount,
-  DeletePrivateMessage,
-  EditPrivateMessage,
-  GetBannedPersons,
   GetPayment,
   GetPayments,
-  GetPersonDetails,
-  GetPersonMentions,
   GetPiBalances,
-  GetPrivateMessages,
-  GetReplies,
-  GetReportCount,
-  GetUnreadCount,
-  ListPrivateMessageReports,
-  Login,
-  MarkAllAsRead,
-  MarkCommentReplyAsRead,
-  MarkPersonMentionAsRead,
-  MarkPrivateMessageAsRead,
-  PasswordChange,
-  PasswordReset,
   PiAgreeRegister,
   PiApprove,
   PiKey,
@@ -64,49 +93,150 @@ import {
   PiRegister,
   PiRegisterWithFee,
   PiWithdraw,
-  Register,
-  ResolvePrivateMessageReport,
-  SaveUserSettings,
   SendPayment,
-  VerifyEmail,
   Web3Login,
   Web3Register,
-} from "./interfaces/api/person";
-import {
+} from "./types/PiPayment";
+
+export interface UserJoin {
+  auth: string;
+}
+
+export interface UserJoinResponse {
+  joined: boolean;
+}
+
+/**
+ * The main / frontpage community is `community_id: 0`.
+ */
+export interface CommunityJoin {
+  community_id: string;
+}
+
+export interface CommunityJoinResponse {
+  joined: boolean;
+}
+
+export interface ModJoin {
+  community_id: string;
+}
+
+export interface ModJoinResponse {
+  joined: boolean;
+}
+
+export interface PostJoin {
+  post_id: string;
+}
+
+export interface PostJoinResponse {
+  joined: boolean;
+}
+
+export enum UserOperation {
+  Login,
+  Register,
+  GetCaptcha,
+  CreateCommunity,
   CreatePost,
-  CreatePostLike,
-  CreatePostReport,
-  DeletePost,
-  EditPost,
-  FeaturePost,
+  ListCommunities,
   GetPost,
+  GetCommunity,
+  CreateComment,
+  EditComment,
+  DeleteComment,
+  RemoveComment,
+  SaveComment,
+  CreateCommentLike,
   GetPosts,
-  GetSiteMetadata,
-  ListPostReports,
-  LockPost,
-  MarkPostAsRead,
+  CreatePostLike,
+  EditPost,
+  DeletePost,
   RemovePost,
-  ResolvePostReport,
+  LockPost,
+  FeaturePost,
+  MarkPostAsRead,
   SavePost,
-} from "./interfaces/api/post";
-import {
-  ApproveRegistrationApplication,
+  EditCommunity,
+  DeleteCommunity,
+  RemoveCommunity,
+  FollowCommunity,
+  GetPersonDetails,
+  GetReplies,
+  GetPersonMentions,
+  MarkPersonMentionAsRead,
+  MarkCommentReplyAsRead,
+  GetModlog,
+  BanFromCommunity,
+  AddModToCommunity,
   CreateSite,
   EditSite,
-  GetModlog,
   GetSite,
+  AddAdmin,
   GetUnreadRegistrationApplicationCount,
-  LeaveAdmin,
   ListRegistrationApplications,
-  PurgeComment,
-  PurgeCommunity,
-  PurgePerson,
-  PurgePost,
-  ResolveObject,
+  ApproveRegistrationApplication,
+  BanPerson,
+  GetBannedPersons,
   Search,
-} from "./interfaces/api/site";
-import { CommunityJoin, PostJoin, UserJoin } from "./interfaces/api/websocket";
-import { UserOperation } from "./interfaces/others";
+  ResolveObject,
+  MarkAllAsRead,
+  SaveUserSettings,
+  TransferCommunity,
+  LeaveAdmin,
+  DeleteAccount,
+  PasswordReset,
+  PasswordChange,
+  CreatePrivateMessage,
+  EditPrivateMessage,
+  DeletePrivateMessage,
+  MarkPrivateMessageAsRead,
+  CreatePrivateMessageReport,
+  ResolvePrivateMessageReport,
+  ListPrivateMessageReports,
+  GetPrivateMessages,
+  UserJoin,
+  GetComments,
+  PostJoin,
+  CommunityJoin,
+  ChangePassword,
+  GetSiteMetadata,
+  BlockCommunity,
+  BlockPerson,
+  PurgePerson,
+  PurgeCommunity,
+  PurgePost,
+  PurgeComment,
+  CreateCommentReport,
+  ResolveCommentReport,
+  ListCommentReports,
+  CreatePostReport,
+  ResolvePostReport,
+  ListPostReports,
+  GetReportCount,
+  GetUnreadCount,
+  VerifyEmail,
+  GetToken,
+  Web3Register,
+  Web3Login,
+  PiRegister,
+  PiLogin,
+  PiAgreeRegister,
+  PiRegisterWithFee,
+  PiApprove,
+  PiPaymentComplete,
+  PiPaymentFound,
+  PiPaymentCancel,
+  PiPaymentError,
+  PiKey,
+  GetPiBalances,
+  PiWithdraw,
+  GetPayment,
+  GetPayments,
+  CreatePayment,
+  ApprovePayment,
+  SendPayment,
+}
 
 /**
  * Helps build lemmy websocket message requests, that you can use in your Websocket sends.
@@ -719,9 +849,9 @@ export class LemmyWebsocket {
   /**
    * Change your password from an email / token based reset.
    */
-  passwordChange(form: PasswordChange) {
-    return wrapper(UserOperation.PasswordChange, form);
-  }
+  // passwordChange(form: PasswordChange) {
+  //   return wrapper(UserOperation.PasswordChange, form);
+  // }
 
   /**
    * Create a private message.

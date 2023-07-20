@@ -1,89 +1,151 @@
-import fetch from "node-fetch";
+//import fetch from "cross-fetch";
+import FormData from "form-data";
+import { AddAdmin } from "./types/AddAdmin";
+import { AddAdminResponse } from "./types/AddAdminResponse";
+import { AddModToCommunity } from "./types/AddModToCommunity";
+import { AddModToCommunityResponse } from "./types/AddModToCommunityResponse";
+import { ApproveRegistrationApplication } from "./types/ApproveRegistrationApplication";
+import { BanFromCommunity } from "./types/BanFromCommunity";
+import { BanFromCommunityResponse } from "./types/BanFromCommunityResponse";
+import { BanPerson } from "./types/BanPerson";
+import { BanPersonResponse } from "./types/BanPersonResponse";
+import { BannedPersonsResponse } from "./types/BannedPersonsResponse";
+import { BlockCommunity } from "./types/BlockCommunity";
+import { BlockCommunityResponse } from "./types/BlockCommunityResponse";
+import { BlockPerson } from "./types/BlockPerson";
+import { BlockPersonResponse } from "./types/BlockPersonResponse";
+import { ChangePassword } from "./types/ChangePassword";
+import { CommentReplyResponse } from "./types/CommentReplyResponse";
+import { CommentReportResponse } from "./types/CommentReportResponse";
+import { CommentResponse } from "./types/CommentResponse";
+import { CommunityResponse } from "./types/CommunityResponse";
+import { CreateComment } from "./types/CreateComment";
+import { CreateCommentLike } from "./types/CreateCommentLike";
+import { CreateCommentReport } from "./types/CreateCommentReport";
+import { CreateCommunity } from "./types/CreateCommunity";
+import { CreateCustomEmoji } from "./types/CreateCustomEmoji";
+import { CreatePost } from "./types/CreatePost";
+import { CreatePostLike } from "./types/CreatePostLike";
+import { CreatePostReport } from "./types/CreatePostReport";
+import { CreatePrivateMessage } from "./types/CreatePrivateMessage";
+import { CreatePrivateMessageReport } from "./types/CreatePrivateMessageReport";
+import { CreateSite } from "./types/CreateSite";
+import { CustomEmojiResponse } from "./types/CustomEmojiResponse";
+import { DeleteAccount } from "./types/DeleteAccount";
+import { DeleteAccountResponse } from "./types/DeleteAccountResponse";
+import { DeleteComment } from "./types/DeleteComment";
+import { DeleteCommunity } from "./types/DeleteCommunity";
+import { DeleteCustomEmoji } from "./types/DeleteCustomEmoji";
+import { DeleteCustomEmojiResponse } from "./types/DeleteCustomEmojiResponse";
+import { DeletePost } from "./types/DeletePost";
+import { DeletePrivateMessage } from "./types/DeletePrivateMessage";
+import { DistinguishComment } from "./types/DistinguishComment";
+import { EditComment } from "./types/EditComment";
+import { EditCommunity } from "./types/EditCommunity";
+import { EditCustomEmoji } from "./types/EditCustomEmoji";
+import { EditPost } from "./types/EditPost";
+import { EditPrivateMessage } from "./types/EditPrivateMessage";
+import { EditSite } from "./types/EditSite";
+import { FeaturePost } from "./types/FeaturePost";
+import { FollowCommunity } from "./types/FollowCommunity";
+import { GetBannedPersons } from "./types/GetBannedPersons";
+import { GetCaptcha } from "./types/GetCaptcha";
+import { GetCaptchaResponse } from "./types/GetCaptchaResponse";
+import { GetComment } from "./types/GetComment";
+import { GetComments } from "./types/GetComments";
+import { GetCommentsResponse } from "./types/GetCommentsResponse";
+import { GetCommunity } from "./types/GetCommunity";
+import { GetCommunityResponse } from "./types/GetCommunityResponse";
+import { GetFederatedInstances } from "./types/GetFederatedInstances";
+import { GetFederatedInstancesResponse } from "./types/GetFederatedInstancesResponse";
+import { GetModlog } from "./types/GetModlog";
+import { GetModlogResponse } from "./types/GetModlogResponse";
+import { GetPersonDetails } from "./types/GetPersonDetails";
+import { GetPersonDetailsResponse } from "./types/GetPersonDetailsResponse";
+import { GetPersonMentions } from "./types/GetPersonMentions";
+import { GetPersonMentionsResponse } from "./types/GetPersonMentionsResponse";
+import { GetPost } from "./types/GetPost";
+import { GetPostResponse } from "./types/GetPostResponse";
+import { GetPosts } from "./types/GetPosts";
+import { GetPostsResponse } from "./types/GetPostsResponse";
+import { GetPrivateMessages } from "./types/GetPrivateMessages";
+import { GetReplies } from "./types/GetReplies";
+import { GetRepliesResponse } from "./types/GetRepliesResponse";
+import { GetReportCount } from "./types/GetReportCount";
+import { GetReportCountResponse } from "./types/GetReportCountResponse";
+import { GetSite } from "./types/GetSite";
+import { GetSiteMetadata } from "./types/GetSiteMetadata";
+import { GetSiteMetadataResponse } from "./types/GetSiteMetadataResponse";
+import { GetSiteResponse } from "./types/GetSiteResponse";
+import { GetUnreadCount } from "./types/GetUnreadCount";
+import { GetUnreadCountResponse } from "./types/GetUnreadCountResponse";
+import { GetUnreadRegistrationApplicationCount } from "./types/GetUnreadRegistrationApplicationCount";
+import { GetUnreadRegistrationApplicationCountResponse } from "./types/GetUnreadRegistrationApplicationCountResponse";
+import { LeaveAdmin } from "./types/LeaveAdmin";
+import { ListCommentReports } from "./types/ListCommentReports";
+import { ListCommentReportsResponse } from "./types/ListCommentReportsResponse";
+import { ListCommunities } from "./types/ListCommunities";
+import { ListCommunitiesResponse } from "./types/ListCommunitiesResponse";
+import { ListPostReports } from "./types/ListPostReports";
+import { ListPostReportsResponse } from "./types/ListPostReportsResponse";
+import { ListPrivateMessageReports } from "./types/ListPrivateMessageReports";
+import { ListPrivateMessageReportsResponse } from "./types/ListPrivateMessageReportsResponse";
+import { ListRegistrationApplications } from "./types/ListRegistrationApplications";
+import { ListRegistrationApplicationsResponse } from "./types/ListRegistrationApplicationsResponse";
+import { LockPost } from "./types/LockPost";
+import { Login } from "./types/Login";
+import { LoginResponse } from "./types/LoginResponse";
+import { MarkAllAsRead } from "./types/MarkAllAsRead";
+import { MarkCommentReplyAsRead } from "./types/MarkCommentReplyAsRead";
+import { MarkPersonMentionAsRead } from "./types/MarkPersonMentionAsRead";
+import { MarkPostAsRead } from "./types/MarkPostAsRead";
+import { MarkPrivateMessageAsRead } from "./types/MarkPrivateMessageAsRead";
+import { PasswordChangeAfterReset } from "./types/PasswordChangeAfterReset";
+import { PasswordReset } from "./types/PasswordReset";
+import { PasswordResetResponse } from "./types/PasswordResetResponse";
+import { PersonMentionResponse } from "./types/PersonMentionResponse";
+import { PostReportResponse } from "./types/PostReportResponse";
+import { PostResponse } from "./types/PostResponse";
+import { PrivateMessageReportResponse } from "./types/PrivateMessageReportResponse";
+import { PrivateMessageResponse } from "./types/PrivateMessageResponse";
+import { PrivateMessagesResponse } from "./types/PrivateMessagesResponse";
+import { PurgeComment } from "./types/PurgeComment";
+import { PurgeCommunity } from "./types/PurgeCommunity";
+import { PurgeItemResponse } from "./types/PurgeItemResponse";
+import { PurgePerson } from "./types/PurgePerson";
+import { PurgePost } from "./types/PurgePost";
+import { Register } from "./types/Register";
+import { RegistrationApplicationResponse } from "./types/RegistrationApplicationResponse";
+import { RemoveComment } from "./types/RemoveComment";
+import { RemoveCommunity } from "./types/RemoveCommunity";
+import { RemovePost } from "./types/RemovePost";
+import { ResolveCommentReport } from "./types/ResolveCommentReport";
+import { ResolveObject } from "./types/ResolveObject";
+import { ResolveObjectResponse } from "./types/ResolveObjectResponse";
+import { ResolvePostReport } from "./types/ResolvePostReport";
+import { ResolvePrivateMessageReport } from "./types/ResolvePrivateMessageReport";
+import { SaveComment } from "./types/SaveComment";
+import { SavePost } from "./types/SavePost";
+import { SaveUserSettings } from "./types/SaveUserSettings";
+import { Search } from "./types/Search";
+import { SearchResponse } from "./types/SearchResponse";
+import { SiteResponse } from "./types/SiteResponse";
+import { TransferCommunity } from "./types/TransferCommunity";
+import { VerifyEmail } from "./types/VerifyEmail";
+import { VerifyEmailResponse } from "./types/VerifyEmailResponse";
+import { UploadImage, UploadImageResponse, VERSION } from "./types/others";
+
 import {
-  CommentReportResponse,
-  CommentResponse,
-  CreateComment,
-  CreateCommentLike,
-  CreateCommentReport,
-  DeleteComment,
-  EditComment,
-  GetComments,
-  GetCommentsResponse,
-  ListCommentReports,
-  ListCommentReportsResponse,
-  RemoveComment,
-  ResolveCommentReport,
-  SaveComment,
-} from "./interfaces/api/comment";
-import {
-  AddModToCommunity,
-  AddModToCommunityResponse,
-  BanFromCommunity,
-  BanFromCommunityResponse,
-  BlockCommunity,
-  BlockCommunityResponse,
-  CommunityResponse,
-  CreateCommunity,
-  DeleteCommunity,
-  EditCommunity,
-  FollowCommunity,
-  GetCommunity,
-  GetCommunityResponse,
-  ListCommunities,
-  ListCommunitiesResponse,
-  RemoveCommunity,
-  TransferCommunity,
-} from "./interfaces/api/community";
-import {
-  AddAdmin,
-  AddAdminResponse,
   ApprovePayment,
   ApprovePaymentResponse,
-  BannedPersonsResponse,
-  BanPerson,
-  BanPersonResponse,
-  BlockPerson,
-  BlockPersonResponse,
-  ChangePassword,
   CreatePayment,
   CreatePaymentResponse,
-  CreatePrivateMessage,
-  CreatePrivateMessageReport,
-  DeleteAccount,
-  DeleteAccountResponse,
-  DeletePrivateMessage,
-  EditPrivateMessage,
-  GetBannedPersons,
-  GetCaptchaResponse,
   GetPayment,
   GetPaymentResponse,
   GetPayments,
   GetPaymentsResponse,
-  GetPersonDetails,
-  GetPersonDetailsResponse,
-  GetPersonMentions,
-  GetPersonMentionsResponse,
   GetPiBalances,
   GetPiBalancesResponse,
-  GetPrivateMessages,
-  GetReplies,
-  GetRepliesResponse,
-  GetReportCount,
-  GetReportCountResponse,
-  GetUnreadCount,
-  GetUnreadCountResponse,
-  ListPrivateMessageReports,
-  ListPrivateMessageReportsResponse,
-  Login,
-  LoginResponse,
-  MarkAllAsRead,
-  MarkCommentReplyAsRead,
-  MarkPersonMentionAsRead,
-  MarkPrivateMessageAsRead,
-  PasswordChange,
-  PasswordReset,
-  PasswordResetResponse,
-  PersonMentionResponse,
   PiAgreeRegister,
   PiAgreeRegisterResponse,
   PiApprove,
@@ -101,68 +163,11 @@ import {
   PiRegisterWithFee,
   PiWithdraw,
   PiWithdrawResponse,
-  PrivateMessageReportResponse,
-  PrivateMessageResponse,
-  PrivateMessagesResponse,
-  Register,
-  ResolvePrivateMessageReport,
-  SaveUserSettings,
   SendPayment,
   SendPaymentResponse,
-  VerifyEmail,
-  VerifyEmailResponse,
   Web3Login,
   Web3Register,
-} from "./interfaces/api/person";
-import {
-  CreatePost,
-  CreatePostLike,
-  CreatePostReport,
-  DeletePost,
-  EditPost,
-  FeaturePost,
-  GetPost,
-  GetPostResponse,
-  GetPosts,
-  GetPostsResponse,
-  GetSiteMetadata,
-  GetSiteMetadataResponse,
-  ListPostReports,
-  ListPostReportsResponse,
-  LockPost,
-  MarkPostAsRead,
-  PostReportResponse,
-  PostResponse,
-  RemovePost,
-  ResolvePostReport,
-  SavePost,
-} from "./interfaces/api/post";
-import {
-  ApproveRegistrationApplication,
-  CreateSite,
-  EditSite,
-  GetModlog,
-  GetModlogResponse,
-  GetSite,
-  GetSiteResponse,
-  GetUnreadRegistrationApplicationCount,
-  GetUnreadRegistrationApplicationCountResponse,
-  LeaveAdmin,
-  ListRegistrationApplications,
-  ListRegistrationApplicationsResponse,
-  PurgeComment,
-  PurgeCommunity,
-  PurgeItemResponse,
-  PurgePerson,
-  PurgePost,
-  RegistrationApplicationResponse,
-  ResolveObject,
-  ResolveObjectResponse,
-  Search,
-  SearchResponse,
-  SiteResponse,
-} from "./interfaces/api/site";
-import { VERSION } from "./interfaces/others";
+} from "./types/PiPayment";
 
 enum HttpType {
   Get = "GET",
@@ -174,19 +179,31 @@ enum HttpType {
  * Helps build lemmy HTTP requests.
  */
 export class LemmyHttp {
-  private apiUrl: string;
-  private headers: { [key: string]: string } = {};
+  #apiUrl: string;
+  #headers: { [key: string]: string } = {};
+  #pictrsUrl: string;
+  #fetchFunction = fetch;
 
   /**
    * Generates a new instance of LemmyHttp.
    * @param baseUrl the base url, without the vX version: https://lemmy.ml -> goes to https://lemmy.ml/api/vX
    * @param headers optional headers. Should contain `x-real-ip` and `x-forwarded-for` .
    */
-  constructor(baseUrl: string, headers?: { [key: string]: string }) {
-    this.apiUrl = `${baseUrl}/api/${VERSION}`;
+  constructor(
+    baseUrl: string,
+    options?: {
+      fetchFunction?: typeof fetch;
+      headers?: { [key: string]: string };
+    }
+  ) {
+    this.#apiUrl = `${baseUrl.replace(/\/+$/, "")}/api/${VERSION}`;
+    this.#pictrsUrl = `${baseUrl}/pictrs/image`;
 
-    if (headers) {
-      this.headers = headers;
+    if (options?.headers) {
+      this.#headers = options.headers;
+    }
+    if (options?.fetchFunction) {
+      this.#fetchFunction = options.fetchFunction;
     }
   }
 
@@ -195,8 +212,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /site`
    */
-  async getSite(form: GetSite) {
-    return this.wrapper<GetSite, GetSiteResponse>(HttpType.Get, "/site", form);
+  getSite(form: GetSite = {}) {
+    return this.#wrapper<GetSite, GetSiteResponse>(HttpType.Get, "/site", form);
   }
 
   /**
@@ -204,8 +221,12 @@ export class LemmyHttp {
    *
    * `HTTP.POST /site`
    */
-  async createSite(form: CreateSite) {
-    return this.wrapper<CreateSite, SiteResponse>(HttpType.Post, "/site", form);
+  createSite(form: CreateSite) {
+    return this.#wrapper<CreateSite, SiteResponse>(
+      HttpType.Post,
+      "/site",
+      form
+    );
   }
 
   /**
@@ -213,8 +234,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /site`
    */
-  async editSite(form: EditSite) {
-    return this.wrapper<EditSite, SiteResponse>(HttpType.Put, "/site", form);
+  editSite(form: EditSite) {
+    return this.#wrapper<EditSite, SiteResponse>(HttpType.Put, "/site", form);
   }
 
   /**
@@ -222,8 +243,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/leave_admin`
    */
-  async leaveAdmin(form: LeaveAdmin) {
-    return this.wrapper<LeaveAdmin, GetSiteResponse>(
+  leaveAdmin(form: LeaveAdmin) {
+    return this.#wrapper<LeaveAdmin, GetSiteResponse>(
       HttpType.Post,
       "/user/leave_admin",
       form
@@ -235,8 +256,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /modlog`
    */
-  async getModlog(form: GetModlog) {
-    return this.wrapper<GetModlog, GetModlogResponse>(
+  getModlog(form: GetModlog = {}) {
+    return this.#wrapper<GetModlog, GetModlogResponse>(
       HttpType.Get,
       "/modlog",
       form
@@ -248,8 +269,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /search`
    */
-  async search(form: Search) {
-    return this.wrapper<Search, SearchResponse>(HttpType.Get, "/search", form);
+  search(form: Search) {
+    return this.#wrapper<Search, SearchResponse>(HttpType.Get, "/search", form);
   }
 
   /**
@@ -257,8 +278,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /resolve_object`
    */
-  async resolveObject(form: ResolveObject) {
-    return this.wrapper<ResolveObject, ResolveObjectResponse>(
+  resolveObject(form: ResolveObject) {
+    return this.#wrapper<ResolveObject, ResolveObjectResponse>(
       HttpType.Get,
       "/resolve_object",
       form
@@ -270,8 +291,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community`
    */
-  async createCommunity(form: CreateCommunity) {
-    return this.wrapper<CreateCommunity, CommunityResponse>(
+  createCommunity(form: CreateCommunity) {
+    return this.#wrapper<CreateCommunity, CommunityResponse>(
       HttpType.Post,
       "/community",
       form
@@ -283,8 +304,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /community`
    */
-  async getCommunity(form: GetCommunity) {
-    return this.wrapper<GetCommunity, GetCommunityResponse>(
+  getCommunity(form: GetCommunity = {}) {
+    return this.#wrapper<GetCommunity, GetCommunityResponse>(
       HttpType.Get,
       "/community",
       form
@@ -296,8 +317,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /community`
    */
-  async editCommunity(form: EditCommunity) {
-    return this.wrapper<EditCommunity, CommunityResponse>(
+  editCommunity(form: EditCommunity) {
+    return this.#wrapper<EditCommunity, CommunityResponse>(
       HttpType.Put,
       "/community",
       form
@@ -309,8 +330,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /community/list`
    */
-  async listCommunities(form: ListCommunities) {
-    return this.wrapper<ListCommunities, ListCommunitiesResponse>(
+  listCommunities(form: ListCommunities = {}) {
+    return this.#wrapper<ListCommunities, ListCommunitiesResponse>(
       HttpType.Get,
       "/community/list",
       form
@@ -322,8 +343,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/follow`
    */
-  async followCommunity(form: FollowCommunity) {
-    return this.wrapper<FollowCommunity, CommunityResponse>(
+  followCommunity(form: FollowCommunity) {
+    return this.#wrapper<FollowCommunity, CommunityResponse>(
       HttpType.Post,
       "/community/follow",
       form
@@ -335,8 +356,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/block`
    */
-  async blockCommunity(form: BlockCommunity) {
-    return this.wrapper<BlockCommunity, BlockCommunityResponse>(
+  blockCommunity(form: BlockCommunity) {
+    return this.#wrapper<BlockCommunity, BlockCommunityResponse>(
       HttpType.Post,
       "/community/block",
       form
@@ -348,8 +369,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/delete`
    */
-  async deleteCommunity(form: DeleteCommunity) {
-    return this.wrapper<DeleteCommunity, CommunityResponse>(
+  deleteCommunity(form: DeleteCommunity) {
+    return this.#wrapper<DeleteCommunity, CommunityResponse>(
       HttpType.Post,
       "/community/delete",
       form
@@ -361,8 +382,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/remove`
    */
-  async removeCommunity(form: RemoveCommunity) {
-    return this.wrapper<RemoveCommunity, CommunityResponse>(
+  removeCommunity(form: RemoveCommunity) {
+    return this.#wrapper<RemoveCommunity, CommunityResponse>(
       HttpType.Post,
       "/community/remove",
       form
@@ -374,8 +395,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/transfer`
    */
-  async transferCommunity(form: TransferCommunity) {
-    return this.wrapper<TransferCommunity, GetCommunityResponse>(
+  transferCommunity(form: TransferCommunity) {
+    return this.#wrapper<TransferCommunity, GetCommunityResponse>(
       HttpType.Post,
       "/community/transfer",
       form
@@ -387,8 +408,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/ban_user`
    */
-  async banFromCommunity(form: BanFromCommunity) {
-    return this.wrapper<BanFromCommunity, BanFromCommunityResponse>(
+  banFromCommunity(form: BanFromCommunity) {
+    return this.#wrapper<BanFromCommunity, BanFromCommunityResponse>(
       HttpType.Post,
       "/community/ban_user",
       form
@@ -400,8 +421,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /community/mod`
    */
-  async addModToCommunity(form: AddModToCommunity) {
-    return this.wrapper<AddModToCommunity, AddModToCommunityResponse>(
+  addModToCommunity(form: AddModToCommunity) {
+    return this.#wrapper<AddModToCommunity, AddModToCommunityResponse>(
       HttpType.Post,
       "/community/mod",
       form
@@ -413,8 +434,12 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post`
    */
-  async createPost(form: CreatePost) {
-    return this.wrapper<CreatePost, PostResponse>(HttpType.Post, "/post", form);
+  createPost(form: CreatePost) {
+    return this.#wrapper<CreatePost, PostResponse>(
+      HttpType.Post,
+      "/post",
+      form
+    );
   }
 
   /**
@@ -422,8 +447,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /post`
    */
-  async getPost(form: GetPost) {
-    return this.wrapper<GetPost, GetPostResponse>(HttpType.Get, "/post", form);
+  getPost(form: GetPost = {}) {
+    return this.#wrapper<GetPost, GetPostResponse>(HttpType.Get, "/post", form);
   }
 
   /**
@@ -431,8 +456,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /post`
    */
-  async editPost(form: EditPost) {
-    return this.wrapper<EditPost, PostResponse>(HttpType.Put, "/post", form);
+  editPost(form: EditPost) {
+    return this.#wrapper<EditPost, PostResponse>(HttpType.Put, "/post", form);
   }
 
   /**
@@ -440,8 +465,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/delete`
    */
-  async deletePost(form: DeletePost) {
-    return this.wrapper<DeletePost, PostResponse>(
+  deletePost(form: DeletePost) {
+    return this.#wrapper<DeletePost, PostResponse>(
       HttpType.Post,
       "/post/delete",
       form
@@ -453,8 +478,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/remove`
    */
-  async removePost(form: RemovePost) {
-    return this.wrapper<RemovePost, PostResponse>(
+  removePost(form: RemovePost) {
+    return this.#wrapper<RemovePost, PostResponse>(
       HttpType.Post,
       "/post/remove",
       form
@@ -466,8 +491,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/mark_as_read`
    */
-  async markPostAsRead(form: MarkPostAsRead) {
-    return this.wrapper<MarkPostAsRead, PostResponse>(
+  markPostAsRead(form: MarkPostAsRead) {
+    return this.#wrapper<MarkPostAsRead, PostResponse>(
       HttpType.Post,
       "/post/mark_as_read",
       form
@@ -479,8 +504,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/lock`
    */
-  async lockPost(form: LockPost) {
-    return this.wrapper<LockPost, PostResponse>(
+  lockPost(form: LockPost) {
+    return this.#wrapper<LockPost, PostResponse>(
       HttpType.Post,
       "/post/lock",
       form
@@ -492,8 +517,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/feature`
    */
-  async featurePost(form: FeaturePost) {
-    return this.wrapper<FeaturePost, PostResponse>(
+  featurePost(form: FeaturePost) {
+    return this.#wrapper<FeaturePost, PostResponse>(
       HttpType.Post,
       "/post/feature",
       form
@@ -505,8 +530,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /post/list`
    */
-  async getPosts(form: GetPosts) {
-    return this.wrapper<GetPosts, GetPostsResponse>(
+  getPosts(form: GetPosts = {}) {
+    return this.#wrapper<GetPosts, GetPostsResponse>(
       HttpType.Get,
       "/post/list",
       form
@@ -518,8 +543,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/like`
    */
-  async likePost(form: CreatePostLike) {
-    return this.wrapper<CreatePostLike, PostResponse>(
+  likePost(form: CreatePostLike) {
+    return this.#wrapper<CreatePostLike, PostResponse>(
       HttpType.Post,
       "/post/like",
       form
@@ -531,8 +556,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /post/save`
    */
-  async savePost(form: SavePost) {
-    return this.wrapper<SavePost, PostResponse>(
+  savePost(form: SavePost) {
+    return this.#wrapper<SavePost, PostResponse>(
       HttpType.Put,
       "/post/save",
       form
@@ -544,8 +569,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /post/report`
    */
-  async createPostReport(form: CreatePostReport) {
-    return this.wrapper<CreatePostReport, PostReportResponse>(
+  createPostReport(form: CreatePostReport) {
+    return this.#wrapper<CreatePostReport, PostReportResponse>(
       HttpType.Post,
       "/post/report",
       form
@@ -557,8 +582,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /post/report/resolve`
    */
-  async resolvePostReport(form: ResolvePostReport) {
-    return this.wrapper<ResolvePostReport, PostReportResponse>(
+  resolvePostReport(form: ResolvePostReport) {
+    return this.#wrapper<ResolvePostReport, PostReportResponse>(
       HttpType.Put,
       "/post/report/resolve",
       form
@@ -570,8 +595,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /post/report/list`
    */
-  async listPostReports(form: ListPostReports) {
-    return this.wrapper<ListPostReports, ListPostReportsResponse>(
+  listPostReports(form: ListPostReports) {
+    return this.#wrapper<ListPostReports, ListPostReportsResponse>(
       HttpType.Get,
       "/post/report/list",
       form
@@ -583,8 +608,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /post/site_metadata`
    */
-  async getSiteMetadata(form: GetSiteMetadata) {
-    return this.wrapper<GetSiteMetadata, GetSiteMetadataResponse>(
+  getSiteMetadata(form: GetSiteMetadata) {
+    return this.#wrapper<GetSiteMetadata, GetSiteMetadataResponse>(
       HttpType.Get,
       "/post/site_metadata",
       form
@@ -596,8 +621,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment`
    */
-  async createComment(form: CreateComment) {
-    return this.wrapper<CreateComment, CommentResponse>(
+  createComment(form: CreateComment) {
+    return this.#wrapper<CreateComment, CommentResponse>(
       HttpType.Post,
       "/comment",
       form
@@ -609,8 +634,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /comment`
    */
-  async editComment(form: EditComment) {
-    return this.wrapper<EditComment, CommentResponse>(
+  editComment(form: EditComment) {
+    return this.#wrapper<EditComment, CommentResponse>(
       HttpType.Put,
       "/comment",
       form
@@ -622,8 +647,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment/delete`
    */
-  async deleteComment(form: DeleteComment) {
-    return this.wrapper<DeleteComment, CommentResponse>(
+  deleteComment(form: DeleteComment) {
+    return this.#wrapper<DeleteComment, CommentResponse>(
       HttpType.Post,
       "/comment/delete",
       form
@@ -635,8 +660,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment/remove`
    */
-  async removeComment(form: RemoveComment) {
-    return this.wrapper<RemoveComment, CommentResponse>(
+  removeComment(form: RemoveComment) {
+    return this.#wrapper<RemoveComment, CommentResponse>(
       HttpType.Post,
       "/comment/remove",
       form
@@ -648,8 +673,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment/mark_as_read`
    */
-  async markCommentReplyAsRead(form: MarkCommentReplyAsRead) {
-    return this.wrapper<MarkCommentReplyAsRead, CommentResponse>(
+  markCommentReplyAsRead(form: MarkCommentReplyAsRead) {
+    return this.#wrapper<MarkCommentReplyAsRead, CommentReplyResponse>(
       HttpType.Post,
       "/comment/mark_as_read",
       form
@@ -661,8 +686,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment/like`
    */
-  async likeComment(form: CreateCommentLike) {
-    return this.wrapper<CreateCommentLike, CommentResponse>(
+  likeComment(form: CreateCommentLike) {
+    return this.#wrapper<CreateCommentLike, CommentResponse>(
       HttpType.Post,
       "/comment/like",
       form
@@ -674,10 +699,23 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /comment/save`
    */
-  async saveComment(form: SaveComment) {
-    return this.wrapper<SaveComment, CommentResponse>(
+  saveComment(form: SaveComment) {
+    return this.#wrapper<SaveComment, CommentResponse>(
       HttpType.Put,
       "/comment/save",
+      form
+    );
+  }
+
+  /**
+   * Distinguishes a comment (speak as moderator)
+   *
+   * `HTTP.POST /comment/distinguish`
+   */
+  distinguishComment(form: DistinguishComment) {
+    return this.#wrapper<DistinguishComment, CommentResponse>(
+      HttpType.Post,
+      "/comment/distinguish",
       form
     );
   }
@@ -687,10 +725,23 @@ export class LemmyHttp {
    *
    * `HTTP.GET /comment/list`
    */
-  async getComments(form: GetComments) {
-    return this.wrapper<GetComments, GetCommentsResponse>(
+  getComments(form: GetComments = {}) {
+    return this.#wrapper<GetComments, GetCommentsResponse>(
       HttpType.Get,
       "/comment/list",
+      form
+    );
+  }
+
+  /**
+   * Get / fetch comment.
+   *
+   * `HTTP.GET /comment`
+   */
+  getComment(form: GetComment) {
+    return this.#wrapper<GetComment, CommentResponse>(
+      HttpType.Get,
+      "/comment",
       form
     );
   }
@@ -700,8 +751,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /comment/report`
    */
-  async createCommentReport(form: CreateCommentReport) {
-    return this.wrapper<CreateCommentReport, CommentReportResponse>(
+  createCommentReport(form: CreateCommentReport) {
+    return this.#wrapper<CreateCommentReport, CommentReportResponse>(
       HttpType.Post,
       "/comment/report",
       form
@@ -713,8 +764,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /comment/report/resolve`
    */
-  async resolveCommentReport(form: ResolveCommentReport) {
-    return this.wrapper<ResolveCommentReport, CommentReportResponse>(
+  resolveCommentReport(form: ResolveCommentReport) {
+    return this.#wrapper<ResolveCommentReport, CommentReportResponse>(
       HttpType.Put,
       "/comment/report/resolve",
       form
@@ -726,8 +777,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /comment/report/list`
    */
-  async listCommentReports(form: ListCommentReports) {
-    return this.wrapper<ListCommentReports, ListCommentReportsResponse>(
+  listCommentReports(form: ListCommentReports) {
+    return this.#wrapper<ListCommentReports, ListCommentReportsResponse>(
       HttpType.Get,
       "/comment/report/list",
       form
@@ -739,8 +790,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /private_message/list`
    */
-  async getPrivateMessages(form: GetPrivateMessages) {
-    return this.wrapper<GetPrivateMessages, PrivateMessagesResponse>(
+  getPrivateMessages(form: GetPrivateMessages) {
+    return this.#wrapper<GetPrivateMessages, PrivateMessagesResponse>(
       HttpType.Get,
       "/private_message/list",
       form
@@ -752,8 +803,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /private_message`
    */
-  async createPrivateMessage(form: CreatePrivateMessage) {
-    return this.wrapper<CreatePrivateMessage, PrivateMessageResponse>(
+  createPrivateMessage(form: CreatePrivateMessage) {
+    return this.#wrapper<CreatePrivateMessage, PrivateMessageResponse>(
       HttpType.Post,
       "/private_message",
       form
@@ -765,8 +816,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /private_message`
    */
-  async editPrivateMessage(form: EditPrivateMessage) {
-    return this.wrapper<EditPrivateMessage, PrivateMessageResponse>(
+  editPrivateMessage(form: EditPrivateMessage) {
+    return this.#wrapper<EditPrivateMessage, PrivateMessageResponse>(
       HttpType.Put,
       "/private_message",
       form
@@ -778,8 +829,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /private_message/delete`
    */
-  async deletePrivateMessage(form: DeletePrivateMessage) {
-    return this.wrapper<DeletePrivateMessage, PrivateMessageResponse>(
+  deletePrivateMessage(form: DeletePrivateMessage) {
+    return this.#wrapper<DeletePrivateMessage, PrivateMessageResponse>(
       HttpType.Post,
       "/private_message/delete",
       form
@@ -791,8 +842,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /private_message/mark_as_read`
    */
-  async markPrivateMessageAsRead(form: MarkPrivateMessageAsRead) {
-    return this.wrapper<MarkPrivateMessageAsRead, PrivateMessageResponse>(
+  markPrivateMessageAsRead(form: MarkPrivateMessageAsRead) {
+    return this.#wrapper<MarkPrivateMessageAsRead, PrivateMessageResponse>(
       HttpType.Post,
       "/private_message/mark_as_read",
       form
@@ -804,8 +855,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /private_message/report`
    */
-  async createPrivateMessageReport(form: CreatePrivateMessageReport) {
-    return this.wrapper<
+  createPrivateMessageReport(form: CreatePrivateMessageReport) {
+    return this.#wrapper<
       CreatePrivateMessageReport,
       PrivateMessageReportResponse
     >(HttpType.Post, "/private_message/report", form);
@@ -816,8 +867,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /private_message/report/resolve`
    */
-  async resolvePrivateMessageReport(form: ResolvePrivateMessageReport) {
-    return this.wrapper<
+  resolvePrivateMessageReport(form: ResolvePrivateMessageReport) {
+    return this.#wrapper<
       ResolvePrivateMessageReport,
       PrivateMessageReportResponse
     >(HttpType.Put, "/private_message/report/resolve", form);
@@ -828,8 +879,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /private_message/report/list`
    */
-  async listPrivateMessageReports(form: ListPrivateMessageReports) {
-    return this.wrapper<
+  listPrivateMessageReports(form: ListPrivateMessageReports) {
+    return this.#wrapper<
       ListPrivateMessageReports,
       ListPrivateMessageReportsResponse
     >(HttpType.Get, "/private_message/report/list", form);
@@ -840,8 +891,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/register`
    */
-  async register(form: Register) {
-    return this.wrapper<Register, LoginResponse>(
+  register(form: Register) {
+    return this.#wrapper<Register, LoginResponse>(
       HttpType.Post,
       "/user/register",
       form
@@ -853,8 +904,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/login`
    */
-  async login(form: Login) {
-    return this.wrapper<Login, LoginResponse>(
+  login(form: Login) {
+    return this.#wrapper<Login, LoginResponse>(
       HttpType.Post,
       "/user/login",
       form
@@ -867,7 +918,7 @@ export class LemmyHttp {
    * `HTTP.GET /user/get_token`
    */
   async getToken() {
-    return this.wrapper<any, GetCaptchaResponse>(
+    return this.#wrapper<any, GetCaptchaResponse>(
       HttpType.Get,
       "/user/get_token",
       {}
@@ -880,7 +931,7 @@ export class LemmyHttp {
    * `HTTP.POST /web3/register`
    */
   async web3Register(form: Web3Register) {
-    return this.wrapper<Web3Register, LoginResponse>(
+    return this.#wrapper<Web3Register, LoginResponse>(
       HttpType.Post,
       "/web3/register",
       form
@@ -892,7 +943,7 @@ export class LemmyHttp {
    * `HTTP.POST /user/web3login`
    */
   async web3Login(form: Web3Login): Promise<LoginResponse> {
-    return this.wrapper<Web3Login, LoginResponse>(
+    return this.#wrapper<Web3Login, LoginResponse>(
       HttpType.Post,
       "/web3/login",
       form
@@ -905,7 +956,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/register`
    */
   async piRegister(form: PiRegister) {
-    return this.wrapper<PiRegister, LoginResponse>(
+    return this.#wrapper<PiRegister, LoginResponse>(
       HttpType.Post,
       "/pi/register",
       form
@@ -917,7 +968,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/login`
    */
   async piAgree(form: PiAgreeRegister): Promise<PiAgreeRegisterResponse> {
-    return this.wrapper<PiAgreeRegister, PiAgreeRegisterResponse>(
+    return this.#wrapper<PiAgreeRegister, PiAgreeRegisterResponse>(
       HttpType.Post,
       "/pi/agree",
       form
@@ -930,7 +981,7 @@ export class LemmyHttp {
    * `HTTP.POST /user/register`
    */
   async piRegisterWithFee(form: PiRegisterWithFee) {
-    return this.wrapper<PiRegisterWithFee, LoginResponse>(
+    return this.#wrapper<PiRegisterWithFee, LoginResponse>(
       HttpType.Post,
       "/pi/register_with_fee",
       form
@@ -942,7 +993,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/login`
    */
   async piLogin(form: PiLogin): Promise<LoginResponse> {
-    return this.wrapper<PiLogin, LoginResponse>(
+    return this.#wrapper<PiLogin, LoginResponse>(
       HttpType.Post,
       "/pi/login",
       form
@@ -954,7 +1005,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/approve`
    */
   async piPaymentApprove(form: PiApprove): Promise<PiApproveResponse> {
-    return this.wrapper<PiApprove, PiApproveResponse>(
+    return this.#wrapper<PiApprove, PiApproveResponse>(
       HttpType.Post,
       "/pi/approve",
       form
@@ -968,7 +1019,7 @@ export class LemmyHttp {
   async piPaymentComplete(
     form: PiPaymentComplete
   ): Promise<PiPaymentCompleteResponse> {
-    return this.wrapper<PiPaymentComplete, PiPaymentCompleteResponse>(
+    return this.#wrapper<PiPaymentComplete, PiPaymentCompleteResponse>(
       HttpType.Post,
       "/pi/complete",
       form
@@ -979,7 +1030,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/found`
    */
   async piPaymentFound(form: PiPaymentFound): Promise<PiPaymentFoundResponse> {
-    return this.wrapper<PiPaymentFound, PiPaymentFoundResponse>(
+    return this.#wrapper<PiPaymentFound, PiPaymentFoundResponse>(
       HttpType.Post,
       "/pi/found",
       form
@@ -993,7 +1044,7 @@ export class LemmyHttp {
   async piPaymentCancel(
     form: PiPaymentCancel
   ): Promise<PiPaymentFoundResponse> {
-    return this.wrapper<PiPaymentCancel, PiPaymentFoundResponse>(
+    return this.#wrapper<PiPaymentCancel, PiPaymentFoundResponse>(
       HttpType.Post,
       "/pi/cancelled",
       form
@@ -1005,7 +1056,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/error`
    */
   async piPaymentError(form: PiPaymentError): Promise<PiPaymentFoundResponse> {
-    return this.wrapper<PiPaymentError, PiPaymentFoundResponse>(
+    return this.#wrapper<PiPaymentError, PiPaymentFoundResponse>(
       HttpType.Post,
       "/pi/error",
       form
@@ -1013,11 +1064,11 @@ export class LemmyHttp {
   }
 
   async piKey(form: PiKey): Promise<PiKeyResponse> {
-    return this.wrapper<PiKey, PiKeyResponse>(HttpType.Post, "/pi/key", form);
+    return this.#wrapper<PiKey, PiKeyResponse>(HttpType.Post, "/pi/key", form);
   }
 
   async piBalances(form: GetPiBalances): Promise<GetPiBalancesResponse> {
-    return this.wrapper<GetPiBalances, GetPiBalancesResponse>(
+    return this.#wrapper<GetPiBalances, GetPiBalancesResponse>(
       HttpType.Post,
       "/pi/balance",
       form
@@ -1029,7 +1080,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/payment/withdraw`
    */
   async piWithdraw(form: PiWithdraw): Promise<PiWithdrawResponse> {
-    return this.wrapper<PiWithdraw, PiWithdrawResponse>(
+    return this.#wrapper<PiWithdraw, PiWithdrawResponse>(
       HttpType.Post,
       "/pi/withdraw",
       form
@@ -1041,7 +1092,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/payment/create`
    */
   async piCreatePayment(form: CreatePayment): Promise<CreatePaymentResponse> {
-    return this.wrapper<CreatePayment, CreatePaymentResponse>(
+    return this.#wrapper<CreatePayment, CreatePaymentResponse>(
       HttpType.Post,
       "/pi/payment/create",
       form
@@ -1055,7 +1106,7 @@ export class LemmyHttp {
   async piApprovePayment(
     form: ApprovePayment
   ): Promise<ApprovePaymentResponse> {
-    return this.wrapper<ApprovePayment, ApprovePaymentResponse>(
+    return this.#wrapper<ApprovePayment, ApprovePaymentResponse>(
       HttpType.Post,
       "/pi/payment/approve",
       form
@@ -1067,7 +1118,7 @@ export class LemmyHttp {
    * `HTTP.POST /pi/payment/send`
    */
   async piSendPayment(form: SendPayment): Promise<SendPaymentResponse> {
-    return this.wrapper<SendPayment, SendPaymentResponse>(
+    return this.#wrapper<SendPayment, SendPaymentResponse>(
       HttpType.Post,
       "/pi/payment/send",
       form
@@ -1075,7 +1126,7 @@ export class LemmyHttp {
   }
 
   async piGetPayment(form: GetPayment): Promise<GetPaymentResponse> {
-    return this.wrapper<GetPayment, GetPaymentResponse>(
+    return this.#wrapper<GetPayment, GetPaymentResponse>(
       HttpType.Post,
       "/pi/payment/payment",
       form
@@ -1083,7 +1134,7 @@ export class LemmyHttp {
   }
 
   async piGetPayments(form: GetPayments): Promise<GetPaymentsResponse> {
-    return this.wrapper<GetPayments, GetPaymentsResponse>(
+    return this.#wrapper<GetPayments, GetPaymentsResponse>(
       HttpType.Post,
       "/pi/payment/payments",
       form
@@ -1095,8 +1146,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user`
    */
-  async getPersonDetails(form: GetPersonDetails) {
-    return this.wrapper<GetPersonDetails, GetPersonDetailsResponse>(
+  getPersonDetails(form: GetPersonDetails = {}) {
+    return this.#wrapper<GetPersonDetails, GetPersonDetailsResponse>(
       HttpType.Get,
       "/user",
       form
@@ -1108,8 +1159,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/mention`
    */
-  async getPersonMentions(form: GetPersonMentions) {
-    return this.wrapper<GetPersonMentions, GetPersonMentionsResponse>(
+  getPersonMentions(form: GetPersonMentions) {
+    return this.#wrapper<GetPersonMentions, GetPersonMentionsResponse>(
       HttpType.Get,
       "/user/mention",
       form
@@ -1121,8 +1172,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/mention/mark_as_read`
    */
-  async markPersonMentionAsRead(form: MarkPersonMentionAsRead) {
-    return this.wrapper<MarkPersonMentionAsRead, PersonMentionResponse>(
+  markPersonMentionAsRead(form: MarkPersonMentionAsRead) {
+    return this.#wrapper<MarkPersonMentionAsRead, PersonMentionResponse>(
       HttpType.Post,
       "/user/mention/mark_as_read",
       form
@@ -1134,8 +1185,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/replies`
    */
-  async getReplies(form: GetReplies) {
-    return this.wrapper<GetReplies, GetRepliesResponse>(
+  getReplies(form: GetReplies) {
+    return this.#wrapper<GetReplies, GetRepliesResponse>(
       HttpType.Get,
       "/user/replies",
       form
@@ -1147,8 +1198,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/ban`
    */
-  async banPerson(form: BanPerson) {
-    return this.wrapper<BanPerson, BanPersonResponse>(
+  banPerson(form: BanPerson) {
+    return this.#wrapper<BanPerson, BanPersonResponse>(
       HttpType.Post,
       "/user/ban",
       form
@@ -1160,8 +1211,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/banned`
    */
-  async getBannedPersons(form: GetBannedPersons) {
-    return this.wrapper<GetBannedPersons, BannedPersonsResponse>(
+  getBannedPersons(form: GetBannedPersons) {
+    return this.#wrapper<GetBannedPersons, BannedPersonsResponse>(
       HttpType.Get,
       "/user/banned",
       form
@@ -1173,8 +1224,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/block`
    */
-  async blockPerson(form: BlockPerson) {
-    return this.wrapper<BlockPerson, BlockPersonResponse>(
+  blockPerson(form: BlockPerson) {
+    return this.#wrapper<BlockPerson, BlockPersonResponse>(
       HttpType.Post,
       "/user/block",
       form
@@ -1186,11 +1237,11 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/get_captcha`
    */
-  async getCaptcha() {
-    return this.wrapper<any, GetCaptchaResponse>(
+  getCaptcha(form: GetCaptcha = {}) {
+    return this.#wrapper<GetCaptcha, GetCaptchaResponse>(
       HttpType.Get,
       "/user/get_captcha",
-      {}
+      form
     );
   }
 
@@ -1199,8 +1250,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/delete_account`
    */
-  async deleteAccount(form: DeleteAccount) {
-    return this.wrapper<DeleteAccount, DeleteAccountResponse>(
+  deleteAccount(form: DeleteAccount) {
+    return this.#wrapper<DeleteAccount, DeleteAccountResponse>(
       HttpType.Post,
       "/user/delete_account",
       form
@@ -1212,8 +1263,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/password_reset`
    */
-  async passwordReset(form: PasswordReset) {
-    return this.wrapper<PasswordReset, PasswordResetResponse>(
+  passwordReset(form: PasswordReset) {
+    return this.#wrapper<PasswordReset, PasswordResetResponse>(
       HttpType.Post,
       "/user/password_reset",
       form
@@ -1225,8 +1276,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/password_change`
    */
-  async passwordChange(form: PasswordChange) {
-    return this.wrapper<PasswordChange, LoginResponse>(
+  passwordChangeAfterReset(form: PasswordChangeAfterReset) {
+    return this.#wrapper<PasswordChangeAfterReset, LoginResponse>(
       HttpType.Post,
       "/user/password_change",
       form
@@ -1238,8 +1289,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/mark_all_as_read`
    */
-  async markAllAsRead(form: MarkAllAsRead) {
-    return this.wrapper<MarkAllAsRead, GetRepliesResponse>(
+  markAllAsRead(form: MarkAllAsRead) {
+    return this.#wrapper<MarkAllAsRead, GetRepliesResponse>(
       HttpType.Post,
       "/user/mark_all_as_read",
       form
@@ -1251,8 +1302,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /user/save_user_settings`
    */
-  async saveUserSettings(form: SaveUserSettings) {
-    return this.wrapper<SaveUserSettings, LoginResponse>(
+  saveUserSettings(form: SaveUserSettings) {
+    return this.#wrapper<SaveUserSettings, LoginResponse>(
       HttpType.Put,
       "/user/save_user_settings",
       form
@@ -1264,8 +1315,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /user/change_password`
    */
-  async changePassword(form: ChangePassword) {
-    return this.wrapper<ChangePassword, LoginResponse>(
+  changePassword(form: ChangePassword) {
+    return this.#wrapper<ChangePassword, LoginResponse>(
       HttpType.Put,
       "/user/change_password",
       form
@@ -1277,8 +1328,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/report_count`
    */
-  async getReportCount(form: GetReportCount) {
-    return this.wrapper<GetReportCount, GetReportCountResponse>(
+  getReportCount(form: GetReportCount) {
+    return this.#wrapper<GetReportCount, GetReportCountResponse>(
       HttpType.Get,
       "/user/report_count",
       form
@@ -1290,8 +1341,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /user/unread_count`
    */
-  async getUnreadCount(form: GetUnreadCount) {
-    return this.wrapper<GetUnreadCount, GetUnreadCountResponse>(
+  getUnreadCount(form: GetUnreadCount) {
+    return this.#wrapper<GetUnreadCount, GetUnreadCountResponse>(
       HttpType.Get,
       "/user/unread_count",
       form
@@ -1303,8 +1354,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /user/verify_email`
    */
-  async verifyEmail(form: VerifyEmail) {
-    return this.wrapper<VerifyEmail, VerifyEmailResponse>(
+  verifyEmail(form: VerifyEmail) {
+    return this.#wrapper<VerifyEmail, VerifyEmailResponse>(
       HttpType.Post,
       "/user/verify_email",
       form
@@ -1316,8 +1367,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /admin/add`
    */
-  async addAdmin(form: AddAdmin) {
-    return this.wrapper<AddAdmin, AddAdminResponse>(
+  addAdmin(form: AddAdmin) {
+    return this.#wrapper<AddAdmin, AddAdminResponse>(
       HttpType.Post,
       "/admin/add",
       form
@@ -1329,10 +1380,10 @@ export class LemmyHttp {
    *
    * `HTTP.GET /admin/registration_application/count`
    */
-  async getUnreadRegistrationApplicationCount(
+  getUnreadRegistrationApplicationCount(
     form: GetUnreadRegistrationApplicationCount
   ) {
-    return this.wrapper<
+    return this.#wrapper<
       GetUnreadRegistrationApplicationCount,
       GetUnreadRegistrationApplicationCountResponse
     >(HttpType.Get, "/admin/registration_application/count", form);
@@ -1343,8 +1394,8 @@ export class LemmyHttp {
    *
    * `HTTP.GET /admin/registration_application/list`
    */
-  async listRegistrationApplications(form: ListRegistrationApplications) {
-    return this.wrapper<
+  listRegistrationApplications(form: ListRegistrationApplications) {
+    return this.#wrapper<
       ListRegistrationApplications,
       ListRegistrationApplicationsResponse
     >(HttpType.Get, "/admin/registration_application/list", form);
@@ -1355,8 +1406,8 @@ export class LemmyHttp {
    *
    * `HTTP.PUT /admin/registration_application/approve`
    */
-  async approveRegistrationApplication(form: ApproveRegistrationApplication) {
-    return this.wrapper<
+  approveRegistrationApplication(form: ApproveRegistrationApplication) {
+    return this.#wrapper<
       ApproveRegistrationApplication,
       RegistrationApplicationResponse
     >(HttpType.Put, "/admin/registration_application/approve", form);
@@ -1367,8 +1418,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /admin/purge/person`
    */
-  async purgePerson(form: PurgePerson) {
-    return this.wrapper<PurgePerson, PurgeItemResponse>(
+  purgePerson(form: PurgePerson) {
+    return this.#wrapper<PurgePerson, PurgeItemResponse>(
       HttpType.Post,
       "/admin/purge/person",
       form
@@ -1380,8 +1431,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /admin/purge/community`
    */
-  async purgeCommunity(form: PurgeCommunity) {
-    return this.wrapper<PurgeCommunity, PurgeItemResponse>(
+  purgeCommunity(form: PurgeCommunity) {
+    return this.#wrapper<PurgeCommunity, PurgeItemResponse>(
       HttpType.Post,
       "/admin/purge/community",
       form
@@ -1393,8 +1444,8 @@ export class LemmyHttp {
    *
    * `HTTP.POST /admin/purge/post`
    */
-  async purgePost(form: PurgePost) {
-    return this.wrapper<PurgePost, PurgeItemResponse>(
+  purgePost(form: PurgePost) {
+    return this.#wrapper<PurgePost, PurgeItemResponse>(
       HttpType.Post,
       "/admin/purge/post",
       form
@@ -1406,38 +1457,147 @@ export class LemmyHttp {
    *
    * `HTTP.POST /admin/purge/comment`
    */
-  async purgeComment(form: PurgeComment) {
-    return this.wrapper<PurgeComment, PurgeItemResponse>(
+  purgeComment(form: PurgeComment) {
+    return this.#wrapper<PurgeComment, PurgeItemResponse>(
       HttpType.Post,
       "/admin/purge/comment",
       form
     );
   }
 
-  private buildFullUrl(endpoint: string): string {
-    return `${this.apiUrl}${endpoint}`;
+  /**
+   * Create a new custom emoji
+   *
+   * `HTTP.POST /custom_emoji`
+   */
+  async createCustomEmoji(form: CreateCustomEmoji) {
+    return this.#wrapper<CreateCustomEmoji, CustomEmojiResponse>(
+      HttpType.Post,
+      "/custom_emoji",
+      form
+    );
   }
 
-  private async wrapper<BodyType extends object, ResponseType>(
+  /**
+   * Edit an existing custom emoji
+   *
+   * `HTTP.PUT /custom_emoji`
+   */
+  async editCustomEmoji(form: EditCustomEmoji) {
+    return this.#wrapper<EditCustomEmoji, CustomEmojiResponse>(
+      HttpType.Put,
+      "/custom_emoji",
+      form
+    );
+  }
+
+  /**
+   * Delete a custom emoji
+   *
+   * `HTTP.Post /custom_emoji/delete`
+   */
+  async deleteCustomEmoji(form: DeleteCustomEmoji) {
+    return this.#wrapper<DeleteCustomEmoji, DeleteCustomEmojiResponse>(
+      HttpType.Post,
+      "/custom_emoji/delete",
+      form
+    );
+  }
+
+  /**
+   * Fetch federated instances.
+   *
+   * `HTTP.Get /federated_instances`
+   */
+  async getFederatedInstances(form: GetFederatedInstances = {}) {
+    return this.#wrapper<GetFederatedInstances, GetFederatedInstancesResponse>(
+      HttpType.Get,
+      "/federated_instances",
+      form
+    );
+  }
+
+  /**
+   * Upload an image to the server.
+   */
+  async uploadImage({
+    image,
+    auth,
+  }: UploadImage): Promise<UploadImageResponse> {
+    const formData = createFormData(image);
+
+    // If jwt cookie not already set by browser, set it with passed in auth
+    const headers = {} as any;
+    if (
+      !globalThis?.document?.cookie?.includes("jwt=") &&
+      !this.#headers?.Cookie?.includes("jwt=")
+    ) {
+      headers.Cookie = `jwt=${auth}`;
+    }
+
+    let url: string | undefined = undefined;
+    let delete_url: string | undefined = undefined;
+
+    const response = await this.#fetchFunction(this.#pictrsUrl, {
+      method: HttpType.Post,
+      body: formData as unknown as BodyInit,
+      headers: {
+        ...this.#headers,
+        ...headers,
+      },
+    });
+
+    if (response.status === 413) {
+      return { msg: "too_large" };
+    }
+
+    const responseJson = await response.json();
+
+    if (responseJson.msg === "ok") {
+      const { file: hash, delete_token: deleteToken } = responseJson.files[0];
+      delete_url = `${this.#pictrsUrl}/delete/${deleteToken}/${hash}`;
+      url = `${this.#pictrsUrl}/${hash}`;
+    }
+
+    return {
+      ...responseJson,
+      url,
+      delete_url,
+    };
+  }
+
+  #buildFullUrl(endpoint: string) {
+    return `${this.#apiUrl}${endpoint}`;
+  }
+
+  async #wrapper<BodyType extends object, ResponseType>(
     type_: HttpType,
     endpoint: string,
     form: BodyType
   ): Promise<ResponseType> {
-    if (type_ == HttpType.Get) {
-      let getUrl = `${this.buildFullUrl(endpoint)}?${encodeGetParams(form)}`;
-      return fetch(getUrl, {
-        method: "GET",
-        headers: this.headers,
-      }).then(d => d.json() as Promise<ResponseType>);
+    let response: Response;
+    if (type_ === HttpType.Get) {
+      const getUrl = `${this.#buildFullUrl(endpoint)}?${encodeGetParams(form)}`;
+      response = await this.#fetchFunction(getUrl, {
+        method: HttpType.Get,
+        headers: this.#headers,
+      });
     } else {
-      return fetch(this.buildFullUrl(endpoint), {
+      response = await this.#fetchFunction(this.#buildFullUrl(endpoint), {
         method: type_,
         headers: {
           "Content-Type": "application/json",
-          ...this.headers,
+          ...this.#headers,
         },
         body: JSON.stringify(form),
-      }).then(d => d.json() as Promise<ResponseType>);
+      });
+    }
+    const json = await response.json();
+
+    if (!response.ok) {
+      throw json["error"] ?? response.statusText;
+    } else {
+      return json;
     }
   }
 }
@@ -1447,4 +1607,17 @@ function encodeGetParams<BodyType extends object>(p: BodyType): string {
     .filter(kv => !!kv[1])
     .map(kv => kv.map(encodeURIComponent).join("="))
     .join("&");
+}
+
+function createFormData(image: File | Buffer): FormData {
+  let formData = new FormData();
+
+  if (image.constructor.name === "File") {
+    formData.append("images[]", image);
+  } else {
+    // The filename doesn't affect the file type or file name that ends up in pictrs
+    formData.append("images[]", image, { filename: "image.jpg" });
+  }
+
+  return formData;
 }
