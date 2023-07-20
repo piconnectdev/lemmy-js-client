@@ -211,6 +211,7 @@ export {
   PiPaymentError,
   PiPaymentFound,
   PiPaymentFoundResponse,
+  PiPaymentSafe,
   PiRegister,
   PiRegisterWithFee,
   PiWithdraw,
