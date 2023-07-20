@@ -186,6 +186,40 @@ export { PersonMentionId } from "./types/PersonMentionId";
 export { PersonMentionResponse } from "./types/PersonMentionResponse";
 export { PersonMentionView } from "./types/PersonMentionView";
 export { PersonView } from "./types/PersonView";
+export {
+  ApprovePayment,
+  ApprovePaymentResponse,
+  CreatePayment,
+  CreatePaymentResponse,
+  ExternalAccount,
+  GetPayment,
+  GetPaymentResponse,
+  GetPayments,
+  GetPaymentsResponse,
+  GetPiBalances,
+  GetPiBalancesResponse,
+  PiAgreeRegister,
+  PiAgreeRegisterResponse,
+  PiApprove,
+  PiApproveResponse,
+  PiKey,
+  PiKeyResponse,
+  PiLogin,
+  PiPaymentCancel,
+  PiPaymentComplete,
+  PiPaymentCompleteResponse,
+  PiPaymentError,
+  PiPaymentFound,
+  PiPaymentFoundResponse,
+  PiRegister,
+  PiRegisterWithFee,
+  PiWithdraw,
+  PiWithdrawResponse,
+  SendPayment,
+  SendPaymentResponse,
+  Web3Login,
+  Web3Register,
+} from "./types/PiPayment";
 export { Post } from "./types/Post";
 export { PostAggregates } from "./types/PostAggregates";
 export { PostFeatureType } from "./types/PostFeatureType";
